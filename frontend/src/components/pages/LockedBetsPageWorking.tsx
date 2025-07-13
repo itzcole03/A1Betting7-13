@@ -182,7 +182,7 @@ const LockedBetsPageWorking: React.FC = () => {
       >
         {/* Premium Indicator */}
         {bet.ensemble_confidence >= 85 && (
-          <div className='absolute -top-2 -right-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg'>
+          <div className='absolute -top-3 -right-3 bg-gradient-to-r from-orange-500 to-red-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg border-2 border-gray-900 z-10'>
             🔥 HOT
           </div>
         )}
