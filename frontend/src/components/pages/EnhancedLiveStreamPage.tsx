@@ -712,7 +712,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
                         <div className='text-sm text-gray-300'>
                           Current:{' '}
                           <span className='text-cyan-400 font-medium'>
-                            {bet.current_performance}
+                            {bet.current_performance || 0}
                           </span>
                         </div>
                         <div className='text-sm text-gray-300'>
