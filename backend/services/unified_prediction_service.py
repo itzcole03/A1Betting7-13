@@ -540,6 +540,84 @@ class UnifiedPredictionService:
         
         return normalized_weights
     
+        async def get_quantum_portfolio_optimization(self, predictions: List[EnhancedPrediction]) -> Optional[Dict]:
+        """Get quantum portfolio optimization results"""
+        if not QUANTUM_AVAILABLE or not predictions:
+            return None
+
+        try:
+            # Convert predictions to format expected by quantum optimizer
+            bets = []
+            for pred in predictions:
+                bet = {
+                    'id': pred.id,
+                    'expected_return': pred.expected_value,
+                    'risk_score': pred.variance_contribution,
+                    'quantum_confidence': pred.quantum_confidence / 100.0
+                }
+                bets.append(bet)
+
+            # Get quantum optimization
+            quantum_result = await quantum_portfolio_manager.optimize_portfolio(
+                bets,
+                strategy="quantum_annealing"
+            )
+
+            return {
+                'optimal_allocation': quantum_result.optimal_allocation,
+                'expected_return': quantum_result.expected_return,
+                'risk_score': quantum_result.risk_score,
+                'confidence_interval': quantum_result.confidence_interval,
+                'quantum_advantage': quantum_result.quantum_advantage,
+                'entanglement_score': quantum_result.entanglement_score,
+                'strategy_used': 'quantum_annealing'
+            }
+
+        except Exception as e:
+            logger.error(f"Quantum portfolio optimization failed: {str(e)}")
+            return None
+
+    async def enhance_prediction_with_advanced_ml(self, prop: Dict[str, Any]) -> Dict[str, Any]:
+        """Enhance prediction with advanced ML ensemble"""
+        if not ADVANCED_ML_AVAILABLE:
+            return prop
+
+        try:
+            # Extract features for ML ensemble
+            features = self._extract_features_for_ml(prop)
+
+            # Get advanced ML prediction if ensemble is trained
+            if advanced_ml_ensemble.is_trained:
+                ml_result = await advanced_ml_ensemble.predict_with_uncertainty(features)
+
+                prop['ml_prediction'] = ml_result.prediction
+                prop['ml_confidence'] = ml_result.confidence
+                prop['feature_importance'] = ml_result.feature_importance
+                prop['model_consensus'] = ml_result.model_consensus
+                prop['uncertainty_bounds'] = ml_result.uncertainty_bounds
+                prop['ml_explanation'] = ml_result.explanation
+
+            return prop
+
+        except Exception as e:
+            logger.error(f"Advanced ML enhancement failed: {str(e)}")
+            return prop
+
+    def _extract_features_for_ml(self, prop: Dict[str, Any]) -> np.ndarray:
+        """Extract numerical features for ML models"""
+        features = [
+            prop.get('confidence', 75.0) / 100.0,  # Normalize to 0-1
+            hash(prop.get('sport', '')) % 100 / 100.0,
+            hash(prop.get('stat_type', '')) % 100 / 100.0,
+            prop.get('line_score', 0.0) / 100.0,  # Normalize assuming max ~100
+            len(prop.get('player_name', '')) / 20.0,  # Name length feature
+            hash(prop.get('team', '')) % 50 / 50.0,
+            prop.get('odds', 1.5) / 10.0,  # Normalize odds
+            # Add more features as needed
+        ]
+
+        return np.array(features).reshape(1, -1)
+
     async def get_portfolio_metrics(self) -> PortfolioMetrics:
         """Get comprehensive portfolio metrics"""
         if not self.current_predictions:
