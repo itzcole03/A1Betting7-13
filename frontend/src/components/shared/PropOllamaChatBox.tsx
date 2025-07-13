@@ -332,7 +332,7 @@ I'm currently offline, but here's some general advice:`;
       </div>
 
       {/* Input Area */}
-      <div className='p-4 border-t border-gray-700'>
+      <div className='p-4 border-t border-gray-700/50 bg-gradient-to-r from-gray-800/50 to-gray-900/50'>
         <div className='flex space-x-2'>
           <input
             type='text'
@@ -340,13 +340,13 @@ I'm currently offline, but here's some general advice:`;
             onChange={e => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder='Ask about any player or betting strategy...'
-            className='flex-1 bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500'
+            className='flex-1 bg-gray-700/80 border border-gray-600/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all backdrop-blur-sm'
             disabled={isLoading}
           />
           <button
             onClick={handleSendMessage}
             disabled={isLoading || !input.trim()}
-            className='bg-cyan-600 hover:bg-cyan-700 disabled:bg-gray-600 text-white p-2 rounded-lg transition-colors'
+            className='bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:from-gray-600 disabled:to-gray-600 text-white p-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-cyan-500/25 hover:scale-105'
           >
             <Send className='w-4 h-4' />
           </button>
