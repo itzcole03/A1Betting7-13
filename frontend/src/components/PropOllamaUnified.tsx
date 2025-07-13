@@ -25,6 +25,46 @@ interface BestBet {
   expected_value: number;
 }
 
+// Mock data for demo mode when backend is unavailable
+const getMockBestBets = (): BestBet[] => [
+  {
+    id: 'mock-1',
+    player_name: 'LeBron James',
+    sport: 'Basketball',
+    stat_type: 'Points',
+    line: 25.5,
+    recommendation: 'OVER',
+    confidence: 87,
+    reasoning:
+      'LeBron has scored over 25.5 points in 8 of his last 10 games. Lakers playing at home against a defensively weak opponent.',
+    expected_value: 1.45,
+  },
+  {
+    id: 'mock-2',
+    player_name: 'Connor McDavid',
+    sport: 'Hockey',
+    stat_type: 'Points',
+    line: 1.5,
+    recommendation: 'OVER',
+    confidence: 82,
+    reasoning:
+      'McDavid has recorded multiple points in 7 of last 8 games. Oilers power play has been excellent this season.',
+    expected_value: 1.32,
+  },
+  {
+    id: 'mock-3',
+    player_name: 'Lamar Jackson',
+    sport: 'Football',
+    stat_type: 'Passing Yards',
+    line: 245.5,
+    recommendation: 'OVER',
+    confidence: 79,
+    reasoning:
+      'Ravens facing a secondary that allows 270+ passing yards per game. Jackson has exceeded this line in 6 of last 8 games.',
+    expected_value: 1.28,
+  },
+];
+
 interface PropOllamaUnifiedProps {
   variant?: 'standard' | 'cyber';
   className?: string;
