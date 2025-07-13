@@ -453,7 +453,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
           </div>
 
           {/* Filters */}
-          <div className='flex flex-wrap items-center gap-4 mb-6 p-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl'>
+          <div className='flex flex-wrap items-center gap-4 mb-8 p-6 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-lg'>
             <div className='flex items-center space-x-2'>
               <label className='text-sm text-gray-400'>Sport:</label>
               <select
