@@ -47,7 +47,15 @@ const LockedBetsPage: React.FC = () => {
       params.append('min_confidence', minConfidence.toString());
       params.append('enhanced', 'true');
 
-      const response = await fetch(`http://localhost:8000/api/prizepicks/props?${params}`);
+      // Add timeout to fetch request
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+      const response = await fetch(`http://localhost:8000/api/prizepicks/props?${params}`, {
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -65,7 +73,78 @@ const LockedBetsPage: React.FC = () => {
       toast.success(`🎯 Loaded ${sortedBets.length} locked bets with ML predictions`);
     } catch (error) {
       console.error('Error fetching locked bets:', error);
-      toast.error('Failed to load locked bets');
+
+      // If backend is unavailable, show mock data
+      if (
+        error instanceof Error &&
+        (error.name === 'AbortError' || error.message.includes('fetch'))
+      ) {
+        console.log('Backend unavailable, using mock data...');
+        toast.error('🔌 Backend offline - Using demo data');
+
+        // Generate mock data for demonstration
+        const mockBets: LockedBet[] = [
+          {
+            id: 'mock-1',
+            player_name: 'Luka Dončić',
+            team: 'DAL',
+            sport: 'NBA',
+            stat_type: 'Points',
+            line_score: 28.5,
+            recommendation: 'OVER',
+            confidence: 87.5,
+            ensemble_confidence: 87.5,
+            win_probability: 0.765,
+            expected_value: 2.34,
+            kelly_fraction: 0.08,
+            risk_score: 24,
+            source: 'PrizePicks',
+            opponent: 'LAL',
+            venue: 'American Airlines Center',
+            ai_explanation: {
+              explanation: 'Strong offensive matchup with high pace game expected',
+              key_factors: ['Recent form', 'Defensive ranking', 'Pace differential'],
+              risk_level: 'Low',
+            },
+            value_rating: 8.7,
+            kelly_percentage: 8.2,
+          },
+          {
+            id: 'mock-2',
+            player_name: 'Josh Allen',
+            team: 'BUF',
+            sport: 'NFL',
+            stat_type: 'Passing Yards',
+            line_score: 267.5,
+            recommendation: 'OVER',
+            confidence: 82.1,
+            ensemble_confidence: 82.1,
+            win_probability: 0.721,
+            expected_value: 1.89,
+            kelly_fraction: 0.06,
+            risk_score: 31,
+            source: 'PrizePicks',
+            opponent: 'MIA',
+            venue: 'Highmark Stadium',
+            ai_explanation: {
+              explanation: 'Weather conditions favor passing game, weak secondary matchup',
+              key_factors: ['Weather', 'Pass defense rank', 'Recent targets'],
+              risk_level: 'Medium',
+            },
+            value_rating: 8.2,
+            kelly_percentage: 6.4,
+          },
+        ].filter(
+          bet =>
+            (selectedSport === 'ALL' || bet.sport === selectedSport) &&
+            bet.ensemble_confidence >= minConfidence
+        );
+
+        setLockedBets(mockBets);
+        setLastUpdate(new Date());
+      } else {
+        toast.error('Failed to load locked bets');
+      }
     } finally {
       setIsLoading(false);
     }
