@@ -28,6 +28,15 @@ export interface AccessDenialNotification {
   reason?: string;
 }
 
+export interface UserInvitationNotification {
+  userEmail: string;
+  role: string;
+  invitedBy: string;
+  invitationUrl: string;
+  message?: string;
+  expiresInDays: number;
+}
+
 class EmailNotificationService {
   private baseUrl: string;
   private fromEmail: string;
