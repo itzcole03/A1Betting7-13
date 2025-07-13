@@ -338,7 +338,7 @@ class UnifiedApiService {
       );
     }
 
-    return response.json();
+    return await this.safeJsonParse(response);
   }
 
   /**
