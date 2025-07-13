@@ -30,6 +30,10 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
+  const { user, logout } = useAuth();
+  const { canAccessAdminDashboard, isSuperAdmin, getHighestRole } = usePermissions();
 
   // Close mobile menu when screen size changes
   useEffect(() => {
