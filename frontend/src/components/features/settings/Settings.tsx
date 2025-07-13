@@ -1142,7 +1142,7 @@ const Settings: React.FC = () => {
               </div>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
               <div className='p-4 bg-slate-800/50 rounded-lg'>
                 <h4 className='font-medium text-white mb-2'>Admin Features</h4>
                 <ul className='space-y-2 text-sm text-gray-300'>
@@ -1157,17 +1157,17 @@ const Settings: React.FC = () => {
               <div className='p-4 bg-slate-800/50 rounded-lg'>
                 <h4 className='font-medium text-white mb-2'>Current Status</h4>
                 <div className='space-y-2 text-sm'>
-                  <div className='flex justify-between'>
+                  <div className='flex justify-between flex-wrap gap-1'>
                     <span className='text-gray-400'>User Role:</span>
                     <span className='text-purple-400 font-medium'>{user?.role || 'admin'}</span>
                   </div>
-                  <div className='flex justify-between'>
+                  <div className='flex justify-between flex-wrap gap-1'>
                     <span className='text-gray-400'>Admin Access:</span>
                     <span className='text-green-400 font-medium'>Verified</span>
                   </div>
-                  <div className='flex justify-between'>
+                  <div className='flex justify-between flex-wrap gap-1'>
                     <span className='text-gray-400'>Permissions:</span>
-                    <span className='text-cyan-400 font-medium'>
+                    <span className='text-cyan-400 font-medium break-all'>
                       {user?.permissions?.join(', ') || 'admin, user'}
                     </span>
                   </div>
