@@ -383,7 +383,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
                     <span className='text-sm font-medium text-white'>{game.sport}</span>
                   </div>
                   <span className={`text-xs font-medium ${getStatusColor(game.status)}`}>
-                    {game.status.replace('_', ' ').toUpperCase()}
+                    {(game.status || 'unknown').replace('_', ' ').toUpperCase()}
                   </span>
                 </div>
 
