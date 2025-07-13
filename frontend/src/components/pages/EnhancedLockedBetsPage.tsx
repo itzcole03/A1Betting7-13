@@ -261,21 +261,32 @@ const EnhancedLockedBetsPage: React.FC = () => {
         <div className='relative flex items-center justify-between'>
           {/* Left Section: Player & Bet Info */}
           <div className='flex-1 min-w-0'>
-            <div className='flex items-center space-x-3 mb-1'>
-              <div className='font-semibold text-white truncate'>{bet.player_name}</div>
-              <div className='text-xs text-gray-400'>({bet.team})</div>
+            <div className='flex items-center space-x-3 mb-2'>
+              <div className='flex items-center space-x-2'>
+                <div className='font-bold text-white text-lg truncate'>{bet.player_name}</div>
+                <div className='px-2 py-0.5 bg-gray-700/50 text-gray-300 text-xs rounded-full border border-gray-600/50'>
+                  {bet.team}
+                </div>
+              </div>
               {bet.confidence >= 85 && (
-                <div className='text-xs bg-orange-500 text-white px-1 rounded font-bold'>🔥</div>
+                <div className='flex items-center space-x-1 px-2 py-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full font-bold shadow-lg animate-pulse'>
+                  <span>🔥</span>
+                  <span>HOT</span>
+                </div>
               )}
             </div>
-            <div className='flex items-center space-x-4 text-sm'>
-              <span className='text-gray-300'>{bet.stat_type}</span>
-              <span className='text-white font-medium'>{bet.line_score}</span>
-              <span
-                className={`font-bold ${bet.recommendation === 'OVER' ? 'text-green-400' : 'text-red-400'}`}
-              >
-                {bet.recommendation}
-              </span>
+            <div className='flex items-center space-x-1'>
+              <div className='flex items-center space-x-3 bg-gray-900/50 rounded-lg px-3 py-2 border border-gray-700/50'>
+                <span className='text-gray-400 text-sm'>{bet.stat_type}</span>
+                <span className='w-px h-4 bg-gray-600'></span>
+                <span className='text-white font-bold'>{bet.line_score}</span>
+                <span className='w-px h-4 bg-gray-600'></span>
+                <span
+                  className={`font-bold text-sm px-2 py-1 rounded ${bet.recommendation === 'OVER' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`}
+                >
+                  {bet.recommendation}
+                </span>
+              </div>
             </div>
           </div>
 
