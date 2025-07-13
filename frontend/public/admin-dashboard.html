@@ -641,6 +641,42 @@
         event.target.classList.add('active');
 
         console.log('Navigating to section:', section);
+
+        // Handle special sections
+        if (section === 'access-requests') {
+          showAccessRequestsSection();
+        }
+      }
+
+      function showAccessRequestsSection() {
+        // This would typically load the React component
+        // For demo purposes, we'll show a message
+        const mainContent = document.querySelector('#dashboard-section');
+        if (mainContent) {
+          mainContent.innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+              <h2 style="color: white; margin-bottom: 16px;">Access Request Management</h2>
+              <p style="color: #64748b; margin-bottom: 24px;">
+                This section would display the React AccessRequestManager component.<br>
+                In a full implementation, this would be integrated with the React app.
+              </p>
+              <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px; max-width: 600px; margin: 0 auto;">
+                <h3 style="color: var(--cyber-primary); margin-bottom: 16px;">📝 Access Request Features</h3>
+                <ul style="color: #94a3b8; text-align: left; line-height: 1.6;">
+                  <li>• Review pending access requests</li>
+                  <li>• Approve or deny requests with reasons</li>
+                  <li>• Send email notifications to users</li>
+                  <li>• Generate temporary passwords</li>
+                  <li>• View request history and status</li>
+                  <li>• Search and filter requests</li>
+                </ul>
+                <button onclick="location.reload()" style="margin-top: 20px; padding: 8px 16px; background: linear-gradient(135deg, var(--cyber-primary), var(--cyber-accent)); color: var(--cyber-darker); border: none; border-radius: 6px; cursor: pointer;">
+                  Back to Dashboard
+                </button>
+              </div>
+            </div>
+          `;
+        }
       }
 
       function refreshData() {
