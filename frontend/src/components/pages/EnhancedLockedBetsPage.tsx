@@ -301,7 +301,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
       },
       tags: [
         bet.confidence >= 85 ? '🔥 Hot Pick' : undefined,
-        bet.risk_assessment?.risk_level === 'low' ? '✅ Low Risk' : undefined,
+        bet.risk_assessment?.risk_level === 'low' ? '��� Low Risk' : undefined,
         bet.expected_value > 2 ? '💰 High Value' : undefined,
         isSelected ? '✓ Selected' : undefined,
       ].filter(Boolean),
@@ -519,57 +519,183 @@ const EnhancedLockedBetsPage: React.FC = () => {
                 <div className='space-y-6'>
                   {enhancedPredictions.length > 0 ? (
                     <>
-                      {/* Compact 3x3 Grid Layout */}
-                      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                      {/* Enhanced 3x3 Grid Layout with Better Spacing */}
+                      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10'>
                         {enhancedPredictions.slice(0, cardsToShow).map(bet => {
-                          const playerProp = convertToPlayerProp(bet);
                           const isSelected = selectedBets.has(bet.id);
 
                           return (
                             <div
                               key={bet.id}
-                              className={`relative transition-all duration-300 transform ${
+                              className={`group relative transition-all duration-300 transform ${
                                 isSelected
-                                  ? 'ring-2 ring-cyan-400/50 shadow-xl shadow-cyan-500/25 scale-[1.02]'
-                                  : 'hover:scale-[1.02] hover:shadow-lg'
+                                  ? 'ring-2 ring-cyan-400/50 shadow-2xl shadow-cyan-500/25 scale-[1.02]'
+                                  : 'hover:scale-[1.02] hover:shadow-xl'
                               }`}
                             >
-                              {/* Compact Prop Card */}
-                              <EnhancedPropCard
-                                prop={playerProp}
-                                variant='compact' // Force compact variant for grid
-                                onSelect={handlePropSelect}
-                                showAnalysis={false} // Hide analysis for compact view
-                                showStats={false} // Hide stats for compact view
-                                className={`h-full min-h-[280px] ${isSelected ? 'ring-2 ring-cyan-400/30' : ''}`}
-                              />
+                              {/* Restructured Compact Card */}
+                              <div
+                                className={`relative h-full min-h-[320px] rounded-2xl border overflow-hidden backdrop-blur-xl shadow-xl transition-all duration-300 ${
+                                  isSelected
+                                    ? 'bg-gradient-to-br from-cyan-600/20 via-blue-600/15 to-purple-600/20 border-cyan-400/50'
+                                    : 'bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-900/60 border-slate-700/50 hover:border-cyan-500/40'
+                                }`}
+                              >
+                                {/* Gradient Overlay */}
+                                <div className='absolute inset-0 opacity-30 pointer-events-none group-hover:opacity-40 transition-opacity duration-300'>
+                                  <div className='absolute inset-0 bg-gradient-to-br from-transparent via-white/[0.02] to-transparent' />
+                                </div>
 
-                              {/* Compact Selection Indicator */}
-                              {isSelected && (
-                                <div className='absolute top-2 right-2 z-10'>
-                                  <div className='bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center space-x-1'>
-                                    <span>✓</span>
+                                {/* Card Header */}
+                                <div className='relative p-5 pb-3'>
+                                  <div className='flex items-start justify-between mb-3'>
+                                    <div className='flex-1 min-w-0'>
+                                      <h3 className='text-lg font-bold text-white mb-1 truncate'>
+                                        {bet.player_name}
+                                      </h3>
+                                      <div className='flex items-center space-x-2 text-sm'>
+                                        <span className='text-slate-300 font-medium'>
+                                          {bet.team}
+                                        </span>
+                                        <span className='text-slate-500'>•</span>
+                                        <span className='text-slate-400'>{bet.sport}</span>
+                                      </div>
+                                    </div>
+
+                                    {/* Confidence Badge */}
+                                    <div
+                                      className={`px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-sm border ${
+                                        bet.confidence >= 85
+                                          ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                                          : bet.confidence >= 75
+                                            ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
+                                            : 'bg-orange-500/20 text-orange-400 border-orange-500/30'
+                                      }`}
+                                    >
+                                      {(bet.confidence || 75).toFixed(0)}%
+                                    </div>
                                   </div>
                                 </div>
-                              )}
 
-                              {/* Compact High Value Badge */}
-                              {bet.expected_value > 2 && (
-                                <div className='absolute top-2 left-2 z-10'>
-                                  <div className='bg-gradient-to-r from-emerald-500 to-green-500 text-white px-1.5 py-0.5 rounded-full text-xs font-bold shadow-lg'>
-                                    <span>💰</span>
+                                {/* Prop Details */}
+                                <div className='relative px-5 pb-4'>
+                                  <div className='bg-gradient-to-br from-slate-700/40 via-slate-600/30 to-slate-800/40 backdrop-blur-sm border border-slate-600/30 rounded-xl p-4 mb-4'>
+                                    <div className='flex items-center justify-between mb-3'>
+                                      <h4 className='text-sm font-semibold text-slate-300 uppercase tracking-wider'>
+                                        {bet.stat_type}
+                                      </h4>
+                                      <div
+                                        className={`px-2 py-1 rounded-md text-xs font-bold ${
+                                          bet.recommendation === 'OVER'
+                                            ? 'bg-emerald-500/20 text-emerald-400'
+                                            : 'bg-red-500/20 text-red-400'
+                                        }`}
+                                      >
+                                        {bet.recommendation}
+                                      </div>
+                                    </div>
+
+                                    <div className='flex items-end justify-between'>
+                                      <div className='text-3xl font-bold text-white'>
+                                        {bet.line_score}
+                                      </div>
+                                      <div className='text-right'>
+                                        <div className='text-sm text-cyan-400 font-bold'>
+                                          AI: {(bet.quantum_confidence || 75).toFixed(0)}%
+                                        </div>
+                                        <div className='text-xs text-slate-400 uppercase tracking-wide'>
+                                          Neural Score
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* Value Metrics - Restructured for better spacing */}
+                                  <div className='grid grid-cols-3 gap-2'>
+                                    <div className='text-center p-2 rounded-lg bg-purple-500/10 border border-purple-500/20'>
+                                      <div className='text-sm font-bold text-purple-400'>
+                                        {bet.expected_value > 0 ? '+' : ''}
+                                        {(bet.expected_value || 0).toFixed(1)}
+                                      </div>
+                                      <div className='text-xs text-purple-300/80 uppercase tracking-wide mt-0.5'>
+                                        EV
+                                      </div>
+                                    </div>
+
+                                    <div className='text-center p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20'>
+                                      <div className='text-sm font-bold text-emerald-400'>
+                                        {((bet.expected_value || 0) * 100).toFixed(0)}%
+                                      </div>
+                                      <div className='text-xs text-emerald-300/80 uppercase tracking-wide mt-0.5'>
+                                        ROI
+                                      </div>
+                                    </div>
+
+                                    <div className='text-center p-2 rounded-lg bg-amber-500/10 border border-amber-500/20'>
+                                      <div className='text-sm font-bold text-amber-400'>
+                                        ${Math.round((bet.optimal_stake || 0.05) * 1000)}
+                                      </div>
+                                      <div className='text-xs text-amber-300/80 uppercase tracking-wide mt-0.5'>
+                                        Kelly
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              )}
 
-                              {/* Hot Pick Badge */}
-                              {bet.confidence >= 85 && (
-                                <div className='absolute -top-1 -right-1 z-10'>
-                                  <div className='bg-gradient-to-r from-orange-500 to-red-500 text-white px-1.5 py-0.5 rounded-full text-xs font-bold shadow-lg animate-pulse'>
-                                    🔥
+                                {/* Interactive Overlay */}
+                                <div
+                                  className='absolute inset-0 cursor-pointer'
+                                  onClick={() => {
+                                    const newSelected = new Set(selectedBets);
+                                    if (isSelected) {
+                                      newSelected.delete(bet.id);
+                                    } else {
+                                      newSelected.add(bet.id);
+                                    }
+                                    setSelectedBets(newSelected);
+                                    handleBetSelect(bet);
+                                  }}
+                                />
+
+                                {/* Enhanced Status Badges */}
+                                {isSelected && (
+                                  <div className='absolute top-3 right-3 z-10'>
+                                    <div className='bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center space-x-1 animate-pulse'>
+                                      <span>✓</span>
+                                      <span>SELECTED</span>
+                                    </div>
                                   </div>
+                                )}
+
+                                {bet.expected_value > 2 && (
+                                  <div className='absolute top-3 left-3 z-10'>
+                                    <div className='bg-gradient-to-r from-emerald-500 to-green-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center space-x-1'>
+                                      <span>💰</span>
+                                      <span>HIGH EV</span>
+                                    </div>
+                                  </div>
+                                )}
+
+                                {bet.confidence >= 85 && (
+                                  <div className='absolute -top-2 -right-2 z-10'>
+                                    <div className='bg-gradient-to-r from-orange-500 to-red-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg animate-pulse flex items-center space-x-1'>
+                                      <span>🔥</span>
+                                      <span>HOT</span>
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* Bottom accent bar */}
+                                <div className='absolute bottom-0 left-0 right-0 h-1 overflow-hidden rounded-b-2xl'>
+                                  <div
+                                    className={`h-full transition-all duration-500 opacity-80 group-hover:opacity-100 ${
+                                      bet.recommendation === 'OVER'
+                                        ? 'bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-500'
+                                        : 'bg-gradient-to-r from-red-400 via-rose-400 to-red-500'
+                                    }`}
+                                  />
                                 </div>
-                              )}
+                              </div>
                             </div>
                           );
                         })}
