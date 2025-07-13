@@ -371,6 +371,21 @@ class UnifiedApiService {
   }
 
   /**
+   * Quick connectivity check that doesn't block the UI
+   */
+  async checkConnectivity(): Promise<boolean> {
+    try {
+      const response = await this.fetchWithTimeout(`${this.baseUrl}/health`, {
+        method: 'GET',
+      });
+      return response.ok;
+    } catch (error) {
+      console.warn('API connectivity check failed:', error);
+      return false;
+    }
+  }
+
+  /**
    * Get service health status
    */
   async getHealth(): Promise<{
