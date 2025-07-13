@@ -43,11 +43,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           setIsAdmin(authService.isAdmin());
           setIsAuthenticated(true);
           setRequiresPasswordChange(authService.requiresPasswordChange());
+
+          console.log(
+            '🔐 [AUTH] Restored authentication for:',
+            storedUser.email,
+            'Role:',
+            storedUser.role
+          );
         }
       }
     };
 
-    initializeAuth();
+    // Small delay to ensure authService constructor has run
+    setTimeout(initializeAuth, 100);
   }, []);
 
   const login = async (email: string, password: string) => {
