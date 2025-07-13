@@ -46,9 +46,13 @@ const SettingsAdminPage = React.lazy(() =>
 const Navigation = ({
   currentPage,
   setCurrentPage,
+  showAdminMode,
+  setShowAdminMode,
 }: {
   currentPage: string;
   setCurrentPage: (page: string) => void;
+  showAdminMode: boolean;
+  setShowAdminMode: (show: boolean) => void;
 }) => {
   const { user, isAuthenticated } = useAuth();
   const isAdmin = user?.role === 'admin' || user?.permissions?.includes('admin');
