@@ -449,8 +449,10 @@ const EnhancedLockedBetsPage: React.FC = () => {
                   <div className='text-xl font-bold text-white'>
                     {enhancedPredictions.length > 0
                       ? (
-                          enhancedPredictions.reduce((sum, bet) => sum + bet.confidence, 0) /
-                          enhancedPredictions.length
+                          enhancedPredictions.reduce(
+                            (sum, bet) => sum + (bet.confidence || 75),
+                            0
+                          ) / enhancedPredictions.length
                         ).toFixed(1)
                       : 0}
                     %
