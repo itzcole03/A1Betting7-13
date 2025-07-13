@@ -236,7 +236,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
     return (
       <div
         key={bet.id}
-        className={`relative rounded-xl p-6 transition-all duration-500 hover:-translate-y-1 cursor-pointer ${
+        className={`relative rounded-xl p-4 transition-all duration-300 hover:scale-[1.02] cursor-pointer ${
           isSelected
             ? 'bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-purple-500/20 border-2 border-cyan-400/50 shadow-xl shadow-cyan-500/20'
             : 'bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 border border-cyan-500/30 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/10'
