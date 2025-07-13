@@ -253,7 +253,12 @@ const EnhancedLockedBetsPage: React.FC = () => {
           handleBetSelect(bet);
         }}
       >
-        <div className='flex items-center justify-between'>
+        {/* Subtle glow effect for high confidence bets */}
+        {bet.confidence >= 85 && (
+          <div className='absolute inset-0 bg-gradient-to-r from-orange-400/5 via-yellow-400/5 to-orange-400/5 rounded-xl animate-pulse' />
+        )}
+
+        <div className='relative flex items-center justify-between'>
           {/* Left Section: Player & Bet Info */}
           <div className='flex-1 min-w-0'>
             <div className='flex items-center space-x-3 mb-1'>
