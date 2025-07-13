@@ -535,9 +535,36 @@ const EnhancedLockedBetsPage: React.FC = () => {
               {activeView === 'bets' && (
                 <div className='space-y-6'>
                   {enhancedPredictions.length > 0 ? (
-                    <div className='grid gap-6 md:grid-cols-1 xl:grid-cols-2'>
-                      {enhancedPredictions.map(getBetCard)}
-                    </div>
+                    <>
+                      <div className='grid gap-6 md:grid-cols-1 xl:grid-cols-2'>
+                        {enhancedPredictions.slice(0, cardsToShow).map(getBetCard)}
+                      </div>
+
+                      {/* Show More / Show Less Controls */}
+                      {enhancedPredictions.length > 6 && (
+                        <div className='text-center mt-6'>
+                          {cardsToShow < enhancedPredictions.length ? (
+                            <button
+                              onClick={() =>
+                                setCardsToShow(prev =>
+                                  Math.min(prev + 6, enhancedPredictions.length)
+                                )
+                              }
+                              className='px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-gray-500/25 border border-gray-600/50'
+                            >
+                              Show More ({enhancedPredictions.length - cardsToShow} remaining)
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => setCardsToShow(6)}
+                              className='px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-cyan-500/25'
+                            >
+                              Show Less
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </>
                   ) : (
                     <div className='text-center py-12'>
                       <Target className='w-16 h-16 text-gray-400 mx-auto mb-4' />
