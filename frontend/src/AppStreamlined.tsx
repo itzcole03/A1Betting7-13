@@ -3,12 +3,37 @@ import { ErrorBoundary } from './components/core/ErrorBoundary';
 import { LoadingSpinner } from './components/shared/ui/LoadingSpinner';
 import { Toaster } from './components/common/notifications/Toaster';
 
-// Import the three main pages
-const LockedBetsPage = React.lazy(() => import('./components/pages/EnhancedLockedBetsPage'));
-const LiveStreamPage = React.lazy(() => import('./components/pages/EnhancedLiveStreamPage'));
+// Import the three main pages with fallbacks
+const LockedBetsPage = React.lazy(() =>
+  import('./components/pages/EnhancedLockedBetsPage').catch(() => ({
+    default: () => (
+      <div className='p-8 text-center'>
+        <h2 className='text-2xl font-bold text-white mb-4'>🎯 Locked Bets</h2>
+        <p className='text-gray-400'>Loading enhanced betting predictions...</p>
+      </div>
+    ),
+  }))
+);
+const LiveStreamPage = React.lazy(() =>
+  import('./components/pages/EnhancedLiveStreamPage').catch(() => ({
+    default: () => (
+      <div className='p-8 text-center'>
+        <h2 className='text-2xl font-bold text-white mb-4'>📺 Live Stream</h2>
+        <p className='text-gray-400'>Live streaming functionality coming soon...</p>
+      </div>
+    ),
+  }))
+);
 const SettingsAdminPage = React.lazy(() =>
-  import('./components/pages/UnifiedSettingsAdminPage').catch(
-    () => import('./components/pages/SimpleSettingsPage')
+  import('./components/pages/UnifiedSettingsAdminPage').catch(() =>
+    import('./components/pages/SimpleSettingsPage').catch(() => ({
+      default: () => (
+        <div className='p-8 text-center'>
+          <h2 className='text-2xl font-bold text-white mb-4'>⚙️ Settings</h2>
+          <p className='text-gray-400'>Settings panel loading...</p>
+        </div>
+      ),
+    }))
   )
 );
 
