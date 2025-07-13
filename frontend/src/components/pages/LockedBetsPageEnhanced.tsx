@@ -645,6 +645,16 @@ const LockedBetsPageEnhanced: React.FC = () => {
                     </label>
                   </div>
 
+                  {/* PropOllama Toggle Button */}
+                  <button
+                    onClick={() => setIsChatMinimized(!isChatMinimized)}
+                    className='flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-purple-500/25'
+                  >
+                    <Brain className='w-4 h-4' />
+                    <span>{isChatMinimized ? 'Ask PropOllama' : 'Hide Chat'}</span>
+                    <div className='w-2 h-2 bg-green-400 rounded-full animate-pulse'></div>
+                  </button>
+
                   <button
                     onClick={fetchLockedBets}
                     disabled={isLoading}
