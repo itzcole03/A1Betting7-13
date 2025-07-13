@@ -48,6 +48,16 @@ export default {
           500: '#00ff88',
           600: '#00e676',
         },
+        cyber: {
+          primary: '#06ffa5',
+          secondary: '#00ff88',
+          accent: '#00d4ff',
+          purple: '#7c3aed',
+          dark: '#0f172a',
+          darker: '#020617',
+          glass: 'rgba(255, 255, 255, 0.02)',
+          border: 'rgba(255, 255, 255, 0.05)',
+        },
         neon: {
           pink: '#ff10f0',
           purple: '#7c3aed',
