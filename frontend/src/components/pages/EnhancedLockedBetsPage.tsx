@@ -49,6 +49,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
   const [activeView, setActiveView] = useState<'bets' | 'portfolio' | 'insights' | 'stacking'>(
     'bets'
   );
+  const [cardsToShow, setCardsToShow] = useState<number>(6); // Default to showing 6 cards
 
   // Helper to validate and fix prediction data
   const validatePrediction = (bet: any): EnhancedPrediction => {
