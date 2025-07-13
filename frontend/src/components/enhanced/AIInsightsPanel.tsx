@@ -209,7 +209,7 @@ const AIInsightsPanel: React.FC<AIInsightsPanelProps> = ({
                       <div className='bg-gray-700/30 rounded-lg p-3'>
                         <div className='text-xs text-gray-400 mb-1'>Market Edge</div>
                         <div className='text-lg font-bold text-green-400'>
-                          +{selectedInsight.market_edge.toFixed(1)}%
+                          +{(selectedInsight.market_edge || 0).toFixed(1)}%
                         </div>
                       </div>
                     </div>
