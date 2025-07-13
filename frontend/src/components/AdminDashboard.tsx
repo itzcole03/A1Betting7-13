@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { ArrowLeft, Shield, AlertTriangle } from 'lucide-react';
 import { AdminRoute } from './auth/RouteGuard';
 
-const AdminDashboard: React.FC = React.memo(() => {
+const AdminDashboardContent: React.FC = () => {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -12,30 +12,6 @@ const AdminDashboard: React.FC = React.memo(() => {
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
-
-  if (isLoading) {
-    return (
-      <div className='min-h-screen bg-slate-900 flex items-center justify-center'>
-        <div className='max-w-md w-full mx-auto p-8'>
-          <div className='bg-red-500/10 border border-red-500/50 rounded-lg p-6 text-center'>
-            <AlertTriangle className='w-12 h-12 text-red-400 mx-auto mb-4' />
-            <h2 className='text-xl font-bold text-white mb-2'>Access Denied</h2>
-            <p className='text-gray-300 mb-4'>
-              You don't have permission to access the admin dashboard. This area is restricted to
-              verified administrators only.
-            </p>
-            <button
-              onClick={() => (window.location.href = '/')}
-              className='flex items-center space-x-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-white transition-colors mx-auto'
-            >
-              <ArrowLeft className='w-4 h-4' />
-              <span>Back to Dashboard</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (isLoading) {
     return (
@@ -118,26 +94,42 @@ const AdminDashboard: React.FC = React.memo(() => {
           </div>
         )}
 
-        {/* Fallback content if iframe fails */}
-        <div className='absolute inset-0 pointer-events-none'>
+        {/* Enhanced fallback content */}
+        <div className='absolute inset-0 pointer-events-none opacity-0 hover:opacity-100 transition-opacity duration-300'>
           <div className='flex items-center justify-center h-full'>
             <div className='bg-slate-800/95 backdrop-blur-lg border border-slate-700/50 rounded-xl p-8 max-w-md mx-auto text-center pointer-events-auto'>
               <AlertTriangle className='w-12 h-12 text-yellow-400 mx-auto mb-4' />
-              <h3 className='text-xl font-bold text-white mb-2'>Dashboard Loading</h3>
-              <p className='text-gray-300 mb-4'>
-                If the admin dashboard doesn't load properly, it may still be initializing.
+              <h3 className='text-xl font-bold text-white mb-2'>Dashboard Controls</h3>
+              <p className='text-gray-300 mb-4 text-sm'>
+                Dashboard management and troubleshooting options
               </p>
-              <button
-                onClick={() => window.location.reload()}
-                className='px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 rounded-lg text-white font-medium transition-all'
-              >
-                Refresh Page
-              </button>
+              <div className='space-y-2'>
+                <button
+                  onClick={() => window.location.reload()}
+                  className='w-full px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 rounded-lg text-white font-medium transition-all'
+                >
+                  Refresh Dashboard
+                </button>
+                <button
+                  onClick={() => setIsLoading(true)}
+                  className='w-full px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-white transition-all'
+                >
+                  Reset Loading State
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  );
+};
+
+const AdminDashboard: React.FC = React.memo(() => {
+  return (
+    <AdminRoute>
+      <AdminDashboardContent />
+    </AdminRoute>
   );
 });
 
