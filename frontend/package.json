@@ -8,6 +8,7 @@
     "dev:safe": "cross-env DISABLE_CONSOLE_NINJA=true vite --host 0.0.0.0 --port 8173",
     "dev:minimal": "vite --config vite.config.minimal.ts --host 0.0.0.0 --port 8173",
     "dev:frontend": "vite --host 0.0.0.0 --port 8173",
+    "dev:streamlined": "vite --config vite.config.streamlined.ts --host 0.0.0.0 --port 8173",
     "build": "vite build --mode production",
     "build:no-ts": "vite build --config vite.config.minimal.ts --mode production",
     "lint": "eslint .",
