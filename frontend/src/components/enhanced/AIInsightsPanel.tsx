@@ -387,7 +387,7 @@ const AIInsightsPanel: React.FC<AIInsightsPanelProps> = ({
                     </div>
 
                     <div className='space-y-2'>
-                      {selectedInsight.risk_factors.map((factor, index) => (
+                      {(selectedInsight.risk_factors || []).map((factor, index) => (
                         <div
                           key={index}
                           className='flex items-center space-x-3 p-2 bg-orange-500/10 border border-orange-500/20 rounded'
