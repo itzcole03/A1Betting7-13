@@ -63,8 +63,12 @@ const EnhancedLiveStreamPage: React.FC = () => {
       setTimeout(() => {
         if (streamUrl.includes('streameast') || streamUrl.includes('sportsurge')) {
           setStreamBlocked(true);
-          toast.warning(
-            '⚠️ This streaming site may block embedding. Use "Open in New Tab" for best experience.'
+          toast(
+            '⚠️ This streaming site may block embedding. Use "Open in New Tab" for best experience.',
+            {
+              icon: '⚠️',
+              duration: 4000,
+            }
           );
         }
         setIsLoading(false);
