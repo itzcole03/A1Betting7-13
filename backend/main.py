@@ -374,8 +374,16 @@ async def background_initialization():
             except Exception as e:
                 logger.error(f"❌ Database initialization failed: {e}")
 
-                # Initialize enhanced PrizePicks service
-        logger.info("🏀 Initializing enhanced PrizePicks service...")
+                        # Initialize enhanced PrizePicks service v2 with ML
+        logger.info("🏀 Initializing enhanced PrizePicks service v2 with ML...")
+        try:
+            await enhanced_prizepicks_service_v2.initialize()
+            logger.info("✅ Enhanced PrizePicks service v2 initialized")
+        except Exception as e:
+            logger.error(f"[DIAGNOSTIC] Enhanced PrizePicks service v2 initialization failed: {e}")
+
+        # Initialize enhanced PrizePicks service (fallback)
+        logger.info("🏀 Initializing enhanced PrizePicks service (fallback)...")
         try:
             await enhanced_prizepicks_service.initialize()
             logger.info("✅ Enhanced PrizePicks service initialized")
@@ -389,16 +397,16 @@ async def background_initialization():
         except Exception as e:
             logger.error(f"[DIAGNOSTIC] PrizePicks service initialization failed: {e}")
 
-        # Start enhanced PrizePicks real-time data ingestion
-        logger.info("🏀 Starting enhanced PrizePicks real-time data service...")
+        # Start enhanced PrizePicks v2 real-time data ingestion
+        logger.info("🏀 Starting enhanced PrizePicks v2 real-time data service...")
         try:
-            task = asyncio.create_task(start_enhanced_prizepicks_service())
+            task = asyncio.create_task(start_enhanced_prizepicks_service_v2())
             logger.info(
-                f"[DIAGNOSTIC] Enhanced PrizePicks real-time ingestion task started: {task}"
+                f"[DIAGNOSTIC] Enhanced PrizePicks v2 real-time ingestion task started: {task}"
             )
         except Exception as e:
             logger.error(
-                f"[DIAGNOSTIC] Failed to start enhanced PrizePicks real-time ingestion: {e}"
+                f"[DIAGNOSTIC] Failed to start enhanced PrizePicks v2 real-time ingestion: {e}"
             )
 
         # Ensure database tables exist
