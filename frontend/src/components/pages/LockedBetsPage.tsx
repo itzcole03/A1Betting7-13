@@ -438,6 +438,23 @@ const LockedBetsPage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* PropOllama AI Chat Box */}
+      {isChatMinimized ? (
+        <PropOllamaChatBox
+          isMinimized={true}
+          onToggleMinimize={() => setIsChatMinimized(false)}
+          className=''
+        />
+      ) : (
+        <div className='fixed bottom-4 right-4 w-96 max-w-[calc(100vw-2rem)] z-50'>
+          <PropOllamaChatBox
+            isMinimized={false}
+            onToggleMinimize={() => setIsChatMinimized(true)}
+            className='shadow-2xl'
+          />
+        </div>
+      )}
     </div>
   );
 };
