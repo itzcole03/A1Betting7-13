@@ -17,14 +17,14 @@ import {
 import { AIInsights, EnhancedPrediction, SHAPExplanation } from '../../types/enhancedBetting';
 
 interface AIInsightsPanelProps {
-  safeInsights: AIInsights[];
+  insights: AIInsights[];
   predictions: EnhancedPrediction[];
   selectedBet?: EnhancedPrediction;
   onBetSelect: (bet: EnhancedPrediction) => void;
 }
 
 const AIInsightsPanel: React.FC<AIInsightsPanelProps> = ({
-  safeInsights,
+  insights,
   predictions,
   selectedBet,
   onBetSelect,
