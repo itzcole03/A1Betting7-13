@@ -361,6 +361,62 @@ const EnhancedLiveStreamPage: React.FC = () => {
           </div>
         </div>
 
+        {/* URL Editor Modal */}
+        <AnimatePresence>
+          {showUrlEditor && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className='fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4'
+              onClick={() => setShowUrlEditor(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className='bg-gray-800 border border-gray-700 rounded-lg p-6 w-full max-w-md'
+                onClick={e => e.stopPropagation()}
+              >
+                <h3 className='text-xl font-bold text-white mb-4'>Change Stream URL</h3>
+
+                <div className='mb-4'>
+                  <label className='block text-sm font-medium text-gray-300 mb-2'>Stream URL</label>
+                  <input
+                    type='url'
+                    value={tempUrl}
+                    onChange={e => setTempUrl(e.target.value)}
+                    className='w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                    placeholder='Enter stream URL...'
+                    autoFocus
+                  />
+                </div>
+
+                <div className='mb-4'>
+                  <p className='text-sm text-gray-400'>
+                    Current URL: <span className='text-cyan-400'>{streamUrl}</span>
+                  </p>
+                </div>
+
+                <div className='flex space-x-3'>
+                  <button
+                    onClick={handleUrlChange}
+                    className='flex-1 py-2 px-4 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-medium transition-colors'
+                  >
+                    Update URL
+                  </button>
+                  <button
+                    onClick={() => setShowUrlEditor(false)}
+                    className='flex-1 py-2 px-4 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors'
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Main Content Area */}
         <div className='grid grid-cols-12 gap-6'>
           {/* Stream Area */}
