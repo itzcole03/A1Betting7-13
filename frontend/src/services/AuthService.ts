@@ -109,7 +109,7 @@ class AuthService {
       console.error('Login failed:', error);
 
       // For demo purposes, simulate login logic
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         return this.simulateLogin(email, password);
       }
 
