@@ -52,19 +52,23 @@ const AdminDashboard: React.FC = () => {
     <div className='min-h-screen bg-slate-900'>
       {/* Admin Header Bar */}
       <div className='bg-slate-800/90 backdrop-blur-lg border-b border-slate-700/50 p-4'>
-        <div className='flex items-center justify-between'>
-          <div className='flex items-center space-x-4'>
+        <div className='flex items-center justify-between flex-wrap gap-4'>
+          <div className='flex items-center space-x-2 sm:space-x-4 flex-shrink-0'>
             <button
               onClick={() => (window.location.href = '/')}
-              className='flex items-center space-x-2 px-3 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-lg text-white transition-colors'
+              className='flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-2 bg-slate-700/50 hover:bg-slate-600/50 rounded-lg text-white transition-colors text-sm'
             >
               <ArrowLeft className='w-4 h-4' />
-              <span>Exit Admin Mode</span>
+              <span className='hidden sm:inline'>Exit Admin Mode</span>
+              <span className='sm:hidden'>Exit</span>
             </button>
 
             <div className='flex items-center space-x-2'>
-              <Shield className='w-5 h-5 text-purple-400' />
-              <span className='text-white font-medium'>Admin Dashboard</span>
+              <Shield className='w-4 h-4 sm:w-5 sm:h-5 text-purple-400' />
+              <span className='text-white font-medium text-sm sm:text-base hidden sm:inline'>
+                Admin Dashboard
+              </span>
+              <span className='text-white font-medium text-sm sm:hidden'>Admin</span>
             </div>
           </div>
 
