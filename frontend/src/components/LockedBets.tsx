@@ -179,7 +179,7 @@ const LockedBets: React.FC = () => {
       fetchBets();
     }, 30000); // 30 seconds
     return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, []);
 
   if (loading)

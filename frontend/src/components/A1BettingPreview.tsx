@@ -153,7 +153,7 @@ export const A1BettingPreview: React.FC = () => {
             <span style={{ color: 'rgba(255,255,255,0.7)' }}>47 AI Models Active</span>
             {/* Hamburger menu for mobile */}
             {isMobile && (
-              // eslint-disable-next-line jsx-a11y/aria-proptypes
+               
               <button
                 className='sidebar-toggle-btn'
                 aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
@@ -252,7 +252,7 @@ export const A1BettingPreview: React.FC = () => {
             </div>
             <div className='sidebar-menu' role='tablist' aria-label='Main tabs'>
               {TABS.map(tab => (
-                // eslint-disable-next-line jsx-a11y/aria-proptypes
+                 
                 <button
                   key={tab.id}
                   className={`menu-item${activeTab === tab.id ? ' active' : ''}`}
