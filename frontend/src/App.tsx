@@ -5,6 +5,7 @@ import { ErrorBoundary } from './components/core/ErrorBoundary';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AuthPage from './components/auth/AuthPage';
 import PasswordChangeForm from './components/auth/PasswordChangeForm';
+import ComprehensiveAdminDashboard from './components/comprehensive/ComprehensiveAdminDashboard';
 
 // Console log test
 console.log('🚀 [DEBUG] App.tsx loaded at', new Date().toISOString());
@@ -127,17 +128,11 @@ const ErrorFallback = ({ error }: { error: Error }) => (
   </div>
 );
 
-// Main App Content Component
+// Main App Content Component - Now uses comprehensive admin dashboard
 const AppContent: React.FC = () => {
-  const [activeView, setActiveView] = useState('default');
   const { isAuthenticated, requiresPasswordChange, changePassword, loading, error } = useAuth();
 
-  console.log(
-    '🏠 [DEBUG] App component - activeView:',
-    activeView,
-    'authenticated:',
-    isAuthenticated
-  );
+  console.log('🏠 [DEBUG] App component - comprehensive admin dashboard loading');
 
   // Handle password change
   const handlePasswordChange = async (
@@ -150,26 +145,6 @@ const AppContent: React.FC = () => {
       newPassword,
       confirmPassword,
     });
-  };
-
-  const renderComponent = () => {
-    const Component = componentMap[activeView];
-    console.log(
-      '🧩 [DEBUG] Rendering component for view:',
-      activeView,
-      'Component found:',
-      !!Component
-    );
-
-    if (!Component) {
-      return <div className='p-8'>Component not found: {activeView}</div>;
-    }
-
-    return (
-      <Suspense fallback={<LoadingSpinner />}>
-        <Component />
-      </Suspense>
-    );
   };
 
   // Show auth page if not authenticated
@@ -191,15 +166,11 @@ const AppContent: React.FC = () => {
     );
   }
 
-  // Show main app
+  // Show comprehensive admin dashboard
   return (
-    <div className='min-h-screen bg-gray-50'>
-      <AppShell activeView={activeView} onNavigate={setActiveView}>
-        <div className='p-6'>
-          <ErrorBoundary>{renderComponent()}</ErrorBoundary>
-        </div>
-      </AppShell>
-    </div>
+    <ErrorBoundary>
+      <ComprehensiveAdminDashboard />
+    </ErrorBoundary>
   );
 };
 
