@@ -746,7 +746,7 @@ const ComprehensiveAdminDashboard: React.FC<ComprehensiveAdminDashboardProps> = 
       display: none;
     }
 
-    /* Mobile Optimizations */
+        /* Mobile Optimizations */
     @media (max-width: 768px) {
       .cyber-sidebar {
         width: 100%;
@@ -758,6 +758,13 @@ const ComprehensiveAdminDashboard: React.FC<ComprehensiveAdminDashboardProps> = 
         left: 15px;
         width: 45px;
         height: 45px;
+      }
+
+      .user-mode-toggle {
+        top: 70px;
+        left: 15px;
+        padding: 10px 12px;
+        font-size: 0.8rem;
       }
 
       .container {
