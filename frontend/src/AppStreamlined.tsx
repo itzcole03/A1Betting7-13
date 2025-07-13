@@ -66,6 +66,7 @@ const Navigation = ({
 const AppStreamlined: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('locked-bets');
   const [isLoading, setIsLoading] = useState(true);
+  const [settingsPageError, setSettingsPageError] = useState(false);
 
   useEffect(() => {
     console.log('🚀 A1Betting Ultra-Enhanced Platform initialized');
