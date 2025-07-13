@@ -4,7 +4,7 @@ import { LoadingSpinner } from './components/shared/ui/LoadingSpinner';
 import { Toaster } from './components/common/notifications/Toaster';
 
 // Import the three main pages
-const LockedBetsPage = React.lazy(() => import('./components/pages/LockedBetsPageEnhanced'));
+const LockedBetsPage = React.lazy(() => import('./components/pages/LockedBetsPageFixed'));
 const LiveStreamPage = React.lazy(() => import('./components/pages/LiveStreamPage'));
 const SettingsAdminPage = React.lazy(() => import('./components/pages/SettingsAdminPage'));
 
