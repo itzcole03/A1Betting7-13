@@ -237,8 +237,11 @@ export const ArbitrageScanner: React.FC = () => {
         {/* Filters */}
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
           <div>
-            <label className='block text-sm font-medium text-gray-400 mb-2'>Min ROI (%)</label>
+            <label htmlFor='min-roi-input' className='block text-sm font-medium text-gray-400 mb-2'>
+              Min ROI (%)
+            </label>
             <input
+              id='min-roi-input'
               type='range'
               min='0'
               max='10'
@@ -252,7 +255,12 @@ export const ArbitrageScanner: React.FC = () => {
           </div>
 
           <div>
-            <label className='block text-sm font-medium text-gray-400 mb-2'>Max Stake ($)</label>
+            <label
+              htmlFor='max-stake-input'
+              className='block text-sm font-medium text-gray-400 mb-2'
+            >
+              Max Stake ($)
+            </label>
             <input
               type='number'
               value={maxStake}
