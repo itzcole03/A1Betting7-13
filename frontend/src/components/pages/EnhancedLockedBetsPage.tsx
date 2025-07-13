@@ -50,6 +50,31 @@ const EnhancedLockedBetsPage: React.FC = () => {
     'bets'
   );
 
+  // Helper to validate and fix prediction data
+  const validatePrediction = (bet: any): EnhancedPrediction => {
+    return {
+      ...bet,
+      risk_assessment: bet.risk_assessment || {
+        overall_risk: bet.risk_score || 0.5,
+        confidence_risk: 0.2,
+        line_risk: 0.2,
+        market_risk: 0.2,
+        risk_level:
+          (bet.risk_score || 0.5) <= 0.3
+            ? 'low'
+            : (bet.risk_score || 0.5) <= 0.6
+              ? 'medium'
+              : 'high',
+      },
+      shap_explanation: bet.shap_explanation || {
+        baseline: 0.5,
+        features: {},
+        prediction: bet.confidence || 75,
+        top_factors: [],
+      },
+    };
+  };
+
   const fetchEnhancedPredictions = async () => {
     try {
       setIsLoading(true);
