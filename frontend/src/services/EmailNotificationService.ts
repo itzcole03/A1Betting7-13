@@ -383,6 +383,115 @@ This is an automated message. Please do not reply to this email.
   }
 
   /**
+   * Create email template for user invitation
+   */
+  private createInvitationTemplate(data: UserInvitationNotification): EmailTemplate {
+    const subject = `Invitation to join A1 Betting Platform`;
+
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: Arial, sans-serif; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #06ffa5, #00d4ff); padding: 20px; text-align: center; color: #000; }
+          .content { background: #f9f9f9; padding: 20px; }
+          .invitation-box { background: #e8f5e8; border: 1px solid #06ffa5; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center; }
+          .button { background: #06ffa5; color: #000; padding: 15px 30px; text-decoration: none; border-radius: 6px; display: inline-block; margin: 15px 0; font-weight: bold; }
+          .warning { background: #fff3cd; border: 1px solid #ffc107; padding: 10px; border-radius: 4px; color: #856404; margin: 15px 0; }
+          .footer { background: #333; color: #fff; padding: 15px; text-align: center; font-size: 12px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>You're Invited!</h1>
+          </div>
+          <div class="content">
+            <h2>Join A1 Betting Platform</h2>
+            <p>Hi there!</p>
+            <p>You've been invited by <strong>${data.invitedBy}</strong> to join the A1 Betting Platform as a <strong>${data.role}</strong>.</p>
+
+            ${
+              data.message
+                ? `
+            <div class="invitation-box">
+              <h3>Personal Message:</h3>
+              <p><em>"${data.message}"</em></p>
+            </div>
+            `
+                : ''
+            }
+
+            <p>A1 Betting Platform is an advanced AI-powered sports betting intelligence system that provides:</p>
+            <ul>
+              <li>Advanced analytics and predictions</li>
+              <li>Real-time arbitrage opportunities</li>
+              <li>Professional trading tools</li>
+              <li>Risk management systems</li>
+              <li>AI-powered insights</li>
+            </ul>
+
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${data.invitationUrl}" class="button">Accept Invitation</a>
+            </div>
+
+            <div class="warning">
+              <strong>Important:</strong> This invitation expires in ${data.expiresInDays} days. Click the button above to accept and create your account.
+            </div>
+
+            <p>If the button doesn't work, copy and paste this link into your browser:</p>
+            <p style="word-break: break-all; color: #06ffa5;">${data.invitationUrl}</p>
+
+            <p>If you have any questions, feel free to contact the person who invited you or our support team.</p>
+          </div>
+          <div class="footer">
+            A1 Betting Platform - Advanced AI-Powered Sports Betting Intelligence<br>
+            This invitation was sent by ${data.invitedBy}
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    const textContent = `
+You're Invited to Join A1 Betting Platform!
+
+Hi there!
+
+You've been invited by ${data.invitedBy} to join the A1 Betting Platform as a ${data.role}.
+
+${data.message ? `Personal Message: "${data.message}"` : ''}
+
+A1 Betting Platform is an advanced AI-powered sports betting intelligence system that provides:
+- Advanced analytics and predictions
+- Real-time arbitrage opportunities
+- Professional trading tools
+- Risk management systems
+- AI-powered insights
+
+To accept this invitation, visit: ${data.invitationUrl}
+
+IMPORTANT: This invitation expires in ${data.expiresInDays} days.
+
+If you have any questions, feel free to contact ${data.invitedBy} or our support team.
+
+---
+A1 Betting Platform - Advanced AI-Powered Sports Betting Intelligence
+This invitation was sent by ${data.invitedBy}
+    `;
+
+    return {
+      to: data.userEmail,
+      subject,
+      htmlContent,
+      textContent,
+    };
+  }
+
+  /**
    * Create email template for user denial notification
    */
   private createDenialTemplate(data: AccessDenialNotification): EmailTemplate {
