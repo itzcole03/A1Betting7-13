@@ -19,8 +19,11 @@ const BettingInterface: React.FC = () => {
         Place Your Bet
       </h1>
       <div className='bg-slate-800/60 rounded-xl p-6 flex flex-col space-y-4 max-w-md'>
-        <label className='text-gray-300 font-semibold'>Bet Amount ($)</label>
+        <label htmlFor='bet-amount-input' className='text-gray-300 font-semibold'>
+          Bet Amount ($)
+        </label>
         <input
+          id='bet-amount-input'
           type='number'
           className='p-2 rounded bg-slate-900 text-white border border-slate-700'
           value={betAmount}
