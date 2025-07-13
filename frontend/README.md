@@ -83,7 +83,7 @@ frontend/src/
 │   │   ├── Navigation.tsx      # Navigation system
 │   │   └── Layout/             # Layout components
 │   ├── features/               # Main feature components
-│   │   ├── prizepicks/         # PrizePicks Pro suite
+│   ���   ├── prizepicks/         # PrizePicks Pro suite
 │   │   ���── arbitrage/          # Arbitrage scanner
 │   │   ├── analytics/          # Analytics center
 │   │   └── dashboard/          # Strategy dashboard
@@ -277,6 +277,12 @@ npm run dev
 
 # Access the platform
 # Open browser to http://localhost:3000
+
+# Admin Mode Access (for administrators)
+# 1. Log in with admin credentials (email containing "admin" or "cole")
+# 2. Navigate to Settings page
+# 3. Look for "Admin Mode" tab (only visible to verified admins)
+# 4. Toggle "Enable Admin Dashboard" to access comprehensive admin interface
 ```
 
 ### Build for Production
