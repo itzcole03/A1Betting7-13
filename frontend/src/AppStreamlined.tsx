@@ -6,7 +6,11 @@ import { Toaster } from './components/common/notifications/Toaster';
 // Import the three main pages
 const LockedBetsPage = React.lazy(() => import('./components/pages/EnhancedLockedBetsPage'));
 const LiveStreamPage = React.lazy(() => import('./components/pages/EnhancedLiveStreamPage'));
-const SettingsAdminPage = React.lazy(() => import('./components/pages/UnifiedSettingsAdminPage'));
+const SettingsAdminPage = React.lazy(() =>
+  import('./components/pages/UnifiedSettingsAdminPage').catch(
+    () => import('./components/pages/SimpleSettingsPage')
+  )
+);
 
 // Navigation component
 const Navigation = ({
