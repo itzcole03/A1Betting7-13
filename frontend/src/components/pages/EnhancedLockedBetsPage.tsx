@@ -178,10 +178,11 @@ const EnhancedLockedBetsPage: React.FC = () => {
           ? 'text-yellow-400'
           : 'text-orange-400';
 
+    const overallRisk = bet.risk_assessment?.overall_risk || bet.risk_score || 0.5;
     const riskColor =
-      bet.risk_assessment.overall_risk <= 0.3
+      overallRisk <= 0.3
         ? 'text-green-400'
-        : bet.risk_assessment.overall_risk <= 0.6
+        : overallRisk <= 0.6
           ? 'text-yellow-400'
           : 'text-red-400';
 
