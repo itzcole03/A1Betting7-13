@@ -11,6 +11,9 @@ from typing import Any, Dict, List, Optional
 from fastapi import APIRouter, HTTPException, Query, status
 
 from backend.middleware.caching import TTLCache, retry_and_cache
+from backend.services.enhanced_prizepicks_service_v2 import (
+    enhanced_prizepicks_service_v2,
+)
 from backend.services.enhanced_prizepicks_service import (
     enhanced_prizepicks_service,
 )
