@@ -419,15 +419,81 @@ const EnhancedLiveStreamPage: React.FC = () => {
 
         {/* Main Content Area */}
         <div className='grid grid-cols-12 gap-6'>
-          {/* Stream Area */}
+          {/* Enhanced Stream Area */}
           <div className='col-span-12 lg:col-span-8'>
-            <div className='relative bg-black rounded-lg overflow-hidden border border-gray-700'>
+            <div className='relative bg-black rounded-lg overflow-hidden border border-gray-700 shadow-2xl'>
+              {/* Stream Controls Bar */}
+              <div className='absolute top-0 left-0 right-0 z-30 bg-gradient-to-b from-black/80 to-transparent p-4'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center space-x-3'>
+                    <div className='flex items-center space-x-2'>
+                      <div className='w-3 h-3 bg-red-500 rounded-full animate-pulse'></div>
+                      <span className='text-white text-sm font-medium'>LIVE</span>
+                    </div>
+                    <div className='text-gray-300 text-sm'>
+                      {streamUrl.includes('streameast') ? 'StreamEast' : 'Live Stream'}
+                    </div>
+                  </div>
+
+                  <div className='flex items-center space-x-2'>
+                    <button
+                      onClick={() => setIsMuted(!isMuted)}
+                      className='p-2 bg-black/50 hover:bg-black/70 rounded-lg transition-colors'
+                    >
+                      {isMuted ? (
+                        <VolumeX className='h-4 w-4 text-white' />
+                      ) : (
+                        <Volume2 className='h-4 w-4 text-white' />
+                      )}
+                    </button>
+
+                    <button
+                      onClick={handleFullscreen}
+                      className='p-2 bg-black/50 hover:bg-black/70 rounded-lg transition-colors'
+                    >
+                      <Monitor className='h-4 w-4 text-white' />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               {/* Loading Overlay */}
               {isLoading && (
-                <div className='absolute inset-0 bg-gray-900/90 flex items-center justify-center z-10'>
+                <div className='absolute inset-0 bg-gray-900/95 flex items-center justify-center z-20'>
                   <div className='text-center'>
-                    <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400 mx-auto mb-4'></div>
-                    <div className='text-gray-400'>Loading enhanced stream...</div>
+                    <div className='animate-spin rounded-full h-16 w-16 border-4 border-cyan-400 border-t-transparent mx-auto mb-6'></div>
+                    <div className='text-white text-lg font-medium mb-2'>Loading Stream</div>
+                    <div className='text-gray-400 text-sm'>
+                      Connecting to{' '}
+                      {streamUrl.includes('streameast') ? 'StreamEast' : 'streaming service'}...
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Error State */}
+              {!isLoading && (
+                <div className='absolute bottom-4 left-4 right-4 z-25'>
+                  <div className='bg-red-900/80 backdrop-blur-sm border border-red-500/50 rounded-lg p-3 text-center'>
+                    <div className='text-red-300 text-sm mb-2'>⚠️ Stream Loading Issue</div>
+                    <div className='text-gray-300 text-xs mb-3'>
+                      Some streaming sites block iframe embedding. Try opening in a new tab or
+                      changing the URL.
+                    </div>
+                    <div className='flex space-x-2 justify-center'>
+                      <button
+                        onClick={handleReload}
+                        className='px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded transition-colors'
+                      >
+                        Retry
+                      </button>
+                      <button
+                        onClick={openInNewTab}
+                        className='px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white text-xs rounded transition-colors'
+                      >
+                        Open in New Tab
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
@@ -439,7 +505,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    className='absolute top-4 left-4 right-4 z-20 pointer-events-none'
+                    className='absolute top-16 left-4 right-4 z-20 pointer-events-none'
                   >
                     <div className='bg-gray-900/90 backdrop-blur-sm border border-cyan-500/30 rounded-lg p-4'>
                       <div className='grid grid-cols-3 gap-4'>
@@ -476,20 +542,43 @@ const EnhancedLiveStreamPage: React.FC = () => {
                 )}
               </AnimatePresence>
 
-              {/* Embedded Stream */}
-              <iframe
-                id='stream-iframe'
-                src={streamUrl}
-                className='w-full h-96 md:h-[600px] lg:h-[700px]'
-                title='Live Stream'
-                allowFullScreen
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                onLoad={() => setIsLoading(false)}
-                onError={() => {
-                  setIsLoading(false);
-                  toast.error('Failed to load stream');
-                }}
-              />
+              {/* Enhanced Video Stream Container */}
+              <div className='relative w-full' style={{ aspectRatio: '16/9' }}>
+                <iframe
+                  id='stream-iframe'
+                  src={streamUrl}
+                  className='absolute inset-0 w-full h-full border-0'
+                  title='Live Sports Stream'
+                  allowFullScreen
+                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen'
+                  referrerPolicy='no-referrer-when-downgrade'
+                  sandbox='allow-scripts allow-same-origin allow-presentation allow-forms'
+                  onLoad={() => {
+                    setIsLoading(false);
+                    console.log('Stream loaded successfully');
+                  }}
+                  onError={e => {
+                    setIsLoading(false);
+                    console.error('Stream failed to load:', e);
+                    toast.error('Stream failed to load - try opening in new tab');
+                  }}
+                />
+              </div>
+
+              {/* Alternative Loading Message for Blocked Content */}
+              {!isLoading && (
+                <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
+                  <div className='text-center text-white/50 p-8'>
+                    <Tv className='h-16 w-16 mx-auto mb-4 opacity-30' />
+                    <div className='text-lg font-medium mb-2'>Stream Content</div>
+                    <div className='text-sm'>
+                      If the stream doesn't appear, the site may block embedding.
+                      <br />
+                      Use "Open in New Tab" for the best viewing experience.
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
