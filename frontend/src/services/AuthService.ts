@@ -39,10 +39,10 @@ class AuthService {
   private userKey = 'auth_user';
 
   constructor() {
-    this.baseUrl = process.env.REACT_APP_API_URL || '/api';
+    this.baseUrl = import.meta.env.VITE_API_URL || '/api';
 
     // Auto-login Cole in development
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       this.initializeDevelopmentAuth();
     }
   }
