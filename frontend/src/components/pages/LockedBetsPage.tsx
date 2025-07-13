@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { RefreshCw, TrendingUp, Target, Zap, DollarSign } from 'lucide-react';
+import { RefreshCw, TrendingUp, Target, Zap, DollarSign, MessageCircle } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import PropOllamaChatBox from '../shared/PropOllamaChatBox';
 
 interface LockedBet {
   id: string;
