@@ -141,9 +141,11 @@ async def get_comprehensive_projections(
     include_shap: bool = True,
 ) -> List[Dict[str, Any]]:
     """Get comprehensive PrizePicks projections scraped live from the website, all sports, no mock data."""
-    try:
-        service = ComprehensivePrizePicksService()
-        props = await service.scrape_prizepicks_props()
+        try:
+        # Use enhanced service for comprehensive projections
+        if not enhanced_prizepicks_service.client:
+            await enhanced_prizepicks_service.initialize()
+        props = await enhanced_prizepicks_service.scrape_prizepicks_props()
         # Optionally filter by sport/league (only if values are strings)
         if sport:
             props = [
