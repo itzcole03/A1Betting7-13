@@ -62,7 +62,7 @@ class AccessRequestService {
       console.error('Failed to submit access request:', error);
 
       // For demo purposes, simulate success
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         return this.simulateAccessRequest(data);
       }
 
