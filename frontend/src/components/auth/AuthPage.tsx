@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoginForm from './LoginForm';
 import AccessRequestForm from './AccessRequestForm';
+import PasswordChangeForm from './PasswordChangeForm';
 import { useAuth } from '../../contexts/AuthContext';
 
-type AuthMode = 'login' | 'request-access';
+type AuthMode = 'login' | 'request-access' | 'password-change';
 
 const AuthPage: React.FC = () => {
   const [authMode, setAuthMode] = useState<AuthMode>('login');
-  const { login, loading, error } = useAuth();
+  const { login, changePassword, loading, error, user, isAuthenticated, requiresPasswordChange } =
+    useAuth();
+
+  // Redirect to password change if required
+  useEffect(() => {
+    if (isAuthenticated && requiresPasswordChange) {
+      setAuthMode('password-change');
+    }
+  }, [isAuthenticated, requiresPasswordChange]);
 
   const handleLogin = async (email: string, password: string) => {
     await login(email, password);
