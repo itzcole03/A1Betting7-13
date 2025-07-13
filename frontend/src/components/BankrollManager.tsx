@@ -254,8 +254,11 @@ export const BankrollManager: React.FC = () => {
           </div>
 
           <div>
-            <label className='block text-sm text-gray-400 mb-2'>Target Balance</label>
+            <label htmlFor='target-balance-input' className='block text-sm text-gray-400 mb-2'>
+              Target Balance
+            </label>
             <input
+              id='target-balance-input'
               type='number'
               value={targetBalance}
               onChange={e => setTargetBalance(parseInt(e.target.value) || 0)}
