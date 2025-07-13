@@ -229,7 +229,7 @@ const AppStreamlinedContent: React.FC = () => {
             </div>
           }
         >
-          <FullAdminApp />
+          <AdminWrapper onToggleUserMode={() => setShowAdminMode(false)} />
         </Suspense>
       </ErrorBoundary>
     );
