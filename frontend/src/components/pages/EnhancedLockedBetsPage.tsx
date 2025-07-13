@@ -294,7 +294,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
           <div className='text-center'>
             <div className='text-sm text-gray-400'>Expected Value</div>
             <div className='text-lg font-semibold text-cyan-400'>
-              +{bet.expected_value.toFixed(2)}
+              +{(bet.expected_value || 0).toFixed(2)}
             </div>
           </div>
         </div>
