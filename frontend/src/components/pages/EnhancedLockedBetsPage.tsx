@@ -237,10 +237,10 @@ const EnhancedLockedBetsPage: React.FC = () => {
     return (
       <div
         key={bet.id}
-        className={`relative rounded-lg p-3 transition-all duration-200 hover:bg-gray-700/30 cursor-pointer border-l-4 ${
+        className={`group relative rounded-xl p-4 transition-all duration-300 cursor-pointer backdrop-blur-sm ${
           isSelected
-            ? 'bg-cyan-500/10 border-l-cyan-400 shadow-lg'
-            : 'bg-gray-800/20 border-l-gray-600 hover:border-l-cyan-400'
+            ? 'bg-gradient-to-r from-cyan-500/20 via-blue-500/15 to-purple-500/20 border border-cyan-400/50 shadow-xl shadow-cyan-500/25'
+            : 'bg-gradient-to-r from-gray-800/40 via-gray-800/30 to-gray-900/40 border border-gray-700/30 hover:border-cyan-400/40 hover:shadow-lg hover:shadow-cyan-500/10'
         }`}
         onClick={() => {
           const newSelected = new Set(selectedBets);
