@@ -407,46 +407,43 @@ const EnhancedLockedBetsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* View Toggle */}
-          <div className='flex space-x-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-2 mb-6'>
-            {[
-              { key: 'bets', label: 'Enhanced Bets', icon: Target },
-              { key: 'portfolio', label: 'Portfolio', icon: BarChart3 },
-              { key: 'insights', label: 'AI Insights', icon: Brain },
-              { key: 'stacking', label: 'Smart Stacking', icon: Zap },
-            ].map(({ key, label, icon: Icon }) => (
-              <button
-                key={key}
-                onClick={() => setActiveView(key as any)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  activeView === key
-                    ? 'bg-cyan-600 text-white shadow-lg'
-                    : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700/50'
-                }`}
-              >
-                <Icon className='w-4 h-4' />
-                <span>{label}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Compact Stats Bar */}
-          <div className='grid grid-cols-4 gap-3 mb-4'>
-            <div className='bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-lg p-3'>
-              <div className='flex items-center justify-between'>
-                <Target className='w-4 h-4 text-cyan-400' />
-                <div className='text-right'>
-                  <div className='text-xs text-gray-400'>Predictions</div>
-                  <div className='text-lg font-bold text-white'>{enhancedPredictions.length}</div>
-                </div>
-              </div>
+          {/* Integrated Header with Navigation and Stats */}
+          <div className='bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-4 mb-6'>
+            {/* Top Row: View Toggle */}
+            <div className='flex space-x-2 mb-4'>
+              {[
+                { key: 'bets', label: 'Enhanced Bets', icon: Target },
+                { key: 'portfolio', label: 'Portfolio', icon: BarChart3 },
+                { key: 'insights', label: 'AI Insights', icon: Brain },
+                { key: 'stacking', label: 'Smart Stacking', icon: Zap },
+              ].map(({ key, label, icon: Icon }) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveView(key as any)}
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg font-medium transition-all duration-200 text-sm ${
+                    activeView === key
+                      ? 'bg-cyan-600 text-white shadow-lg'
+                      : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700/50'
+                  }`}
+                >
+                  <Icon className='w-4 h-4' />
+                  <span>{label}</span>
+                </button>
+              ))}
             </div>
-            <div className='bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg p-3'>
-              <div className='flex items-center justify-between'>
-                <TrendingUp className='w-4 h-4 text-green-400' />
-                <div className='text-right'>
-                  <div className='text-xs text-gray-400'>Avg Confidence</div>
-                  <div className='text-lg font-bold text-white'>
+
+            {/* Bottom Row: Inline Stats */}
+            <div className='flex items-center justify-between border-t border-gray-700/30 pt-3'>
+              <div className='flex items-center space-x-6'>
+                <div className='flex items-center space-x-2'>
+                  <Target className='w-4 h-4 text-cyan-400' />
+                  <span className='text-sm text-gray-400'>Predictions:</span>
+                  <span className='text-sm font-bold text-white'>{enhancedPredictions.length}</span>
+                </div>
+                <div className='flex items-center space-x-2'>
+                  <TrendingUp className='w-4 h-4 text-green-400' />
+                  <span className='text-sm text-gray-400'>Confidence:</span>
+                  <span className='text-sm font-bold text-white'>
                     {enhancedPredictions.length > 0
                       ? (
                           enhancedPredictions.reduce(
@@ -456,33 +453,31 @@ const EnhancedLockedBetsPage: React.FC = () => {
                         ).toFixed(1)
                       : 0}
                     %
-                  </div>
+                  </span>
                 </div>
-              </div>
-            </div>
-            <div className='bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20 rounded-lg p-3'>
-              <div className='flex items-center justify-between'>
-                <Zap className='w-4 h-4 text-purple-400' />
-                <div className='text-right'>
-                  <div className='text-xs text-gray-400'>AI Insights</div>
-                  <div className='text-lg font-bold text-white'>{aiInsights.length}</div>
+                <div className='flex items-center space-x-2'>
+                  <Zap className='w-4 h-4 text-purple-400' />
+                  <span className='text-sm text-gray-400'>AI Insights:</span>
+                  <span className='text-sm font-bold text-white'>{aiInsights.length}</span>
                 </div>
-              </div>
-            </div>
-            <div className='bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-lg p-3'>
-              <div className='flex items-center justify-between'>
-                <DollarSign className='w-4 h-4 text-yellow-400' />
-                <div className='text-right'>
-                  <div className='text-xs text-gray-400'>Expected Value</div>
-                  <div className='text-lg font-bold text-white'>
+                <div className='flex items-center space-x-2'>
+                  <DollarSign className='w-4 h-4 text-yellow-400' />
+                  <span className='text-sm text-gray-400'>Expected Value:</span>
+                  <span className='text-sm font-bold text-green-400'>
                     +
                     {enhancedPredictions.length > 0
                       ? enhancedPredictions
                           .reduce((sum, bet) => sum + (bet.expected_value || 0), 0)
                           .toFixed(2)
                       : 0}
-                  </div>
+                  </span>
                 </div>
+              </div>
+
+              {/* Status Indicator */}
+              <div className='flex items-center space-x-2'>
+                <div className='w-2 h-2 bg-green-400 rounded-full animate-pulse'></div>
+                <span className='text-xs text-gray-400'>Live</span>
               </div>
             </div>
           </div>
