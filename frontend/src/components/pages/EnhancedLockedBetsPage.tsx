@@ -356,8 +356,9 @@ const EnhancedLockedBetsPage: React.FC = () => {
 
         {/* Selection Indicator */}
         {isSelected && (
-          <div className='absolute top-1 right-1 bg-cyan-400 text-gray-900 px-1 py-0.5 rounded text-xs font-bold'>
-            ✓
+          <div className='absolute top-3 right-3 bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center space-x-1'>
+            <span>✓</span>
+            <span>SELECTED</span>
           </div>
         )}
       </div>
