@@ -215,6 +215,24 @@ const AppStreamlinedContent: React.FC = () => {
     );
   }
 
+  // If admin mode is enabled, render the full admin app
+  if (showAdminMode) {
+    return (
+      <ErrorBoundary>
+        <Suspense
+          fallback={
+            <div className='min-h-screen bg-gray-900 flex items-center justify-center'>
+              <LoadingSpinner />
+              <div className='ml-3 text-gray-400'>Loading Admin Mode...</div>
+            </div>
+          }
+        >
+          <FullAdminApp />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
   return (
     <ErrorBoundary>
       <div className='min-h-screen bg-gray-900 text-white'>
