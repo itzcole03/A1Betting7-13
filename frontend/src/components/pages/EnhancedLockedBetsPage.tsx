@@ -347,7 +347,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
           <div className='text-center'>
             <div className='text-xs text-gray-400'>Optimal Stake</div>
             <div className='text-sm font-semibold text-green-400'>
-              ${(bet.optimal_stake * investmentAmount).toFixed(0)}
+              ${((bet.optimal_stake || 0.05) * investmentAmount).toFixed(0)}
             </div>
           </div>
         </div>
