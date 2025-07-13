@@ -725,8 +725,8 @@ const EnhancedLiveStreamPage: React.FC = () => {
 
                       {bet.live_adjustment !== 0 && (
                         <div className='mt-2 text-xs text-purple-400'>
-                          Live adjustment: {bet.live_adjustment > 0 ? '+' : ''}
-                          {bet.live_adjustment.toFixed(1)}%
+                          Live adjustment: {(bet.live_adjustment || 0) > 0 ? '+' : ''}
+                          {(bet.live_adjustment || 0).toFixed(1)}%
                         </div>
                       )}
                     </div>
