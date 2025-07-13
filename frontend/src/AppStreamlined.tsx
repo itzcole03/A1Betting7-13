@@ -74,6 +74,8 @@ const AppStreamlined: React.FC = () => {
 
   useEffect(() => {
     console.log('🚀 A1Betting Ultra-Enhanced Platform initialized');
+    console.log('📍 AppStreamlined component mounted successfully');
+    console.log('📄 Current page:', currentPage);
     setIsLoading(false);
   }, []);
 
