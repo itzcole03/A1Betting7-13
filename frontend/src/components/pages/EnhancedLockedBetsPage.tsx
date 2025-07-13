@@ -279,82 +279,62 @@ const EnhancedLockedBetsPage: React.FC = () => {
           <div className='text-sm text-gray-400'>({bet.team})</div>
         </div>
 
-        {/* Bet Details */}
-        <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4'>
-          <div className='text-center'>
-            <div className='text-sm text-gray-400'>Stat Type</div>
-            <div className='text-lg font-semibold text-white'>{bet.stat_type}</div>
-          </div>
-          <div className='text-center'>
-            <div className='text-sm text-gray-400'>Line</div>
-            <div className='text-lg font-semibold text-white'>{bet.line_score}</div>
-          </div>
-          <div className='text-center'>
-            <div className='text-sm text-gray-400'>Recommendation</div>
-            <div
-              className={`text-lg font-bold ${bet.recommendation === 'OVER' ? 'text-green-400' : 'text-red-400'}`}
-            >
-              {bet.recommendation}
+        {/* Main Bet Information */}
+        <div className='bg-gray-900/50 rounded-lg p-3 mb-3'>
+          <div className='grid grid-cols-4 gap-3 text-center'>
+            <div>
+              <div className='text-xs text-gray-400 mb-1'>Stat</div>
+              <div className='text-sm font-semibold text-white'>{bet.stat_type}</div>
             </div>
-          </div>
-          <div className='text-center'>
-            <div className='text-sm text-gray-400'>Expected Value</div>
-            <div className='text-lg font-semibold text-cyan-400'>
-              +{(bet.expected_value || 0).toFixed(2)}
+            <div>
+              <div className='text-xs text-gray-400 mb-1'>Line</div>
+              <div className='text-sm font-semibold text-white'>{bet.line_score}</div>
             </div>
-          </div>
-        </div>
-
-        {/* Enhanced Analytics */}
-        <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4 p-4 bg-gray-900/50 rounded-lg'>
-          <div className='text-center'>
-            <div className='text-sm text-gray-400'>Confidence</div>
-            <div className={`text-lg font-bold ${confidenceColor}`}>
-              {(bet.confidence || 75).toFixed(1)}%
+            <div>
+              <div className='text-xs text-gray-400 mb-1'>Pick</div>
+              <div
+                className={`text-sm font-bold ${bet.recommendation === 'OVER' ? 'text-green-400' : 'text-red-400'}`}
+              >
+                {bet.recommendation}
+              </div>
             </div>
-          </div>
-          <div className='text-center'>
-            <div className='text-sm text-gray-400'>Quantum AI</div>
-            <div className='text-lg font-semibold text-purple-400'>
-              {(bet.quantum_confidence || 75).toFixed(1)}%
-            </div>
-          </div>
-          <div className='text-center'>
-            <div className='text-sm text-gray-400'>Risk Level</div>
-            <div className={`text-lg font-semibold ${riskColor}`}>
-              {(
-                bet.risk_assessment?.risk_level ||
-                (overallRisk <= 0.3 ? 'low' : overallRisk <= 0.6 ? 'medium' : 'high')
-              ).toUpperCase()}
-            </div>
-          </div>
-          <div className='text-center'>
-            <div className='text-sm text-gray-400'>Kelly %</div>
-            <div className='text-lg font-semibold text-green-400'>
-              {((bet.kelly_fraction || 0.05) * 100).toFixed(1)}%
+            <div>
+              <div className='text-xs text-gray-400 mb-1'>EV</div>
+              <div className='text-sm font-semibold text-cyan-400'>
+                +{(bet.expected_value || 0).toFixed(2)}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Portfolio Metrics */}
-        <div className='grid grid-cols-3 gap-3 mb-4 p-3 bg-gradient-to-r from-blue-500/5 to-purple-500/5 border border-blue-500/20 rounded-lg'>
-          <div className='text-center'>
-            <div className='text-xs text-gray-400'>Synergy</div>
-            <div className='text-sm font-semibold text-blue-400'>
-              {((bet.synergy_rating || 0.5) * 100).toFixed(0)}%
+        {/* Compact Analytics Row */}
+        <div className='flex items-center justify-between text-xs'>
+          <div className='flex items-center space-x-3'>
+            <div className='flex items-center space-x-1'>
+              <span className='text-gray-400'>AI:</span>
+              <span className='text-purple-400 font-medium'>
+                {(bet.quantum_confidence || 75).toFixed(0)}%
+              </span>
+            </div>
+            <div className='flex items-center space-x-1'>
+              <span className='text-gray-400'>Risk:</span>
+              <span className={`font-medium ${riskColor}`}>
+                {bet.risk_assessment?.risk_level ||
+                  (overallRisk <= 0.3 ? 'LOW' : overallRisk <= 0.6 ? 'MED' : 'HIGH')}
+              </span>
+            </div>
+            <div className='flex items-center space-x-1'>
+              <span className='text-gray-400'>Kelly:</span>
+              <span className='text-green-400 font-medium'>
+                {((bet.kelly_fraction || 0.05) * 100).toFixed(1)}%
+              </span>
             </div>
           </div>
-          <div className='text-center'>
-            <div className='text-xs text-gray-400'>Stack Potential</div>
-            <div className='text-sm font-semibold text-purple-400'>
-              {((bet.stack_potential || 0.5) * 100).toFixed(0)}%
-            </div>
-          </div>
-          <div className='text-center'>
-            <div className='text-xs text-gray-400'>Optimal Stake</div>
-            <div className='text-sm font-semibold text-green-400'>
+          <div className='flex items-center space-x-1'>
+            <span className='text-gray-400'>Stake:</span>
+            <span className='text-green-400 font-medium'>
               ${((bet.optimal_stake || 0.05) * investmentAmount).toFixed(0)}
-            </div>
+            </span>
           </div>
         </div>
 
