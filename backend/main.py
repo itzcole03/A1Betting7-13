@@ -210,6 +210,10 @@ app.include_router(prizepicks_router)
 app.include_router(unified_router)
 print("[LOG] FastAPI app with unified intelligence initialized")
 
+# Register analytics API router for advanced analytics dashboard
+app.include_router(analytics_api_router)
+print("[LOG] Analytics API router registered")
+
 # Register FanDuel router after app initialization
 from backend.routes.fanduel import router as fanduel_router
 
