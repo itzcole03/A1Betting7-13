@@ -51,6 +51,9 @@ const Navigation = ({
         <div className='flex items-center space-x-2'>
           <div className='text-2xl font-bold text-cyan-400'>A1Betting</div>
           <div className='text-sm text-gray-400'>Ultra-Enhanced Platform</div>
+          <div className='px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-medium'>
+            ✅ Validated
+          </div>
         </div>
 
         <div className='flex space-x-4'>
