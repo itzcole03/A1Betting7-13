@@ -155,11 +155,22 @@ const EnhancedLiveStreamPage: React.FC = () => {
 
   const handleReload = () => {
     setIsLoading(true);
+    setStreamBlocked(false);
+    setLoadAttempts(prev => prev + 1);
+
     const iframe = document.getElementById('stream-iframe') as HTMLIFrameElement;
     if (iframe) {
       iframe.src = iframe.src;
     }
-    setTimeout(() => setIsLoading(false), 2000);
+
+    // Check if still loading after 10 seconds
+    setTimeout(() => {
+      if (isLoading) {
+        setIsLoading(false);
+        setStreamBlocked(true);
+        toast.error('Stream may be blocked - try opening in new tab');
+      }
+    }, 10000);
   };
 
   const handleFullscreen = () => {
