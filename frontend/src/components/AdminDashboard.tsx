@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { ArrowLeft, Shield, AlertTriangle } from 'lucide-react';
 
-const AdminDashboard: React.FC = () => {
+const AdminDashboard: React.FC = React.memo(() => {
   const { user, isAdmin, checkAdminStatus } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -88,7 +88,7 @@ const AdminDashboard: React.FC = () => {
 
       {/* Admin Dashboard Content */}
       <div className='relative'>
-        <iframe
+                <iframe
           src='/admin-dashboard.html'
           className='w-full h-screen border-0'
           title='Admin Dashboard'
