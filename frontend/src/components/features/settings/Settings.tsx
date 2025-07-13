@@ -301,7 +301,7 @@ const Settings: React.FC = () => {
     }
   };
 
-  const tabs = [
+  const baseTabs = [
     { id: 'profile', label: 'Profile', icon: User },
     { id: 'notifications', label: 'Notifications', icon: Bell },
     { id: 'privacy', label: 'Privacy', icon: Shield },
@@ -309,6 +309,13 @@ const Settings: React.FC = () => {
     { id: 'betting', label: 'Betting', icon: DollarSign },
     { id: 'api', label: 'API & Data', icon: Database },
   ];
+
+  // Add admin tab only for verified admin users (memoized for performance)
+  const tabs = useMemo(() => {
+    return checkAdminStatus()
+      ? [...baseTabs, { id: 'admin', label: 'Admin Mode', icon: Crown }]
+      : baseTabs;
+  }, [checkAdminStatus]);
 
   const getSaveStatusIcon = () => {
     switch (saveStatus) {
