@@ -143,6 +143,12 @@ class UnifiedApiService {
             ['Historical', 0.22],
           ],
         },
+        risk_assessment: {
+          overall_risk: 0.23,
+          confidence_risk: 0.13,
+          volatility_risk: 0.18,
+          market_risk: 0.15,
+        },
       },
       {
         id: 'fallback_2',
