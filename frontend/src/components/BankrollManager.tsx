@@ -221,8 +221,11 @@ export const BankrollManager: React.FC = () => {
       <Card className='p-6'>
         <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
           <div>
-            <label className='block text-sm text-gray-400 mb-2'>Risk Level</label>
+            <label htmlFor='risk-level-select' className='block text-sm text-gray-400 mb-2'>
+              Risk Level
+            </label>
             <select
+              id='risk-level-select'
               value={riskLevel}
               onChange={e => setRiskLevel(e.target.value as any)}
               className='w-full p-2 bg-gray-800 border border-gray-700 rounded-lg'
