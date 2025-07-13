@@ -81,36 +81,38 @@ const AuthPage: React.FC = () => {
           <p className='text-gray-400'>Advanced AI-Powered Sports Betting Intelligence</p>
         </motion.div>
 
-        {/* Auth Mode Toggle */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className='flex justify-center mb-8'
-        >
-          <div className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-lg p-1 flex'>
-            <button
-              onClick={() => setAuthMode('login')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                authMode === 'login'
-                  ? 'bg-cyber-primary text-slate-900'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              Sign In
-            </button>
-            <button
-              onClick={() => setAuthMode('request-access')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                authMode === 'request-access'
-                  ? 'bg-cyber-primary text-slate-900'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              Request Access
-            </button>
-          </div>
-        </motion.div>
+        {/* Auth Mode Toggle - Only show if not in password change mode */}
+        {authMode !== 'password-change' && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className='flex justify-center mb-8'
+          >
+            <div className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-lg p-1 flex'>
+              <button
+                onClick={() => setAuthMode('login')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                  authMode === 'login'
+                    ? 'bg-cyber-primary text-slate-900'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                Sign In
+              </button>
+              <button
+                onClick={() => setAuthMode('request-access')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                  authMode === 'request-access'
+                    ? 'bg-cyber-primary text-slate-900'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                Request Access
+              </button>
+            </div>
+          </motion.div>
+        )}
 
         {/* Auth Forms */}
         <AnimatePresence mode='wait'>
