@@ -770,7 +770,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
                                 : 'bg-red-500/20 text-red-400'
                           }`}
                         >
-                          {opp.recommended_action.replace('_', ' ')}
+                          {(opp.recommended_action || 'unknown').replace('_', ' ')}
                         </div>
                       </div>
 
