@@ -291,30 +291,43 @@ const EnhancedLockedBetsPage: React.FC = () => {
           </div>
 
           {/* Center Section: Analytics */}
-          <div className='hidden md:flex items-center space-x-4 text-xs'>
-            <div className='text-center'>
-              <div className='text-gray-400'>Conf</div>
-              <div className={`font-bold ${confidenceColor}`}>
-                {(bet.confidence || 75).toFixed(0)}%
+          <div className='hidden md:flex items-center space-x-3'>
+            <div className='flex items-center space-x-3 bg-gray-900/40 rounded-lg px-3 py-2 border border-gray-700/30'>
+              <div className='text-center px-2'>
+                <div className='text-gray-400 text-xs mb-0.5'>Confidence</div>
+                <div className={`font-bold text-sm ${confidenceColor}`}>
+                  {(bet.confidence || 75).toFixed(0)}%
+                </div>
               </div>
-            </div>
-            <div className='text-center'>
-              <div className='text-gray-400'>AI</div>
-              <div className='text-purple-400 font-medium'>
-                {(bet.quantum_confidence || 75).toFixed(0)}%
+              <span className='w-px h-8 bg-gray-600/50'></span>
+              <div className='text-center px-2'>
+                <div className='text-gray-400 text-xs mb-0.5'>AI Score</div>
+                <div className='text-purple-400 font-bold text-sm'>
+                  {(bet.quantum_confidence || 75).toFixed(0)}%
+                </div>
               </div>
-            </div>
-            <div className='text-center'>
-              <div className='text-gray-400'>Risk</div>
-              <div className={`font-medium ${riskColor}`}>
-                {bet.risk_assessment?.risk_level ||
-                  (overallRisk <= 0.3 ? 'LOW' : overallRisk <= 0.6 ? 'MED' : 'HIGH')}
+              <span className='w-px h-8 bg-gray-600/50'></span>
+              <div className='text-center px-2'>
+                <div className='text-gray-400 text-xs mb-0.5'>Risk</div>
+                <div
+                  className={`font-bold text-sm px-2 py-0.5 rounded ${
+                    overallRisk <= 0.3
+                      ? 'bg-green-500/20 text-green-400'
+                      : overallRisk <= 0.6
+                        ? 'bg-yellow-500/20 text-yellow-400'
+                        : 'bg-red-500/20 text-red-400'
+                  }`}
+                >
+                  {bet.risk_assessment?.risk_level ||
+                    (overallRisk <= 0.3 ? 'LOW' : overallRisk <= 0.6 ? 'MED' : 'HIGH')}
+                </div>
               </div>
-            </div>
-            <div className='text-center'>
-              <div className='text-gray-400'>EV</div>
-              <div className='text-cyan-400 font-medium'>
-                +{(bet.expected_value || 0).toFixed(2)}
+              <span className='w-px h-8 bg-gray-600/50'></span>
+              <div className='text-center px-2'>
+                <div className='text-gray-400 text-xs mb-0.5'>Expected Value</div>
+                <div className='text-cyan-400 font-bold text-sm'>
+                  +{(bet.expected_value || 0).toFixed(2)}
+                </div>
               </div>
             </div>
           </div>
