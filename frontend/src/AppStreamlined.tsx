@@ -118,13 +118,43 @@ const Navigation = ({
           </div>
 
           {isAuthenticated && (
-            <div className='flex items-center space-x-2 ml-4 px-3 py-2 bg-gray-800 rounded-lg'>
-              <div className='w-6 h-6 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center'>
-                <span className='text-white text-xs font-bold'>
-                  {user?.email?.charAt(0).toUpperCase() || 'U'}
+            <div className='flex items-center space-x-3 ml-4'>
+              {isAdmin && (
+                <button
+                  onClick={() => setShowAdminMode(!showAdminMode)}
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg font-medium transition-all ${
+                    showAdminMode
+                      ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-lg'
+                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  }`}
+                  title={showAdminMode ? 'Switch to User Mode' : 'Switch to Admin Mode'}
+                >
+                  {showAdminMode ? (
+                    <>
+                      <Crown className='w-4 h-4' />
+                      <span className='text-sm'>Admin Mode</span>
+                      <ToggleRight className='w-4 h-4' />
+                    </>
+                  ) : (
+                    <>
+                      <User className='w-4 h-4' />
+                      <span className='text-sm'>User Mode</span>
+                      <ToggleLeft className='w-4 h-4' />
+                    </>
+                  )}
+                </button>
+              )}
+
+              <div className='flex items-center space-x-2 px-3 py-2 bg-gray-800 rounded-lg'>
+                <div className='w-6 h-6 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center'>
+                  <span className='text-white text-xs font-bold'>
+                    {user?.email?.charAt(0).toUpperCase() || 'U'}
+                  </span>
+                </div>
+                <span className='text-gray-300 text-sm'>
+                  {user?.email?.split('@')[0] || 'User'}
                 </span>
               </div>
-              <span className='text-gray-300 text-sm'>{user?.email?.split('@')[0] || 'User'}</span>
             </div>
           )}
         </div>
