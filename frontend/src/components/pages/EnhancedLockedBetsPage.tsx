@@ -304,7 +304,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
           <div className='text-center'>
             <div className='text-sm text-gray-400'>Confidence</div>
             <div className={`text-lg font-bold ${confidenceColor}`}>
-              {bet.confidence.toFixed(1)}%
+              {(bet.confidence || 75).toFixed(1)}%
             </div>
           </div>
           <div className='text-center'>
