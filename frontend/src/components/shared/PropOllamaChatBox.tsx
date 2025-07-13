@@ -221,16 +221,21 @@ I'm currently offline, but here's some general advice:`;
   }
 
   return (
-    <div className={`bg-gray-800 border border-cyan-500/30 rounded-lg ${className}`}>
+    <div
+      className={`bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 border border-cyan-500/30 rounded-2xl shadow-2xl ${className}`}
+    >
       {/* Header */}
-      <div className='flex items-center justify-between p-4 border-b border-gray-700'>
+      <div className='flex items-center justify-between p-4 border-b border-gray-700/50 bg-gradient-to-r from-cyan-600/10 to-blue-600/10'>
         <div className='flex items-center space-x-3'>
-          <div className='p-2 bg-cyan-600/20 rounded-lg'>
-            <Bot className='w-5 h-5 text-cyan-400' />
+          <div className='relative p-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl shadow-lg'>
+            <Bot className='w-5 h-5 text-white' />
+            <div className='absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse border-2 border-gray-800'></div>
           </div>
           <div>
-            <h3 className='text-lg font-bold text-white'>PropOllama AI</h3>
-            <p className='text-sm text-gray-400'>Sports Betting Expert</p>
+            <h3 className='text-lg font-bold bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent'>
+              PropOllama AI
+            </h3>
+            <p className='text-sm text-gray-400'>Elite Sports Betting Expert</p>
           </div>
         </div>
         <div className='flex items-center space-x-2'>
