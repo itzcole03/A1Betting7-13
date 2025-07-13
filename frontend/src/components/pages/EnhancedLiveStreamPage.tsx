@@ -284,6 +284,14 @@ const EnhancedLiveStreamPage: React.FC = () => {
               </button>
 
               <button
+                onClick={openUrlEditor}
+                className='flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors'
+              >
+                <Monitor className='w-4 h-4' />
+                <span>Change URL</span>
+              </button>
+
+              <button
                 onClick={openInNewTab}
                 className='flex items-center space-x-2 px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-medium transition-colors'
               >
