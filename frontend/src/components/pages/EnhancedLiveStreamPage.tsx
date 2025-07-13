@@ -762,7 +762,9 @@ const EnhancedLiveStreamPage: React.FC = () => {
                       className='p-3 bg-gray-700/30 rounded-lg border border-gray-600/50'
                     >
                       <div className='flex items-start justify-between mb-2'>
-                        <div className='text-sm font-medium text-white'>{opp.description}</div>
+                        <div className='text-sm font-medium text-white'>
+                          {opp.description || 'No description available'}
+                        </div>
                         <div
                           className={`text-xs font-semibold px-2 py-1 rounded ${
                             opp.recommended_action === 'INCREASE_STAKE'
