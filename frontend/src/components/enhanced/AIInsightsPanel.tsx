@@ -42,12 +42,21 @@ const AIInsightsPanel: React.FC<AIInsightsPanelProps> = ({
     setExpandedSections(newExpanded);
   };
 
+  // Ensure insights is always an array
+  const safeInsights = Array.isArray(insights) ? insights : [];
+
   const selectedInsight =
-    selectedBet && insights.find((_, index) => predictions[index]?.id === selectedBet.id);
+    selectedBet && safeInsights.find((_, index) => predictions[index]?.id === selectedBet.id);
 
   const avgOpportunityScore =
-    insights.reduce((sum, insight) => sum + insight.opportunity_score, 0) / insights.length;
-  const totalMarketEdge = insights.reduce((sum, insight) => sum + insight.market_edge, 0);
+    safeInsights.length > 0
+      ? safeInsights.reduce((sum, insight) => sum + (insight.opportunity_score || 0), 0) /
+        safeInsights.length
+      : 0;
+  const totalMarketEdge = safeInsights.reduce(
+    (sum, insight) => sum + (insight.market_edge || 0),
+    0
+  );
 
   return (
     <div className='bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 border border-cyan-500/30 rounded-xl p-6 space-y-6'>
