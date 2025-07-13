@@ -430,23 +430,23 @@ const EnhancedLockedBetsPage: React.FC = () => {
             ))}
           </div>
 
-          {/* Stats Bar */}
-          <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mb-6'>
-            <div className='bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-xl p-4'>
-              <div className='flex items-center space-x-2'>
-                <Target className='w-5 h-5 text-cyan-400' />
-                <div>
-                  <div className='text-sm text-gray-400'>Total Predictions</div>
-                  <div className='text-xl font-bold text-white'>{enhancedPredictions.length}</div>
+          {/* Compact Stats Bar */}
+          <div className='grid grid-cols-4 gap-3 mb-4'>
+            <div className='bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-lg p-3'>
+              <div className='flex items-center justify-between'>
+                <Target className='w-4 h-4 text-cyan-400' />
+                <div className='text-right'>
+                  <div className='text-xs text-gray-400'>Predictions</div>
+                  <div className='text-lg font-bold text-white'>{enhancedPredictions.length}</div>
                 </div>
               </div>
             </div>
-            <div className='bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl p-4'>
-              <div className='flex items-center space-x-2'>
-                <TrendingUp className='w-5 h-5 text-green-400' />
-                <div>
-                  <div className='text-sm text-gray-400'>Avg Confidence</div>
-                  <div className='text-xl font-bold text-white'>
+            <div className='bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg p-3'>
+              <div className='flex items-center justify-between'>
+                <TrendingUp className='w-4 h-4 text-green-400' />
+                <div className='text-right'>
+                  <div className='text-xs text-gray-400'>Avg Confidence</div>
+                  <div className='text-lg font-bold text-white'>
                     {enhancedPredictions.length > 0
                       ? (
                           enhancedPredictions.reduce(
@@ -460,21 +460,21 @@ const EnhancedLockedBetsPage: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className='bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20 rounded-xl p-4'>
-              <div className='flex items-center space-x-2'>
-                <Zap className='w-5 h-5 text-purple-400' />
-                <div>
-                  <div className='text-sm text-gray-400'>AI Insights</div>
-                  <div className='text-xl font-bold text-white'>{aiInsights.length}</div>
+            <div className='bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20 rounded-lg p-3'>
+              <div className='flex items-center justify-between'>
+                <Zap className='w-4 h-4 text-purple-400' />
+                <div className='text-right'>
+                  <div className='text-xs text-gray-400'>AI Insights</div>
+                  <div className='text-lg font-bold text-white'>{aiInsights.length}</div>
                 </div>
               </div>
             </div>
-            <div className='bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-xl p-4'>
-              <div className='flex items-center space-x-2'>
-                <DollarSign className='w-5 h-5 text-yellow-400' />
-                <div>
-                  <div className='text-sm text-gray-400'>Expected Value</div>
-                  <div className='text-xl font-bold text-white'>
+            <div className='bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-lg p-3'>
+              <div className='flex items-center justify-between'>
+                <DollarSign className='w-4 h-4 text-yellow-400' />
+                <div className='text-right'>
+                  <div className='text-xs text-gray-400'>Expected Value</div>
+                  <div className='text-lg font-bold text-white'>
                     +
                     {enhancedPredictions.length > 0
                       ? enhancedPredictions
