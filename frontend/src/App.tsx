@@ -211,4 +211,7 @@ function App() {
   );
 }
 
+// Export AppContent for use without AuthProvider wrapper
+export { AppContent };
+
 export default App;
