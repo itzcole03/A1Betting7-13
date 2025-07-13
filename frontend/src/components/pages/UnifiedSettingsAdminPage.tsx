@@ -44,7 +44,7 @@ interface UserSettings {
   quantumAnalysis: boolean;
 }
 
-export function UnifiedSettingsAdminPage() {
+function UnifiedSettingsAdminPage() {
   const [userSettings, setUserSettings] = useState<UserSettings>({
     notifications: true,
     riskTolerance: 'moderate',
