@@ -276,7 +276,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
     }
   };
 
-  const getActionColor = (action: string) => {
+  const getActionColor = (action: string | undefined) => {
     switch (action) {
       case 'INCREASE_STAKE':
         return 'text-green-400';
