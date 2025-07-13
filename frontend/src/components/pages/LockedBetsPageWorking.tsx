@@ -178,7 +178,7 @@ const LockedBetsPageWorking: React.FC = () => {
     return (
       <div
         key={bet.id}
-        className='bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 border border-cyan-500/30 rounded-xl p-6 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-500 hover:-translate-y-1'
+        className='relative bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 border border-cyan-500/30 rounded-xl p-6 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-500 hover:-translate-y-1'
       >
         {/* Premium Indicator */}
         {bet.ensemble_confidence >= 85 && (
