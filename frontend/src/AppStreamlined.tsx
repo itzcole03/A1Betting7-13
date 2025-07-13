@@ -126,7 +126,7 @@ const Navigation = ({
   );
 };
 
-const AppStreamlined: React.FC = () => {
+const AppStreamlinedContent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('locked-bets');
   const [isLoading, setIsLoading] = useState(false); // Start with false for faster loading
   const [settingsPageError, setSettingsPageError] = useState(false);
