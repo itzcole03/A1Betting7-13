@@ -4,7 +4,7 @@ import { ArrowLeft, Shield, AlertTriangle } from 'lucide-react';
 import { AdminRoute } from './auth/RouteGuard';
 
 const AdminDashboard: React.FC = React.memo(() => {
-  const { user, isAdmin, checkAdminStatus } = useAuth();
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -13,8 +13,7 @@ const AdminDashboard: React.FC = React.memo(() => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Redirect non-admin users
-  if (!checkAdminStatus()) {
+  if (isLoading) {
     return (
       <div className='min-h-screen bg-slate-900 flex items-center justify-center'>
         <div className='max-w-md w-full mx-auto p-8'>
