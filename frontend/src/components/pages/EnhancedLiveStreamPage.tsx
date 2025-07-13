@@ -718,7 +718,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
                         <div className='text-sm text-gray-300'>
                           Confidence:{' '}
                           <span className='text-green-400 font-medium'>
-                            {bet.confidence.toFixed(1)}%
+                            {(bet.confidence || 0).toFixed(1)}%
                           </span>
                         </div>
                       </div>
