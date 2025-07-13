@@ -21,32 +21,6 @@ export interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Placeholder authService (replace with real implementation)
-const authService = {
-  login: async (email: string, password: string) => {
-    // Simulate admin detection based on email (in real app, this would come from server)
-    const isAdminUser =
-      email.toLowerCase().includes('admin') || email.toLowerCase().includes('cole');
-    return {
-      id: 1,
-      email,
-      role: isAdminUser ? 'admin' : 'user',
-      permissions: isAdminUser ? ['admin', 'user'] : ['user'],
-    };
-  },
-  logout: async () => {},
-  register: async (email: string, password: string) => {
-    const isAdminUser =
-      email.toLowerCase().includes('admin') || email.toLowerCase().includes('cole');
-    return {
-      id: 2,
-      email,
-      role: isAdminUser ? 'admin' : 'user',
-      permissions: isAdminUser ? ['admin', 'user'] : ['user'],
-    };
-  },
-};
-
 /**
  * AuthProvider
  * Wrap your app with this provider to enable authentication state and actions.
