@@ -17,14 +17,14 @@ import {
 import { AIInsights, EnhancedPrediction, SHAPExplanation } from '../../types/enhancedBetting';
 
 interface AIInsightsPanelProps {
-  insights: AIInsights[];
+  safeInsights: AIInsights[];
   predictions: EnhancedPrediction[];
   selectedBet?: EnhancedPrediction;
   onBetSelect: (bet: EnhancedPrediction) => void;
 }
 
 const AIInsightsPanel: React.FC<AIInsightsPanelProps> = ({
-  insights,
+  safeInsights,
   predictions,
   selectedBet,
   onBetSelect,
@@ -42,8 +42,8 @@ const AIInsightsPanel: React.FC<AIInsightsPanelProps> = ({
     setExpandedSections(newExpanded);
   };
 
-  // Ensure insights is always an array
-  const safeInsights = Array.isArray(insights) ? insights : [];
+  // Ensure safeInsights is always an array
+  const safeInsights = Array.isArray(safeInsights) ? safeInsights : [];
 
   const selectedInsight =
     selectedBet && safeInsights.find((_, index) => predictions[index]?.id === selectedBet.id);
@@ -73,7 +73,7 @@ const AIInsightsPanel: React.FC<AIInsightsPanelProps> = ({
         </div>
         <div className='flex items-center space-x-2'>
           <div className='px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-medium'>
-            {insights.length} Analyses
+            {safeInsights.length} Analyses
           </div>
           <div className='w-2 h-2 bg-green-400 rounded-full animate-pulse'></div>
         </div>
