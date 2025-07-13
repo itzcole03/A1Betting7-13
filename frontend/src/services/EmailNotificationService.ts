@@ -129,6 +129,46 @@ class EmailNotificationService {
   }
 
   /**
+   * Send invitation notification to user
+   */
+  async notifyUserOfInvitation(data: UserInvitationNotification): Promise<boolean> {
+    const template = this.createInvitationTemplate(data);
+
+    try {
+      const response = await fetch(`${this.baseUrl}/send`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: { email: this.fromEmail, name: this.fromName },
+          to: data.userEmail,
+          subject: template.subject,
+          html: template.htmlContent,
+          text: template.textContent,
+          tags: ['invitation', 'user-notification'],
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Failed to send invitation notification:', error);
+
+      // For development, log the email that would be sent
+      if (process.env.NODE_ENV === 'development') {
+        this.logEmailForDevelopment('User Invitation Notification', template);
+        return true;
+      }
+
+      return false;
+    }
+  }
+
+  /**
    * Send denial notification to user
    */
   async notifyUserOfDenial(data: AccessDenialNotification): Promise<boolean> {
