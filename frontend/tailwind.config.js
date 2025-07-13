@@ -131,6 +131,13 @@ export default {
           'radial-gradient(circle at 1px 1px, rgba(0,255,136,0.15) 1px, transparent 0)',
         'neural-network':
           "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300ff88' fill-opacity='0.1'%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+        'cyber-gradient': 'linear-gradient(135deg, #020617 0%, #1a1b3e 50%, #0f172a 100%)',
+        'cyber-glass':
+          'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%)',
+      },
+      backdropBlur: {
+        xs: '2px',
+        '4xl': '80px',
       },
       keyframes: {
         float: {
