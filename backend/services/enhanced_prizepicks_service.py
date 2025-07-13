@@ -14,6 +14,13 @@ from typing import Any, Dict, List, Optional
 import httpx
 from pydantic import BaseModel
 
+# Import ML ensemble service
+try:
+    from .enhanced_ml_ensemble_service import enhanced_ml_ensemble_service, get_enhanced_prediction
+    ML_ENSEMBLE_AVAILABLE = True
+except ImportError:
+    ML_ENSEMBLE_AVAILABLE = False
+
 logger = logging.getLogger(__name__)
 
 
