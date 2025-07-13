@@ -88,7 +88,7 @@ const AdminDashboard: React.FC = React.memo(() => {
 
       {/* Admin Dashboard Content */}
       <div className='relative'>
-                <iframe
+        <iframe
           src='/admin-dashboard.html'
           className='w-full h-screen border-0'
           title='Admin Dashboard'
@@ -139,6 +139,6 @@ const AdminDashboard: React.FC = React.memo(() => {
       </div>
     </div>
   );
-};
+});
 
 export default AdminDashboard;
