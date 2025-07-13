@@ -252,25 +252,31 @@ const EnhancedLockedBetsPage: React.FC = () => {
           handleBetSelect(bet);
         }}
       >
-        {/* Premium Indicator */}
-        {bet.confidence >= 85 && (
-          <div className='absolute top-4 right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg border border-orange-400/20 animate-pulse backdrop-blur-sm'>
-            �� HOT
-          </div>
-        )}
-
-        {/* Header */}
-        <div className='flex items-center justify-between mb-4'>
-          <div className='flex items-center space-x-3'>
-            <div className='text-xl font-bold text-white'>{bet.player_name}</div>
-            <div className='text-sm text-gray-400'>({bet.team})</div>
+        {/* Header with Status Badges */}
+        <div className='flex items-start justify-between mb-3'>
+          <div className='flex items-center space-x-2'>
+            {bet.confidence >= 85 && (
+              <div className='bg-gradient-to-r from-orange-500 to-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse'>
+                🔥 HOT
+              </div>
+            )}
             <div className='px-2 py-1 bg-cyan-600/20 text-cyan-400 rounded text-xs font-medium'>
               {bet.sport}
             </div>
+            <div className='text-xs text-gray-400'>{bet.source}</div>
           </div>
-          <div className='flex items-center space-x-2'>
-            <div className='text-sm text-gray-400'>{bet.source}</div>
+          <div className='text-right'>
+            <div className={`text-lg font-bold ${confidenceColor}`}>
+              {(bet.confidence || 75).toFixed(0)}%
+            </div>
+            <div className='text-xs text-gray-400'>Confidence</div>
           </div>
+        </div>
+
+        {/* Player Info */}
+        <div className='mb-4'>
+          <div className='text-lg font-bold text-white'>{bet.player_name}</div>
+          <div className='text-sm text-gray-400'>({bet.team})</div>
         </div>
 
         {/* Bet Details */}
