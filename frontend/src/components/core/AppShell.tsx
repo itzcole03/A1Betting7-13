@@ -126,20 +126,31 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
               size='sm'
               glow={true}
               onClick={() => {
-                // Handle notifications
                 console.log('Notifications clicked');
               }}
             >
               <Bell className='w-5 h-5' />
             </CyberButton>
+
+            <AdminOnly showFallback={false}>
+              <CyberButton
+                variant='primary'
+                size='sm'
+                glow={true}
+                className='bg-gradient-to-r from-purple-500 to-cyan-500'
+                onClick={() => {
+                  window.location.href = '/admin';
+                }}
+              >
+                <Crown className='w-4 h-4' />
+              </CyberButton>
+            </AdminOnly>
+
             <CyberButton
               variant='neon'
               size='sm'
               glow={true}
-              onClick={() => {
-                // Handle user menu
-                console.log('User menu clicked');
-              }}
+              onClick={() => setShowUserMenu(!showUserMenu)}
             >
               <User className='w-5 h-5' />
             </CyberButton>
