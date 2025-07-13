@@ -335,7 +335,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
           <div className='text-center'>
             <div className='text-xs text-gray-400'>Synergy</div>
             <div className='text-sm font-semibold text-blue-400'>
-              {(bet.synergy_rating * 100).toFixed(0)}%
+              {((bet.synergy_rating || 0.5) * 100).toFixed(0)}%
             </div>
           </div>
           <div className='text-center'>
