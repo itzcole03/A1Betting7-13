@@ -562,8 +562,14 @@ async def get_prizepicks_props_legacy(
 @router.get("/health")
 async def get_prizepicks_health():
     """Get PrizePicks scraper health and status for frontend monitoring."""
-    from backend.services.comprehensive_prizepicks_service import (
-        comprehensive_prizepicks_service,
-    )
-
-    return comprehensive_prizepicks_service.get_scraper_health()
+    # Return health from enhanced service v2, fallback to other services
+    try:
+        return enhanced_prizepicks_service_v2.get_scraper_health()
+    except Exception:
+        try:
+            return enhanced_prizepicks_service.get_scraper_health()
+        except Exception:
+            from backend.services.comprehensive_prizepicks_service import (
+                comprehensive_prizepicks_service,
+            )
+            return comprehensive_prizepicks_service.get_scraper_health()
