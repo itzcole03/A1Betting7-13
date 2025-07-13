@@ -22,6 +22,21 @@ from dataclasses import dataclass, asdict
 from .comprehensive_prizepicks_service import ComprehensivePrizePicksService
 from .enhanced_prizepicks_service_v2 import enhanced_prizepicks_service_v2
 
+# Import advanced services
+try:
+    from .quantum_optimization_service import quantum_portfolio_manager, OptimizationResult
+    QUANTUM_AVAILABLE = True
+except ImportError:
+    logger.warning("Quantum optimization service not available")
+    QUANTUM_AVAILABLE = False
+
+try:
+    from .advanced_ml_service import advanced_ml_ensemble, PredictionResult
+    ADVANCED_ML_AVAILABLE = True
+except ImportError:
+    logger.warning("Advanced ML service not available")
+    ADVANCED_ML_AVAILABLE = False
+
 logger = logging.getLogger(__name__)
 
 
