@@ -10,6 +10,7 @@ import {
   Eye,
   Settings,
   BarChart3,
+  Minus,
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import PropOllamaChatBox from '../shared/PropOllamaChatBox';
@@ -50,7 +51,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
   const [activeView, setActiveView] = useState<'bets' | 'portfolio' | 'insights' | 'stacking'>(
     'bets'
   );
-  const [cardsToShow, setCardsToShow] = useState<number>(6); // Default to showing 6 cards
+  const [cardsToShow, setCardsToShow] = useState<number>(9); // Default to showing 9 cards in 3x3 grid
 
   // Helper to validate and fix prediction data
   const validatePrediction = (bet: any): EnhancedPrediction => {
@@ -518,7 +519,8 @@ const EnhancedLockedBetsPage: React.FC = () => {
                 <div className='space-y-6'>
                   {enhancedPredictions.length > 0 ? (
                     <>
-                      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+                      {/* Compact 3x3 Grid Layout */}
+                      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                         {enhancedPredictions.slice(0, cardsToShow).map(bet => {
                           const playerProp = convertToPlayerProp(bet);
                           const isSelected = selectedBets.has(bet.id);
@@ -526,37 +528,45 @@ const EnhancedLockedBetsPage: React.FC = () => {
                           return (
                             <div
                               key={bet.id}
-                              className={`relative transition-all duration-300 ${
+                              className={`relative transition-all duration-300 transform ${
                                 isSelected
                                   ? 'ring-2 ring-cyan-400/50 shadow-xl shadow-cyan-500/25 scale-[1.02]'
-                                  : 'hover:scale-[1.01]'
+                                  : 'hover:scale-[1.02] hover:shadow-lg'
                               }`}
                             >
+                              {/* Compact Prop Card */}
                               <EnhancedPropCard
                                 prop={playerProp}
-                                variant={bet.confidence >= 85 ? 'cyber' : 'default'}
+                                variant='compact' // Force compact variant for grid
                                 onSelect={handlePropSelect}
-                                showAnalysis={true}
-                                showStats={true}
-                                className={isSelected ? 'ring-2 ring-cyan-400/30' : ''}
+                                showAnalysis={false} // Hide analysis for compact view
+                                showStats={false} // Hide stats for compact view
+                                className={`h-full min-h-[280px] ${isSelected ? 'ring-2 ring-cyan-400/30' : ''}`}
                               />
 
-                              {/* Enhanced Selection Overlay */}
+                              {/* Compact Selection Indicator */}
                               {isSelected && (
-                                <div className='absolute top-4 right-4 z-10'>
-                                  <div className='bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center space-x-2 animate-pulse'>
+                                <div className='absolute top-2 right-2 z-10'>
+                                  <div className='bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center space-x-1'>
                                     <span>✓</span>
-                                    <span>SELECTED</span>
                                   </div>
                                 </div>
                               )}
 
-                              {/* Enhanced Value Badge for High EV */}
+                              {/* Compact High Value Badge */}
                               {bet.expected_value > 2 && (
-                                <div className='absolute top-4 left-4 z-10'>
-                                  <div className='bg-gradient-to-r from-emerald-500 to-green-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center space-x-1'>
+                                <div className='absolute top-2 left-2 z-10'>
+                                  <div className='bg-gradient-to-r from-emerald-500 to-green-500 text-white px-1.5 py-0.5 rounded-full text-xs font-bold shadow-lg'>
                                     <span>💰</span>
-                                    <span>HIGH EV</span>
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Hot Pick Badge */}
+                              {bet.confidence >= 85 && (
+                                <div className='absolute -top-1 -right-1 z-10'>
+                                  <div className='bg-gradient-to-r from-orange-500 to-red-500 text-white px-1.5 py-0.5 rounded-full text-xs font-bold shadow-lg animate-pulse'>
+                                    🔥
                                   </div>
                                 </div>
                               )}
@@ -565,27 +575,77 @@ const EnhancedLockedBetsPage: React.FC = () => {
                         })}
                       </div>
 
-                      {/* Show More / Show Less Controls */}
-                      {enhancedPredictions.length > 6 && (
-                        <div className='text-center mt-6'>
+                      {/* Enhanced View More / Show Less Controls */}
+                      {enhancedPredictions.length > 9 && (
+                        <div className='text-center mt-8'>
                           {cardsToShow < enhancedPredictions.length ? (
-                            <button
-                              onClick={() =>
-                                setCardsToShow(prev =>
-                                  Math.min(prev + 6, enhancedPredictions.length)
-                                )
-                              }
-                              className='px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-gray-500/25 border border-gray-600/50'
-                            >
-                              Show More ({enhancedPredictions.length - cardsToShow} remaining)
-                            </button>
+                            <div className='space-y-4'>
+                              {/* Progress indicator */}
+                              <div className='w-full max-w-md mx-auto'>
+                                <div className='flex justify-between items-center mb-2'>
+                                  <span className='text-sm text-gray-400'>Showing</span>
+                                  <span className='text-sm font-semibold text-white'>
+                                    {cardsToShow} of {enhancedPredictions.length}
+                                  </span>
+                                </div>
+                                <div className='w-full bg-gray-700 rounded-full h-2'>
+                                  <div
+                                    className='bg-gradient-to-r from-cyan-500 to-blue-500 h-2 rounded-full transition-all duration-500'
+                                    style={{
+                                      width: `${(cardsToShow / enhancedPredictions.length) * 100}%`,
+                                    }}
+                                  />
+                                </div>
+                              </div>
+
+                              {/* View More Button */}
+                              <button
+                                onClick={() =>
+                                  setCardsToShow(prev =>
+                                    Math.min(prev + 9, enhancedPredictions.length)
+                                  )
+                                }
+                                className='group relative px-8 py-4 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 hover:from-gray-700 hover:via-gray-600 hover:to-gray-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-gray-500/25 border border-gray-600/50 hover:border-gray-500/70 transform hover:scale-105'
+                              >
+                                <div className='flex items-center space-x-3'>
+                                  <Eye className='w-5 h-5 text-cyan-400 transition-colors group-hover:text-cyan-300' />
+                                  <span>View More Props</span>
+                                  <div className='bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded-full text-sm font-bold'>
+                                    +{Math.min(9, enhancedPredictions.length - cardsToShow)}
+                                  </div>
+                                </div>
+
+                                {/* Hover effect */}
+                                <div className='absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+                              </button>
+
+                              {/* Show remaining count */}
+                              <p className='text-sm text-gray-400'>
+                                {enhancedPredictions.length - cardsToShow} more high-value props
+                                available
+                              </p>
+                            </div>
                           ) : (
-                            <button
-                              onClick={() => setCardsToShow(6)}
-                              className='px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-cyan-500/25'
-                            >
-                              Show Less
-                            </button>
+                            <div className='space-y-4'>
+                              {/* Show Less Button */}
+                              <button
+                                onClick={() => setCardsToShow(9)}
+                                className='group relative px-8 py-4 bg-gradient-to-r from-cyan-600 via-blue-600 to-cyan-600 hover:from-cyan-700 hover:via-blue-700 hover:to-cyan-700 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-cyan-500/25 transform hover:scale-105'
+                              >
+                                <div className='flex items-center space-x-3'>
+                                  <Minus className='w-5 h-5 transition-transform group-hover:scale-110' />
+                                  <span>Show Less</span>
+                                  <span className='text-sm opacity-80'>(Back to Top 9)</span>
+                                </div>
+
+                                {/* Hover effect */}
+                                <div className='absolute inset-0 rounded-xl bg-gradient-to-r from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+                              </button>
+
+                              <p className='text-sm text-gray-400'>
+                                Showing all {enhancedPredictions.length} available props
+                              </p>
+                            </div>
                           )}
                         </div>
                       )}
