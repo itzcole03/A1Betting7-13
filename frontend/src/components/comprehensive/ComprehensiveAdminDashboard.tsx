@@ -1257,6 +1257,18 @@ const ComprehensiveAdminDashboard: React.FC<ComprehensiveAdminDashboardProps> = 
             <span className='toggle-line'></span>
           </button>
 
+          {/* User Mode Toggle Button */}
+          {onToggleUserMode && (
+            <button
+              className='user-mode-toggle'
+              onClick={onToggleUserMode}
+              title='Switch to User-Friendly Interface'
+            >
+              <span>👤</span>
+              <span>User Mode</span>
+            </button>
+          )}
+
           {/* Breadcrumb Navigation */}
           <div className='breadcrumb-nav'>
             <span id='currentLocation'>
