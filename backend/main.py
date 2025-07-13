@@ -23,6 +23,7 @@ from backend.middleware.caching import TTLCache, retry_and_cache
 from backend.middleware.rate_limit import RateLimitMiddleware
 from backend.middleware.request_tracking import track_requests
 from backend.routes.analytics import router as analytics_router
+from backend.routes.analytics_api import router as analytics_api_router
 from backend.routes.auth import router as auth_router
 from backend.routes.betting import router as betting_router
 from backend.routes.health import router as health_router
