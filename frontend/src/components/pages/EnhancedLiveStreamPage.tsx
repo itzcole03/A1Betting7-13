@@ -568,12 +568,15 @@ const EnhancedLiveStreamPage: React.FC = () => {
                   sandbox='allow-scripts allow-same-origin allow-presentation allow-forms'
                   onLoad={() => {
                     setIsLoading(false);
+                    setStreamBlocked(false);
                     console.log('Stream loaded successfully');
+                    toast.success('Stream connected successfully!');
                   }}
                   onError={e => {
                     setIsLoading(false);
+                    setStreamBlocked(true);
                     console.error('Stream failed to load:', e);
-                    toast.error('Stream failed to load - try opening in new tab');
+                    toast.error('Stream blocked or unavailable');
                   }}
                 />
               </div>
