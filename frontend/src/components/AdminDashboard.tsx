@@ -72,8 +72,8 @@ const AdminDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className='flex items-center space-x-4'>
-            <div className='text-right'>
+          <div className='flex items-center space-x-2 sm:space-x-4 flex-shrink-0'>
+            <div className='text-right hidden sm:block'>
               <p className='text-sm text-gray-300'>{user?.email || 'Admin User'}</p>
               <p className='text-xs text-purple-400'>Administrator</p>
             </div>
