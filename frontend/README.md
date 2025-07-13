@@ -220,6 +220,40 @@ frontend/src/
 
 **Integrated Features**: 8+ unique features from portfolio management systems
 
+### 6. Admin Mode Dashboard (Verified Administrators Only)
+
+**Location**: `frontend/src/components/AdminDashboard.tsx` + `frontend/public/admin-dashboard.html`
+
+#### Hidden Access Control
+
+- **Role-Based Authentication** - Enhanced AuthContext with admin role detection
+- **Hidden UI Elements** - Admin features only visible to verified administrators
+- **Secure Routing** - Protected admin routes with authentication checks
+- **Access Denied Messaging** - Clear feedback for unauthorized access attempts
+
+#### Comprehensive Admin Dashboard
+
+- **Real-Time System Monitoring** - Live platform metrics and performance tracking
+- **Advanced Analytics Hub** - Deep-dive system analytics with visual dashboards
+- **User Management Interface** - Administrative controls for user accounts and permissions
+- **System Configuration** - Advanced platform settings and customization options
+
+#### Cyber-Themed Interface
+
+- **Glassmorphism Design** - Modern glass effects with backdrop blur
+- **Cyber Color Palette** - Custom theme with cyber-primary (#06ffa5) accent colors
+- **Real-Time Updates** - Live data refresh with animated indicators
+- **Responsive Layout** - Mobile-optimized admin interface
+
+#### Advanced Admin Tools
+
+- **Arbitrage Scanner Control** - Administrative oversight of scanning operations
+- **Risk Engine Management** - System-wide risk parameter configuration
+- **Performance Optimization** - Platform performance tuning and monitoring
+- **Audit Trail System** - Comprehensive logging of all admin actions
+
+**Integrated Features**: 15+ unique admin features with enterprise-grade security
+
 ## 🔧 Development Setup
 
 ### Prerequisites
