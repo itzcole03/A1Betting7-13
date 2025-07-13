@@ -3,7 +3,10 @@ import { ErrorBoundary } from './components/core/ErrorBoundary';
 import { LoadingSpinner } from './components/shared/ui/LoadingSpinner';
 import { Toaster } from './components/common/notifications/Toaster';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { Crown, Settings, User } from 'lucide-react';
+import { Crown, Settings, User, ToggleLeft, ToggleRight } from 'lucide-react';
+
+// Import the full admin App component
+const FullAdminApp = React.lazy(() => import('./App'));
 
 // Import the three main pages with fallbacks
 const LockedBetsPage = React.lazy(() =>
