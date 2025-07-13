@@ -5,8 +5,10 @@ import { Toaster } from './components/common/notifications/Toaster';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Crown, Settings, User, ToggleLeft, ToggleRight } from 'lucide-react';
 
-// Import the full admin App component
-const FullAdminApp = React.lazy(() => import('./App'));
+// Import the full admin App content (without AuthProvider wrapper)
+const FullAdminApp = React.lazy(() =>
+  import('./App').then(module => ({ default: module.AppContent }))
+);
 
 // Import the three main pages with fallbacks
 const LockedBetsPage = React.lazy(() =>
