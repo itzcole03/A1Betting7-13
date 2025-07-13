@@ -218,7 +218,12 @@ const AppStreamlinedContent: React.FC = () => {
   return (
     <ErrorBoundary>
       <div className='min-h-screen bg-gray-900 text-white'>
-        <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        <Navigation
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          showAdminMode={showAdminMode}
+          setShowAdminMode={setShowAdminMode}
+        />
 
         <main className='min-h-screen'>
           <ErrorBoundary>
