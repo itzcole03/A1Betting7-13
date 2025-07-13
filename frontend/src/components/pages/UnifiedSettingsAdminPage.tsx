@@ -584,3 +584,5 @@ function UnifiedSettingsAdminPage() {
     </div>
   );
 }
+
+export default UnifiedSettingsAdminPage;
