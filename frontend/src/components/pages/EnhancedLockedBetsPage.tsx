@@ -87,7 +87,10 @@ const EnhancedLockedBetsPage: React.FC = () => {
         max_results: 50,
       });
 
-      setEnhancedPredictions(response.enhanced_bets || response.predictions || []);
+      const predictions = (response.enhanced_bets || response.predictions || []).map(
+        validatePrediction
+      );
+      setEnhancedPredictions(predictions);
       setPortfolioMetrics(response.portfolio_metrics);
       setAiInsights(response.ai_insights || []);
 
