@@ -135,6 +135,10 @@ from backend.database_health_checker import database_health_checker
 
 # Add PrizePicks service import
 try:
+    from backend.services.enhanced_prizepicks_service import (
+        enhanced_prizepicks_service,
+        start_enhanced_prizepicks_service,
+    )
     from services.comprehensive_prizepicks_service import (
         comprehensive_prizepicks_service,
         start_prizepicks_service,
