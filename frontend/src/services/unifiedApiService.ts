@@ -167,7 +167,8 @@ class UnifiedApiService {
 
     return {
       success: true,
-      predictions: mockPredictions,
+      enhanced_bets: mockPredictions,
+      predictions: mockPredictions, // Keep both for compatibility
       total_predictions: mockPredictions.length,
       portfolio_metrics: {
         total_expected_value: 0.222,
