@@ -184,6 +184,7 @@ class UnifiedApiService {
           confidence_risk: 0.18,
           volatility_risk: 0.22,
           market_risk: 0.19,
+          risk_level: 'medium',
         },
       },
     ];
