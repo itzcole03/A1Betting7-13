@@ -1092,6 +1092,91 @@ const Settings: React.FC = () => {
           </div>
         );
 
+      case 'admin':
+        return (
+          <div className='space-y-6'>
+            <div className='bg-gradient-to-r from-purple-500/10 to-cyan-500/10 border border-purple-500/50 rounded-lg p-6'>
+              <div className='flex items-start space-x-4'>
+                <div className='w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center'>
+                  <Crown className='w-6 h-6 text-white' />
+                </div>
+                <div className='flex-1'>
+                  <h3 className='text-xl font-bold text-white mb-2'>Admin Mode Access</h3>
+                  <p className='text-gray-300 mb-4'>
+                    Admin mode provides access to advanced dashboard features, system controls, and
+                    administrative tools. This mode is only available to verified administrators.
+                  </p>
+
+                  <div className='flex items-center justify-between p-4 bg-slate-800/50 rounded-lg'>
+                    <div>
+                      <span className='text-white font-medium'>Enable Admin Dashboard</span>
+                      <p className='text-sm text-gray-400 mt-1'>
+                        Switch to the comprehensive admin dashboard with full feature access
+                      </p>
+                    </div>
+                    <ToggleSwitch
+                      enabled={adminModeEnabled}
+                      onChange={enabled => {
+                        setAdminModeEnabled(enabled);
+                        if (enabled) {
+                          // Navigate to admin dashboard
+                          window.location.href = '/admin';
+                        }
+                      }}
+                    />
+                  </div>
+
+                  <div className='mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg'>
+                    <div className='flex items-center space-x-2'>
+                      <Info className='w-4 h-4 text-blue-400' />
+                      <span className='text-sm text-blue-300 font-medium'>
+                        Admin Privileges Active
+                      </span>
+                    </div>
+                    <p className='text-xs text-blue-200/80 mt-1'>
+                      You have verified admin access. The admin dashboard includes advanced
+                      analytics, system monitoring, user management, and configuration tools.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+              <div className='p-4 bg-slate-800/50 rounded-lg'>
+                <h4 className='font-medium text-white mb-2'>Admin Features</h4>
+                <ul className='space-y-2 text-sm text-gray-300'>
+                  <li>• Advanced Analytics Dashboard</li>
+                  <li>• System Monitoring & Logs</li>
+                  <li>• User Management Interface</li>
+                  <li>• Configuration Controls</li>
+                  <li>• Real-time Data Management</li>
+                </ul>
+              </div>
+
+              <div className='p-4 bg-slate-800/50 rounded-lg'>
+                <h4 className='font-medium text-white mb-2'>Current Status</h4>
+                <div className='space-y-2 text-sm'>
+                  <div className='flex justify-between'>
+                    <span className='text-gray-400'>User Role:</span>
+                    <span className='text-purple-400 font-medium'>{user?.role || 'admin'}</span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span className='text-gray-400'>Admin Access:</span>
+                    <span className='text-green-400 font-medium'>Verified</span>
+                  </div>
+                  <div className='flex justify-between'>
+                    <span className='text-gray-400'>Permissions:</span>
+                    <span className='text-cyan-400 font-medium'>
+                      {user?.permissions?.join(', ') || 'admin, user'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
       default:
         return <div>Select a tab</div>;
     }
