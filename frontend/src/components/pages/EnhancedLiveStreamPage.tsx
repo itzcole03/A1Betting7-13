@@ -263,7 +263,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
     }
   };
 
-  const getPaceColor = (pace: string) => {
+  const getPaceColor = (pace: string | undefined) => {
     switch (pace) {
       case 'ON_PACE':
         return 'text-green-400';
