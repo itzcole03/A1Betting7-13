@@ -257,7 +257,9 @@ I'm currently offline, but here's some general advice:`;
       </div>
 
       {/* Chat Messages */}
-      <div className={`${isExpanded ? 'h-96' : 'h-64'} overflow-y-auto p-4 space-y-4`}>
+      <div
+        className={`${isExpanded ? 'h-96' : 'h-64'} overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-transparent to-gray-900/20`}
+      >
         {messages.map(message => (
           <div
             key={message.id}
