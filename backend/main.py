@@ -370,23 +370,31 @@ async def background_initialization():
             except Exception as e:
                 logger.error(f"❌ Database initialization failed: {e}")
 
-        # Initialize global PrizePicks service with existing data
-        logger.info("🏀 Initializing global PrizePicks service...")
+                # Initialize enhanced PrizePicks service
+        logger.info("🏀 Initializing enhanced PrizePicks service...")
+        try:
+            await enhanced_prizepicks_service.initialize()
+            logger.info("✅ Enhanced PrizePicks service initialized")
+        except Exception as e:
+            logger.error(f"[DIAGNOSTIC] Enhanced PrizePicks service initialization failed: {e}")
+
+        # Initialize global PrizePicks service with existing data (fallback)
+        logger.info("🏀 Initializing global PrizePicks service (fallback)...")
         try:
             await comprehensive_prizepicks_service.initialize()
         except Exception as e:
             logger.error(f"[DIAGNOSTIC] PrizePicks service initialization failed: {e}")
 
-        # Start PrizePicks real-time data ingestion and log task status
-        logger.info("🏀 Starting PrizePicks real-time data service...")
+        # Start enhanced PrizePicks real-time data ingestion
+        logger.info("🏀 Starting enhanced PrizePicks real-time data service...")
         try:
-            task = asyncio.create_task(start_prizepicks_service())
+            task = asyncio.create_task(start_enhanced_prizepicks_service())
             logger.info(
-                f"[DIAGNOSTIC] PrizePicks real-time ingestion task started: {task}"
+                f"[DIAGNOSTIC] Enhanced PrizePicks real-time ingestion task started: {task}"
             )
         except Exception as e:
             logger.error(
-                f"[DIAGNOSTIC] Failed to start PrizePicks real-time ingestion: {e}"
+                f"[DIAGNOSTIC] Failed to start enhanced PrizePicks real-time ingestion: {e}"
             )
 
         # Ensure database tables exist
