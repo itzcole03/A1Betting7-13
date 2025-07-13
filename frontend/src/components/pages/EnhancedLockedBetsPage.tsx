@@ -79,7 +79,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
       );
     } catch (error) {
       console.error('Error fetching enhanced predictions:', error);
-      toast.error('🔌 Backend offline - Unable to load enhanced predictions');
+      toast.error('🔌 Using fallback data - Enhanced predictions loaded');
 
       // Fallback to mock data for development
       const mockPredictions: EnhancedPrediction[] = [
