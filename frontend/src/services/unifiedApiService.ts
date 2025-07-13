@@ -21,7 +21,18 @@ class UnifiedApiService {
   private timeout: number;
 
   constructor() {
-    this.baseUrl = 'http://localhost:8000/api/unified';
+    // Determine base URL based on environment
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname;
+      if (hostname === 'localhost' || hostname === '127.0.0.1') {
+        this.baseUrl = 'http://localhost:8000/api/unified';
+      } else {
+        // Use the current origin for production
+        this.baseUrl = `${window.location.origin}/api/unified`;
+      }
+    } else {
+      this.baseUrl = 'http://localhost:8000/api/unified';
+    }
     this.timeout = 10000; // 10 seconds
   }
 
