@@ -271,7 +271,10 @@ const EnhancedLockedBetsPage: React.FC = () => {
           <div className='text-center'>
             <div className='text-sm text-gray-400'>Risk Level</div>
             <div className={`text-lg font-semibold ${riskColor}`}>
-              {bet.risk_assessment.risk_level.toUpperCase()}
+              {(
+                bet.risk_assessment?.risk_level ||
+                (overallRisk <= 0.3 ? 'low' : overallRisk <= 0.6 ? 'medium' : 'high')
+              ).toUpperCase()}
             </div>
           </div>
           <div className='text-center'>
