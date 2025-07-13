@@ -60,8 +60,17 @@ const PropOllamaUnified: React.FC<PropOllamaUnifiedProps> = ({
     let isMounted = true;
     const fetchHealth = async () => {
       try {
-        const backendUrl = await backendDiscovery.getBackendUrl();
-        const response = await fetch(`${backendUrl}/api/prizepicks/health`);
+        const backendUrl = (await Promise.race([
+          backendDiscovery.getBackendUrl(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Discovery timeout')), 3000)
+          ),
+        ])) as string;
+
+        const response = await fetch(`${backendUrl}/api/prizepicks/health`, {
+          signal: AbortSignal.timeout(3000), // 3 second timeout
+        });
+
         if (response.ok) {
           const data = await response.json();
           if (isMounted) setScraperHealth(data);
@@ -70,8 +79,10 @@ const PropOllamaUnified: React.FC<PropOllamaUnifiedProps> = ({
             setScraperHealth({ is_healthy: false, last_error: 'Failed to fetch health' });
         }
       } catch (e) {
-        if (isMounted)
-          setScraperHealth({ is_healthy: false, last_error: 'Could not connect to backend' });
+        if (isMounted) {
+          console.log('Health check failed (expected in demo mode):', e);
+          setScraperHealth({ is_healthy: false, last_error: 'Demo mode - backend unavailable' });
+        }
       }
     };
     fetchHealth();
