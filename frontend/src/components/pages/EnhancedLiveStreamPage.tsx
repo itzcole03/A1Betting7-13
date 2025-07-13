@@ -43,6 +43,8 @@ const EnhancedLiveStreamPage: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
   const [showUrlEditor, setShowUrlEditor] = useState(false);
   const [tempUrl, setTempUrl] = useState('');
+  const [streamBlocked, setStreamBlocked] = useState(false);
+  const [loadAttempts, setLoadAttempts] = useState(0);
 
   // Enhanced features
   const [liveGames, setLiveGames] = useState<LiveGame[]>([]);
