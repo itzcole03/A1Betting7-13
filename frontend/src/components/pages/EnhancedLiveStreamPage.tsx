@@ -485,27 +485,43 @@ const EnhancedLiveStreamPage: React.FC = () => {
               )}
 
               {/* Error State */}
-              {!isLoading && (
+              {(streamBlocked || loadAttempts > 2) && !isLoading && (
                 <div className='absolute bottom-4 left-4 right-4 z-25'>
-                  <div className='bg-red-900/80 backdrop-blur-sm border border-red-500/50 rounded-lg p-3 text-center'>
-                    <div className='text-red-300 text-sm mb-2'>⚠️ Stream Loading Issue</div>
-                    <div className='text-gray-300 text-xs mb-3'>
-                      Some streaming sites block iframe embedding. Try opening in a new tab or
-                      changing the URL.
+                  <div className='bg-red-900/80 backdrop-blur-sm border border-red-500/50 rounded-lg p-4'>
+                    <div className='text-red-300 text-sm mb-2 text-center'>
+                      ⚠️ Stream Blocked or Unavailable
                     </div>
-                    <div className='flex space-x-2 justify-center'>
-                      <button
-                        onClick={handleReload}
-                        className='px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded transition-colors'
-                      >
-                        Retry
-                      </button>
+                    <div className='text-gray-300 text-xs mb-3 text-center'>
+                      Many streaming sites block iframe embedding for security.
+                    </div>
+
+                    <div className='grid grid-cols-1 gap-2 mb-3'>
                       <button
                         onClick={openInNewTab}
-                        className='px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white text-xs rounded transition-colors'
+                        className='w-full px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm rounded transition-colors flex items-center justify-center gap-2'
                       >
-                        Open in New Tab
+                        <ExternalLink className='h-4 w-4' />
+                        Open in New Tab (Recommended)
                       </button>
+
+                      <div className='grid grid-cols-2 gap-2'>
+                        <button
+                          onClick={openUrlEditor}
+                          className='px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors'
+                        >
+                          Try Different URL
+                        </button>
+                        <button
+                          onClick={handleReload}
+                          className='px-3 py-2 bg-gray-600 hover:bg-gray-700 text-white text-xs rounded transition-colors'
+                        >
+                          Retry ({loadAttempts}/3)
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className='text-gray-400 text-xs text-center'>
+                      💡 Tip: For best streaming experience, open in a dedicated browser tab
                     </div>
                   </div>
                 </div>
