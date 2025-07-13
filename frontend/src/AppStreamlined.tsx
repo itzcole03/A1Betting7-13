@@ -47,6 +47,9 @@ const Navigation = ({
   currentPage: string;
   setCurrentPage: (page: string) => void;
 }) => {
+  const { user, isAuthenticated } = useAuth();
+  const isAdmin = user?.role === 'admin' || user?.permissions?.includes('admin');
+
   return (
     <nav className='bg-gray-900 border-b border-cyan-500/30 p-4'>
       <div className='max-w-7xl mx-auto flex items-center justify-between'>
@@ -56,41 +59,67 @@ const Navigation = ({
           <div className='px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-medium'>
             ✅ Validated
           </div>
+          {isAdmin && (
+            <div className='flex items-center space-x-1 px-2 py-1 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 text-purple-400 rounded-full text-xs font-medium'>
+              <Crown className='w-3 h-3' />
+              <span>Admin</span>
+            </div>
+          )}
         </div>
 
-        <div className='flex space-x-4'>
-          <button
-            onClick={() => setCurrentPage('locked-bets')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              currentPage === 'locked-bets'
-                ? 'bg-cyan-600 text-white'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-            }`}
-          >
-            🎯 Locked Bets
-          </button>
+        <div className='flex items-center space-x-4'>
+          <div className='flex space-x-4'>
+            <button
+              onClick={() => setCurrentPage('locked-bets')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                currentPage === 'locked-bets'
+                  ? 'bg-cyan-600 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              🎯 Locked Bets
+            </button>
 
-          <button
-            onClick={() => setCurrentPage('live-stream')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              currentPage === 'live-stream'
-                ? 'bg-cyan-600 text-white'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-            }`}
-          >
-            📺 Live Stream
-          </button>
+            <button
+              onClick={() => setCurrentPage('live-stream')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                currentPage === 'live-stream'
+                  ? 'bg-cyan-600 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              📺 Live Stream
+            </button>
 
-          <button
-            onClick={() => setCurrentPage('settings')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              currentPage === 'settings'
-                ? 'bg-cyan-600 text-white'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-            }`}
-          >
-            ⚙️ Settings
-          </button>
+            <button
+              onClick={() => setCurrentPage('settings')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                currentPage === 'settings'
+                  ? 'bg-cyan-600 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              {isAdmin ? (
+                <>
+                  <Settings className='w-4 h-4 inline mr-1' />
+                  Admin Panel
+                </>
+              ) : (
+                '⚙️ Settings'
+              )}
+            </button>
+          </div>
+
+          {isAuthenticated && (
+            <div className='flex items-center space-x-2 ml-4 px-3 py-2 bg-gray-800 rounded-lg'>
+              <div className='w-6 h-6 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center'>
+                <span className='text-white text-xs font-bold'>
+                  {user?.email?.charAt(0).toUpperCase() || 'U'}
+                </span>
+              </div>
+              <span className='text-gray-300 text-sm'>{user?.email?.split('@')[0] || 'User'}</span>
+            </div>
+          )}
         </div>
       </div>
     </nav>
