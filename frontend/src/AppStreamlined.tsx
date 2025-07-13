@@ -127,26 +127,38 @@ const Navigation = ({
               {isAdmin && (
                 <button
                   onClick={() => setShowAdminMode(!showAdminMode)}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg font-medium transition-all ${
+                  className={`group relative flex items-center space-x-2 px-4 py-2.5 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 ${
                     showAdminMode
-                      ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-lg'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                      ? 'bg-gradient-to-r from-purple-500/20 to-cyan-500/20 text-cyan-300 shadow-lg shadow-cyan-500/25 border border-cyan-500/30 backdrop-blur-sm'
+                      : 'bg-slate-700/50 text-slate-300 hover:bg-slate-600/60 border border-slate-600/50 backdrop-blur-sm hover:border-slate-500/70'
                   }`}
                   title={showAdminMode ? 'Switch to User Mode' : 'Switch to Admin Mode'}
                 >
-                  {showAdminMode ? (
-                    <>
-                      <Crown className='w-4 h-4' />
-                      <span className='text-sm'>Admin Mode</span>
-                      <ToggleRight className='w-4 h-4' />
-                    </>
-                  ) : (
-                    <>
-                      <User className='w-4 h-4' />
-                      <span className='text-sm'>User Mode</span>
-                      <ToggleLeft className='w-4 h-4' />
-                    </>
+                  {/* Glow effect for admin mode */}
+                  {showAdminMode && (
+                    <div className='absolute inset-0 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 opacity-20 blur-sm group-hover:opacity-30 transition-opacity duration-300' />
                   )}
+
+                  <div className='relative flex items-center space-x-2'>
+                    {showAdminMode ? (
+                      <>
+                        <div className='relative'>
+                          <Crown className='w-4 h-4 text-cyan-400' />
+                          <div className='absolute inset-0 rounded-full bg-cyan-400/20 blur-sm animate-pulse' />
+                        </div>
+                        <span className='text-sm font-semibold bg-gradient-to-r from-purple-300 to-cyan-300 bg-clip-text text-transparent'>
+                          Admin Mode
+                        </span>
+                        <ToggleRight className='w-4 h-4 text-cyan-400 animate-pulse' />
+                      </>
+                    ) : (
+                      <>
+                        <User className='w-4 h-4 text-slate-400 group-hover:text-slate-300 transition-colors' />
+                        <span className='text-sm font-medium'>User Mode</span>
+                        <ToggleLeft className='w-4 h-4 text-slate-400 group-hover:text-slate-300 transition-colors' />
+                      </>
+                    )}
+                  </div>
                 </button>
               )}
 
