@@ -35,6 +35,7 @@ const LockedBetsPage: React.FC = () => {
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [selectedSport, setSelectedSport] = useState<string>('ALL');
   const [minConfidence, setMinConfidence] = useState<number>(70);
+  const [isChatMinimized, setIsChatMinimized] = useState(true);
 
   const fetchLockedBets = async () => {
     try {
