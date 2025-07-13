@@ -779,7 +779,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
                       </div>
 
                       <div className='flex items-center justify-between'>
-                        <div className='text-sm text-gray-400'>{opp.type}</div>
+                        <div className='text-sm text-gray-400'>{opp.type || 'Unknown'}</div>
                         <div className='text-sm text-purple-400 font-medium'>
                           {(opp.confidence || 0).toFixed(1)}% confidence
                         </div>
