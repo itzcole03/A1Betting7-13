@@ -536,10 +536,36 @@ const ComprehensiveAdminDashboard: React.FC<ComprehensiveAdminDashboardProps> = 
       font-size: 1rem;
     }
 
-    .action-btn:hover {
+        .action-btn:hover {
       background: rgba(6, 255, 165, 0.1);
       color: var(--cyber-primary);
       transform: translateY(-2px);
+    }
+
+    .user-mode-toggle {
+      position: fixed;
+      top: 80px;
+      left: 20px;
+      background: linear-gradient(45deg, var(--cyber-purple), var(--cyber-pink));
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 996;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+      font-size: 0.9rem;
+    }
+
+    .user-mode-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
+      background: linear-gradient(45deg, var(--cyber-pink), var(--cyber-orange));
     }
 
     .grid {
