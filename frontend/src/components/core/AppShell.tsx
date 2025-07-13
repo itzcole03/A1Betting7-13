@@ -289,7 +289,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
                 </AdminOnly>
 
                 {/* User Menu */}
-                <div className='relative'>
+                <div className='relative user-menu-container'>
                   <button
                     onClick={() => setShowUserMenu(!showUserMenu)}
                     className='flex items-center space-x-3 ml-2 p-2 rounded-lg hover:bg-slate-700/50 transition-colors'
