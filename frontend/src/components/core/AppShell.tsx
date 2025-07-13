@@ -1,9 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Search, Menu, X, Settings, User, Bell, TrendingUp } from 'lucide-react';
+import {
+  Search,
+  Menu,
+  X,
+  Settings,
+  User,
+  Bell,
+  TrendingUp,
+  Shield,
+  LogOut,
+  Crown,
+} from 'lucide-react';
 import { Navigation } from './Navigation';
 import { cn } from '../../lib/utils';
 import { HolographicText, CyberButton, GlowCard, ParticleField } from '../ui';
+import { useAuth } from '../../contexts/AuthContext';
+import { usePermissions } from '../../hooks/usePermissions';
+import { AdminOnly } from '../auth/PermissionGuard';
 
 interface AppShellProps {
   children: React.ReactNode;
