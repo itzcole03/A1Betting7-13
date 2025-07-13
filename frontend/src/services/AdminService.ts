@@ -37,7 +37,7 @@ class AdminService {
 
   constructor() {
     // In production, this would come from environment variables
-    this.baseUrl = process.env.REACT_APP_ADMIN_API_URL || '/api/admin';
+    this.baseUrl = import.meta.env.VITE_ADMIN_API_URL || '/api/admin';
   }
 
   /**
