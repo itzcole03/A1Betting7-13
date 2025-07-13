@@ -211,13 +211,6 @@ const LockedBetsPageWorking: React.FC = () => {
         key={bet.id}
         className='relative bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 border border-cyan-500/30 rounded-xl p-6 hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-500 hover:-translate-y-1'
       >
-        {/* Premium Indicator */}
-        {bet.ensemble_confidence >= 85 && (
-          <div className='absolute top-4 right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg border border-orange-400/20 z-10 animate-pulse backdrop-blur-sm'>
-            🔥 HOT
-          </div>
-        )}
-
         {/* Header */}
         <div className='flex items-center justify-between mb-4'>
           <div className='flex items-center space-x-3'>
@@ -229,6 +222,12 @@ const LockedBetsPageWorking: React.FC = () => {
           </div>
           <div className='flex items-center space-x-2'>
             <div className='text-sm text-gray-400'>{bet.source}</div>
+            {/* Premium Indicator */}
+            {bet.ensemble_confidence >= 85 && (
+              <div className='bg-gradient-to-r from-orange-500 to-red-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg border border-orange-400/20 animate-pulse backdrop-blur-sm'>
+                🔥 HOT
+              </div>
+            )}
           </div>
         </div>
 
