@@ -411,21 +411,42 @@ const EnhancedLiveStreamPage: React.FC = () => {
               >
                 <h3 className='text-xl font-bold text-white mb-4'>Change Stream URL</h3>
 
+                {/* Preset URLs */}
                 <div className='mb-4'>
-                  <label className='block text-sm font-medium text-gray-300 mb-2'>Stream URL</label>
+                  <label className='block text-sm font-medium text-gray-300 mb-2'>
+                    Quick Options
+                  </label>
+                  <div className='grid grid-cols-2 gap-2'>
+                    {streamPresets.map(preset => (
+                      <button
+                        key={preset.url}
+                        onClick={() => handlePresetUrl(preset.url)}
+                        className='px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded-lg transition-colors text-left'
+                      >
+                        {preset.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Custom URL Input */}
+                <div className='mb-4'>
+                  <label className='block text-sm font-medium text-gray-300 mb-2'>
+                    Custom Stream URL
+                  </label>
                   <input
                     type='url'
                     value={tempUrl}
                     onChange={e => setTempUrl(e.target.value)}
                     className='w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                    placeholder='Enter stream URL...'
+                    placeholder='Enter custom stream URL...'
                     autoFocus
                   />
                 </div>
 
                 <div className='mb-4'>
                   <p className='text-sm text-gray-400'>
-                    Current URL: <span className='text-cyan-400'>{streamUrl}</span>
+                    Current: <span className='text-cyan-400 break-all'>{streamUrl}</span>
                   </p>
                 </div>
 
