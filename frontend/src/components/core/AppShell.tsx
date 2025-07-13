@@ -47,6 +47,18 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (showUserMenu && !(event.target as Element).closest('.user-menu-container')) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showUserMenu]);
+
   // Handle search functionality
   const handleSearch = (query: string) => {
     setSearchQuery(query);
