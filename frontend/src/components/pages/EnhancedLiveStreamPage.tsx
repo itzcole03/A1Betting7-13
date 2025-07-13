@@ -36,11 +36,13 @@ interface LiveGame {
 }
 
 const EnhancedLiveStreamPage: React.FC = () => {
-  const [streamUrl, setStreamUrl] = useState('https://the.streameast.app');
+  const [streamUrl, setStreamUrl] = useState('https://the.streameast.app/v91');
   const [isLoading, setIsLoading] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
+  const [showUrlEditor, setShowUrlEditor] = useState(false);
+  const [tempUrl, setTempUrl] = useState('');
 
   // Enhanced features
   const [liveGames, setLiveGames] = useState<LiveGame[]>([]);
