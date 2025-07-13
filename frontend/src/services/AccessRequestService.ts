@@ -98,7 +98,7 @@ class AccessRequestService {
       console.error('Failed to check existing request:', error);
 
       // For demo purposes, return null (no existing request)
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         return null;
       }
 
@@ -251,7 +251,7 @@ class AccessRequestService {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Simulate sending email notification to admin
-    console.log('🔔 [DEMO] Access Request Notification:', {
+    console.log('�� [DEMO] Access Request Notification:', {
       email: data.email,
       message: data.message,
       timestamp: new Date().toISOString(),
