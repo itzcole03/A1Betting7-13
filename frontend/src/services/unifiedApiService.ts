@@ -33,7 +33,7 @@ class UnifiedApiService {
     } else {
       this.baseUrl = 'http://localhost:8000/api/unified';
     }
-    this.timeout = 10000; // 10 seconds
+    this.timeout = 5000; // 5 seconds
   }
 
   private async fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
