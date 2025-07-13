@@ -16,6 +16,7 @@ import PropOllamaChatBox from '../shared/PropOllamaChatBox';
 import AIInsightsPanel from '../enhanced/AIInsightsPanel';
 import PortfolioOptimizer from '../enhanced/PortfolioOptimizer';
 import SmartStackingPanel from '../enhanced/SmartStackingPanel';
+import { EnhancedPropCard, PlayerProp } from '../ui/EnhancedPropCard';
 import { unifiedApiService } from '../../services/unifiedApiService';
 import {
   EnhancedPrediction,
@@ -216,152 +217,116 @@ const EnhancedLockedBetsPage: React.FC = () => {
     return () => clearInterval(interval);
   }, [selectedSport, minConfidence]);
 
-  const getBetCard = (bet: EnhancedPrediction) => {
-    const confidenceColor =
-      bet.confidence >= 85
-        ? 'text-green-400'
-        : bet.confidence >= 75
-          ? 'text-yellow-400'
-          : 'text-orange-400';
-
-    const overallRisk = bet.risk_assessment?.overall_risk || bet.risk_score || 0.5;
-    const riskColor =
-      overallRisk <= 0.3
-        ? 'text-green-400'
-        : overallRisk <= 0.6
-          ? 'text-yellow-400'
-          : 'text-red-400';
-
+  // Convert EnhancedPrediction to PlayerProp for the modern component
+  const convertToPlayerProp = (bet: EnhancedPrediction): PlayerProp => {
     const isSelected = selectedBets.has(bet.id);
 
-    return (
-      <div
-        key={bet.id}
-        className={`group relative rounded-xl p-4 transition-all duration-300 cursor-pointer backdrop-blur-sm ${
-          isSelected
-            ? 'bg-gradient-to-r from-cyan-500/20 via-blue-500/15 to-purple-500/20 border border-cyan-400/50 shadow-xl shadow-cyan-500/25'
-            : 'bg-gradient-to-r from-gray-800/40 via-gray-800/30 to-gray-900/40 border border-gray-700/30 hover:border-cyan-400/40 hover:shadow-lg hover:shadow-cyan-500/10'
-        }`}
-        onClick={() => {
-          const newSelected = new Set(selectedBets);
-          if (isSelected) {
-            newSelected.delete(bet.id);
-          } else {
-            newSelected.add(bet.id);
-          }
-          setSelectedBets(newSelected);
-          handleBetSelect(bet);
-        }}
-      >
-        {/* Subtle glow effect for high confidence bets */}
-        {bet.confidence >= 85 && (
-          <div className='absolute inset-0 bg-gradient-to-r from-orange-400/5 via-yellow-400/5 to-orange-400/5 rounded-xl animate-pulse' />
-        )}
+    return {
+      id: bet.id,
+      player: {
+        name: bet.player_name || 'Unknown Player',
+        team: bet.team || 'N/A',
+        position: 'N/A', // Not available in EnhancedPrediction
+        headshot: undefined, // Could be added later
+      },
+      game: {
+        opponent: 'TBD', // Could be derived from other data
+        date: new Date().toLocaleDateString(),
+        time: 'TBD',
+        venue: 'TBD',
+      },
+      prop: {
+        type: bet.stat_type || 'Points',
+        line: bet.line_score || 0,
+        overOdds: 100, // Mock odds - could be from actual data
+        underOdds: -120, // Mock odds - could be from actual data
+        recommendation:
+          bet.recommendation?.toLowerCase() === 'over'
+            ? 'over'
+            : bet.recommendation?.toLowerCase() === 'under'
+              ? 'under'
+              : 'none',
+      },
+      analysis: {
+        confidence: bet.confidence || 75,
+        aiPrediction: bet.quantum_confidence || bet.neural_score || bet.confidence || 75,
+        trend: bet.expected_value > 0 ? 'up' : bet.expected_value < 0 ? 'down' : 'neutral',
+        reasoning: `AI analysis shows ${bet.confidence}% confidence based on advanced quantum models and neural networks. Expected value: ${bet.expected_value?.toFixed(2) || 'N/A'}.`,
+        factors: [
+          {
+            name: 'Recent Performance',
+            impact: bet.shap_explanation?.features?.recent_performance || 20,
+            description: 'Player performance in recent games',
+          },
+          {
+            name: 'Matchup Advantage',
+            impact: bet.shap_explanation?.features?.matchup_advantage || 15,
+            description: 'Historical performance vs opponent',
+          },
+          {
+            name: 'AI Neural Score',
+            impact: (bet.neural_score || 75) - 50, // Convert to impact
+            description: 'Advanced neural network prediction',
+          },
+        ],
+      },
+      stats: {
+        season: {
+          average: bet.line_score || 0,
+          games: 82, // Mock season games
+          hitRate: bet.confidence || 75,
+        },
+        recent: {
+          last5: [
+            bet.line_score - 2,
+            bet.line_score + 1,
+            bet.line_score - 1,
+            bet.line_score + 3,
+            bet.line_score,
+          ].filter(x => x != null), // Mock recent games
+          average: bet.line_score || 0,
+          hitRate: bet.confidence || 75,
+        },
+        vsOpponent: {
+          average: bet.line_score || 0,
+          games: 10, // Mock games vs opponent
+          hitRate: bet.confidence || 75,
+        },
+      },
+      value: {
+        expectedValue: bet.expected_value || 0,
+        kellyBet: Math.round((bet.optimal_stake || 0.05) * investmentAmount || 50),
+        roi: (bet.expected_value || 0) * 100,
+      },
+      tags: [
+        bet.confidence >= 85 ? '🔥 Hot Pick' : undefined,
+        bet.risk_assessment?.risk_level === 'low' ? '✅ Low Risk' : undefined,
+        bet.expected_value > 2 ? '💰 High Value' : undefined,
+        isSelected ? '✓ Selected' : undefined,
+      ].filter(Boolean),
+      isLive: Math.random() > 0.7, // Mock live status
+      isPopular: bet.confidence >= 85,
+    };
+  };
 
-        <div className='relative flex items-center justify-between'>
-          {/* Left Section: Player & Bet Info */}
-          <div className='flex-1 min-w-0'>
-            <div className='flex items-center space-x-3 mb-2'>
-              <div className='flex items-center space-x-2'>
-                <div className='font-bold text-white text-lg truncate'>{bet.player_name}</div>
-                <div className='px-2 py-0.5 bg-gray-700/50 text-gray-300 text-xs rounded-full border border-gray-600/50'>
-                  {bet.team}
-                </div>
-              </div>
-              {bet.confidence >= 85 && (
-                <div className='flex items-center space-x-1 px-2 py-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full font-bold shadow-lg animate-pulse'>
-                  <span>🔥</span>
-                  <span>HOT</span>
-                </div>
-              )}
-            </div>
-            <div className='flex items-center space-x-1'>
-              <div className='flex items-center space-x-3 bg-gray-900/50 rounded-lg px-3 py-2 border border-gray-700/50'>
-                <span className='text-gray-400 text-sm'>{bet.stat_type}</span>
-                <span className='w-px h-4 bg-gray-600'></span>
-                <span className='text-white font-bold'>{bet.line_score}</span>
-                <span className='w-px h-4 bg-gray-600'></span>
-                <span
-                  className={`font-bold text-sm px-2 py-1 rounded ${bet.recommendation === 'OVER' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`}
-                >
-                  {bet.recommendation}
-                </span>
-              </div>
-            </div>
-          </div>
+  const handlePropSelect = (prop: PlayerProp, selection: 'over' | 'under') => {
+    // Toggle selection
+    const newSelected = new Set(selectedBets);
+    if (selectedBets.has(prop.id)) {
+      newSelected.delete(prop.id);
+    } else {
+      newSelected.add(prop.id);
+    }
+    setSelectedBets(newSelected);
 
-          {/* Center Section: Analytics */}
-          <div className='hidden md:flex items-center space-x-3'>
-            <div className='flex items-center space-x-3 bg-gray-900/40 rounded-lg px-3 py-2 border border-gray-700/30'>
-              <div className='text-center px-2'>
-                <div className='text-gray-400 text-xs mb-0.5'>Confidence</div>
-                <div className={`font-bold text-sm ${confidenceColor}`}>
-                  {(bet.confidence || 75).toFixed(0)}%
-                </div>
-              </div>
-              <span className='w-px h-8 bg-gray-600/50'></span>
-              <div className='text-center px-2'>
-                <div className='text-gray-400 text-xs mb-0.5'>AI Score</div>
-                <div className='text-purple-400 font-bold text-sm'>
-                  {(bet.quantum_confidence || 75).toFixed(0)}%
-                </div>
-              </div>
-              <span className='w-px h-8 bg-gray-600/50'></span>
-              <div className='text-center px-2'>
-                <div className='text-gray-400 text-xs mb-0.5'>Risk</div>
-                <div
-                  className={`font-bold text-sm px-2 py-0.5 rounded ${
-                    overallRisk <= 0.3
-                      ? 'bg-green-500/20 text-green-400'
-                      : overallRisk <= 0.6
-                        ? 'bg-yellow-500/20 text-yellow-400'
-                        : 'bg-red-500/20 text-red-400'
-                  }`}
-                >
-                  {bet.risk_assessment?.risk_level ||
-                    (overallRisk <= 0.3 ? 'LOW' : overallRisk <= 0.6 ? 'MED' : 'HIGH')}
-                </div>
-              </div>
-              <span className='w-px h-8 bg-gray-600/50'></span>
-              <div className='text-center px-2'>
-                <div className='text-gray-400 text-xs mb-0.5'>Expected Value</div>
-                <div className='text-cyan-400 font-bold text-sm'>
-                  +{(bet.expected_value || 0).toFixed(2)}
-                </div>
-              </div>
-            </div>
-          </div>
+    // Find and select the corresponding bet
+    const correspondingBet = enhancedPredictions.find(bet => bet.id === prop.id);
+    if (correspondingBet) {
+      handleBetSelect(correspondingBet);
+    }
 
-          {/* Right Section: Stake & Source */}
-          <div className='text-right min-w-0'>
-            <div className='bg-gray-900/40 rounded-lg px-3 py-2 border border-gray-700/30'>
-              <div className='text-xs text-gray-400 mb-0.5'>Optimal Stake</div>
-              <div className='text-lg font-bold text-green-400'>
-                ${((bet.optimal_stake || 0.05) * investmentAmount).toFixed(0)}
-              </div>
-              <div className='text-xs text-gray-400 mt-0.5'>{bet.source}</div>
-            </div>
-          </div>
-
-          {/* Mobile-only confidence display */}
-          <div className='md:hidden text-right ml-3'>
-            <div className='bg-gray-900/40 rounded-lg px-3 py-2 border border-gray-700/30'>
-              <div className='text-xs text-gray-400 mb-0.5'>Conf</div>
-              <div className={`text-lg font-bold ${confidenceColor}`}>
-                {(bet.confidence || 75).toFixed(0)}%
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Selection Indicator */}
-        {isSelected && (
-          <div className='absolute top-3 right-3 bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center space-x-1'>
-            <span>✓</span>
-            <span>SELECTED</span>
-          </div>
-        )}
-      </div>
+    toast.success(
+      `${prop.player.name} ${prop.prop.type} ${selection.toUpperCase()} ${selectedBets.has(prop.id) ? 'removed' : 'added'}`
     );
   };
 
@@ -553,8 +518,51 @@ const EnhancedLockedBetsPage: React.FC = () => {
                 <div className='space-y-6'>
                   {enhancedPredictions.length > 0 ? (
                     <>
-                      <div className='space-y-2'>
-                        {enhancedPredictions.slice(0, cardsToShow).map(getBetCard)}
+                      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+                        {enhancedPredictions.slice(0, cardsToShow).map(bet => {
+                          const playerProp = convertToPlayerProp(bet);
+                          const isSelected = selectedBets.has(bet.id);
+
+                          return (
+                            <div
+                              key={bet.id}
+                              className={`relative transition-all duration-300 ${
+                                isSelected
+                                  ? 'ring-2 ring-cyan-400/50 shadow-xl shadow-cyan-500/25 scale-[1.02]'
+                                  : 'hover:scale-[1.01]'
+                              }`}
+                            >
+                              <EnhancedPropCard
+                                prop={playerProp}
+                                variant={bet.confidence >= 85 ? 'cyber' : 'default'}
+                                onSelect={handlePropSelect}
+                                showAnalysis={true}
+                                showStats={true}
+                                className={isSelected ? 'ring-2 ring-cyan-400/30' : ''}
+                              />
+
+                              {/* Enhanced Selection Overlay */}
+                              {isSelected && (
+                                <div className='absolute top-4 right-4 z-10'>
+                                  <div className='bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center space-x-2 animate-pulse'>
+                                    <span>✓</span>
+                                    <span>SELECTED</span>
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Enhanced Value Badge for High EV */}
+                              {bet.expected_value > 2 && (
+                                <div className='absolute top-4 left-4 z-10'>
+                                  <div className='bg-gradient-to-r from-emerald-500 to-green-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center space-x-1'>
+                                    <span>💰</span>
+                                    <span>HIGH EV</span>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
                       </div>
 
                       {/* Show More / Show Less Controls */}
