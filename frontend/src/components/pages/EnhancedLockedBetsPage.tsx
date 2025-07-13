@@ -424,8 +424,11 @@ const EnhancedLockedBetsPage: React.FC = () => {
               <div className='flex items-center space-x-6'>
                 <div className='flex items-center space-x-2'>
                   <Target className='w-4 h-4 text-cyan-400' />
-                  <span className='text-sm text-gray-400'>Predictions:</span>
-                  <span className='text-sm font-bold text-white'>{enhancedPredictions.length}</span>
+                  <span className='text-sm text-gray-400'>Showing:</span>
+                  <span className='text-sm font-bold text-white'>
+                    {Math.min(cardsToShow, enhancedPredictions.length)} of{' '}
+                    {enhancedPredictions.length}
+                  </span>
                 </div>
                 <div className='flex items-center space-x-2'>
                   <TrendingUp className='w-4 h-4 text-green-400' />
