@@ -162,7 +162,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
         },
       ];
 
-      setEnhancedPredictions(mockPredictions);
+      setEnhancedPredictions(mockPredictions.map(validatePrediction));
     } finally {
       setIsLoading(false);
     }
