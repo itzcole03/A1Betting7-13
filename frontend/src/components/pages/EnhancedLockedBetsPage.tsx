@@ -341,7 +341,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
           <div className='text-center'>
             <div className='text-xs text-gray-400'>Stack Potential</div>
             <div className='text-sm font-semibold text-purple-400'>
-              {(bet.stack_potential * 100).toFixed(0)}%
+              {((bet.stack_potential || 0.5) * 100).toFixed(0)}%
             </div>
           </div>
           <div className='text-center'>
