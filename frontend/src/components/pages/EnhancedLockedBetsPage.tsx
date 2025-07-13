@@ -310,7 +310,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
           <div className='text-center'>
             <div className='text-sm text-gray-400'>Quantum AI</div>
             <div className='text-lg font-semibold text-purple-400'>
-              {bet.quantum_confidence.toFixed(1)}%
+              {(bet.quantum_confidence || 75).toFixed(1)}%
             </div>
           </div>
           <div className='text-center'>
