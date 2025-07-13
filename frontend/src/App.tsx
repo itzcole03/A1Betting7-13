@@ -127,10 +127,30 @@ const ErrorFallback = ({ error }: { error: Error }) => (
   </div>
 );
 
-function App() {
-  const [activeView, setActiveView] = useState('default'); // Use unified PropOllama + best bets as default
+// Main App Content Component
+const AppContent: React.FC = () => {
+  const [activeView, setActiveView] = useState('default');
+  const { isAuthenticated, requiresPasswordChange, changePassword, loading, error } = useAuth();
 
-  console.log('🏠 [DEBUG] App component - activeView:', activeView);
+  console.log(
+    '🏠 [DEBUG] App component - activeView:',
+    activeView,
+    'authenticated:',
+    isAuthenticated
+  );
+
+  // Handle password change
+  const handlePasswordChange = async (
+    currentPassword: string,
+    newPassword: string,
+    confirmPassword: string
+  ) => {
+    await changePassword({
+      currentPassword,
+      newPassword,
+      confirmPassword,
+    });
+  };
 
   const renderComponent = () => {
     const Component = componentMap[activeView];
@@ -152,6 +172,26 @@ function App() {
     );
   };
 
+  // Show auth page if not authenticated
+  if (!isAuthenticated) {
+    return <AuthPage />;
+  }
+
+  // Show password change if required
+  if (requiresPasswordChange) {
+    return (
+      <div className='min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4'>
+        <PasswordChangeForm
+          onPasswordChange={handlePasswordChange}
+          loading={loading}
+          error={error}
+          isFirstLogin={true}
+        />
+      </div>
+    );
+  }
+
+  // Show main app
   return (
     <div className='min-h-screen bg-gray-50'>
       <AppShell activeView={activeView} onNavigate={setActiveView}>
@@ -160,6 +200,14 @@ function App() {
         </div>
       </AppShell>
     </div>
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 
