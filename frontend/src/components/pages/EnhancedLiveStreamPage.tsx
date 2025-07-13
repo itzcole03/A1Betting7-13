@@ -180,6 +180,22 @@ const EnhancedLiveStreamPage: React.FC = () => {
     window.open(streamUrl, '_blank', 'noopener,noreferrer');
   };
 
+  const handleUrlChange = () => {
+    if (tempUrl.trim()) {
+      setStreamUrl(tempUrl.trim());
+      setShowUrlEditor(false);
+      setTempUrl('');
+      setIsLoading(true);
+      setTimeout(() => setIsLoading(false), 2000);
+      toast.success('Stream URL updated!');
+    }
+  };
+
+  const openUrlEditor = () => {
+    setTempUrl(streamUrl);
+    setShowUrlEditor(true);
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'in_progress':
