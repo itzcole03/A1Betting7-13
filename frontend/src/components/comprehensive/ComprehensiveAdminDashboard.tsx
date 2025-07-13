@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 
-const ComprehensiveAdminDashboard: React.FC = () => {
+interface ComprehensiveAdminDashboardProps {
+  onToggleUserMode?: () => void;
+}
+
+const ComprehensiveAdminDashboard: React.FC<ComprehensiveAdminDashboardProps> = ({
+  onToggleUserMode,
+}) => {
   const [currentTab, setCurrentTab] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user } = useAuth();
