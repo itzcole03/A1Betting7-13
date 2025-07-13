@@ -517,7 +517,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
                 <div className='space-y-6'>
                   {enhancedPredictions.length > 0 ? (
                     <>
-                      <div className='grid gap-6 md:grid-cols-1 xl:grid-cols-2'>
+                      <div className='space-y-2'>
                         {enhancedPredictions.slice(0, cardsToShow).map(getBetCard)}
                       </div>
 
