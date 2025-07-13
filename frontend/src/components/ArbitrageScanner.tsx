@@ -262,6 +262,7 @@ export const ArbitrageScanner: React.FC = () => {
               Max Stake ($)
             </label>
             <input
+              id='max-stake-input'
               type='number'
               value={maxStake}
               onChange={e => setMaxStake(parseInt(e.target.value) || 0)}
