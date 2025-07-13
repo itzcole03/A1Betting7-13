@@ -387,6 +387,29 @@ class UnifiedApiService {
   }
 
   /**
+   * Safe JSON parsing that detects HTML responses
+   */
+  private async safeJsonParse(response: Response): Promise<any> {
+    const responseText = await response.text();
+
+    // Check if response is HTML
+    if (
+      responseText.trim().startsWith('<!DOCTYPE') ||
+      responseText.trim().startsWith('<html') ||
+      responseText.includes('<title>')
+    ) {
+      throw new Error('API returned HTML instead of JSON - endpoint not available');
+    }
+
+    try {
+      return JSON.parse(responseText);
+    } catch (error) {
+      console.error('JSON parse error. Response text:', responseText);
+      throw new Error('Invalid JSON response from API');
+    }
+  }
+
+  /**
    * Quick connectivity check that doesn't block the UI
    */
   async checkConnectivity(): Promise<boolean> {
