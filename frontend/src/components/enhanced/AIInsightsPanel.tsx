@@ -247,7 +247,7 @@ const AIInsightsPanel: React.FC<AIInsightsPanelProps> = ({
                 >
                   <div className='p-4 pt-0 space-y-3'>
                     <div className='space-y-2'>
-                      {selectedInsight.neural_patterns.map((pattern, index) => (
+                      {(selectedInsight.neural_patterns || []).map((pattern, index) => (
                         <div
                           key={index}
                           className='flex items-center space-x-3 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg'
