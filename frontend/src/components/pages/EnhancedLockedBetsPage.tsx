@@ -54,6 +54,23 @@ const EnhancedLockedBetsPage: React.FC = () => {
   const validatePrediction = (bet: any): EnhancedPrediction => {
     return {
       ...bet,
+      // Ensure all numeric properties have fallback values
+      expected_value: bet.expected_value ?? 0,
+      confidence: bet.confidence ?? 75,
+      quantum_confidence: bet.quantum_confidence ?? 75,
+      kelly_fraction: bet.kelly_fraction ?? 0.05,
+      synergy_rating: bet.synergy_rating ?? 0.5,
+      stack_potential: bet.stack_potential ?? 0.5,
+      optimal_stake: bet.optimal_stake ?? 0.05,
+      correlation_score: bet.correlation_score ?? 0.3,
+      diversification_value: bet.diversification_value ?? 0.7,
+      neural_score: bet.neural_score ?? 75,
+      injury_risk: bet.injury_risk ?? 0.1,
+      portfolio_impact: bet.portfolio_impact ?? 0.5,
+      variance_contribution: bet.variance_contribution ?? 0.2,
+      line_score: bet.line_score ?? 0,
+      risk_score: bet.risk_score ?? 0.5,
+
       risk_assessment: bet.risk_assessment || {
         overall_risk: bet.risk_score || 0.5,
         confidence_risk: 0.2,
