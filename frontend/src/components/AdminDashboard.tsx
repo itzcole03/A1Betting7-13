@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { ArrowLeft, Shield, AlertTriangle } from 'lucide-react';
+import { AdminRoute } from './auth/RouteGuard';
 
 const AdminDashboard: React.FC = React.memo(() => {
   const { user, isAdmin, checkAdminStatus } = useAuth();
