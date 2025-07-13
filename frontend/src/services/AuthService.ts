@@ -183,7 +183,7 @@ class AuthService {
       console.error('Password change failed:', error);
 
       // For demo purposes, simulate password change
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         return this.simulatePasswordChange(data);
       }
 
