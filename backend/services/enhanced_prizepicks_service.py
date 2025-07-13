@@ -374,6 +374,61 @@ class EnhancedPrizePicksService:
                 "last_update": datetime.now(timezone.utc).isoformat()
             }
     
+        async def _enhance_props_with_ml(self, props: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Enhance props with ML ensemble predictions"""
+        try:
+            if not ML_ENSEMBLE_AVAILABLE:
+                return props
+
+            enhanced_props = []
+
+            for prop in props:
+                try:
+                    # Get ML prediction for this prop
+                    ml_prediction = await get_enhanced_prediction(
+                        player_name=prop.get("player_name", "Unknown"),
+                        prop_type=prop.get("stat_type", "points"),
+                        sport=prop.get("sport", "NBA"),
+                        line_score=float(prop.get("line_score", 0))
+                    )
+
+                    # Update prop with ML predictions
+                    enhanced_prop = prop.copy()
+                    enhanced_prop.update({
+                        "confidence": ml_prediction.ensemble_confidence * 100,
+                        "expected_value": ml_prediction.expected_value,
+                        "kelly_fraction": ml_prediction.kelly_fraction,
+                        "recommendation": ml_prediction.recommendation,
+                        "ensemble_prediction": ml_prediction.predicted_value,
+                        "ensemble_confidence": ml_prediction.ensemble_confidence * 100,
+                        "win_probability": ml_prediction.win_probability,
+                        "risk_score": ml_prediction.risk_score,
+                        "source_engines": list(ml_prediction.model_consensus.keys()),
+                        "engine_weights": ml_prediction.model_consensus,
+                        "ai_explanation": {
+                            "explanation": ml_prediction.reasoning,
+                            "generated_at": datetime.now(timezone.utc).isoformat(),
+                            "confidence_breakdown": ml_prediction.feature_importance,
+                            "key_factors": ["ML ensemble analysis", "Multi-model consensus", "Feature importance"],
+                            "risk_level": "low" if ml_prediction.risk_score < 30 else "medium" if ml_prediction.risk_score < 60 else "high",
+                        },
+                        "value_rating": ml_prediction.expected_value * 10,
+                        "kelly_percentage": ml_prediction.kelly_fraction * 100,
+                    })
+
+                    enhanced_props.append(enhanced_prop)
+
+                except Exception as e:
+                    logger.debug(f"Failed to enhance prop {prop.get('id', 'unknown')}: {e}")
+                    enhanced_props.append(prop)  # Add original prop if enhancement fails
+
+            logger.info(f"🤖 Enhanced {len(enhanced_props)} props with ML predictions")
+            return enhanced_props
+
+        except Exception as e:
+            logger.error(f"❌ Error enhancing props with ML: {e}")
+            return props  # Return original props if enhancement fails
+
     async def close(self):
         """Clean up resources"""
         if self.client:
