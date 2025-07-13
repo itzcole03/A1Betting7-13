@@ -705,7 +705,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
                       </div>
 
                       <div className='text-sm text-gray-400 mb-2'>
-                        {bet.stat_type} • Line: {bet.line_score}
+                        {bet.stat_type || 'Unknown'} • Line: {bet.line_score || 0}
                       </div>
 
                       <div className='flex items-center justify-between'>
