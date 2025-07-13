@@ -1,23 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {
-  RefreshCw,
-  TrendingUp,
-  Target,
-  Zap,
-  DollarSign,
-  MessageCircle,
-  Filter,
-  ChevronDown,
-  Star,
-  Award,
-  Clock,
-  Activity,
-  BarChart3,
-  Trophy,
-  Sparkles,
-  Brain,
-  Shield,
-  AlertTriangle,
+import { 
+  RefreshCw, TrendingUp, Target, Zap, DollarSign, MessageCircle, 
+  Filter, ChevronDown, Star, Award, Clock, Activity, BarChart3,
+  Trophy, Sparkles, Brain, Shield, AlertTriangle 
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import PropOllamaChatBox from '../shared/PropOllamaChatBox';
@@ -97,15 +82,12 @@ const LockedBetsPageEnhanced: React.FC = () => {
       toast.success(`🎯 Loaded ${sortedBets.length} locked bets with ML predictions`);
     } catch (error) {
       console.error('Error fetching locked bets:', error);
-
+      
       // If backend is unavailable, show mock data
-      if (
-        error instanceof Error &&
-        (error.name === 'AbortError' || error.message.includes('fetch'))
-      ) {
+      if (error instanceof Error && (error.name === 'AbortError' || error.message.includes('fetch'))) {
         console.log('Backend unavailable, using mock data...');
         toast.error('🔌 Backend offline - Using demo data');
-
+        
         // Enhanced mock data with more variety
         const mockBets: LockedBet[] = [
           {
@@ -126,18 +108,12 @@ const LockedBetsPageEnhanced: React.FC = () => {
             opponent: 'LAL',
             venue: 'American Airlines Center',
             ai_explanation: {
-              explanation:
-                'Exceptional scoring form vs Lakers defense. High pace game expected with over/under at 238.5. Dončić averages 32.1 PPG in last 10 games.',
-              key_factors: [
-                'Recent scoring surge',
-                'Pace advantage',
-                'Defensive matchup',
-                'Rest advantage',
-              ],
-              risk_level: 'Low',
+              explanation: 'Exceptional scoring form vs Lakers defense. High pace game expected with over/under at 238.5. Dončić averages 32.1 PPG in last 10 games.',
+              key_factors: ['Recent scoring surge', 'Pace advantage', 'Defensive matchup', 'Rest advantage'],
+              risk_level: 'Low'
             },
             value_rating: 9.1,
-            kelly_percentage: 12.3,
+            kelly_percentage: 12.3
           },
           {
             id: 'mock-2',
@@ -157,18 +133,12 @@ const LockedBetsPageEnhanced: React.FC = () => {
             opponent: 'MIA',
             venue: 'Highmark Stadium',
             ai_explanation: {
-              explanation:
-                'Perfect weather conditions for passing. Miami ranks 28th in pass defense allowing 267.8 YPG. Allen has exceeded this line in 7/10 home games.',
-              key_factors: [
-                'Weather conditions',
-                'Pass defense ranking',
-                'Home performance',
-                'Divisional matchup',
-              ],
-              risk_level: 'Medium',
+              explanation: 'Perfect weather conditions for passing. Miami ranks 28th in pass defense allowing 267.8 YPG. Allen has exceeded this line in 7/10 home games.',
+              key_factors: ['Weather conditions', 'Pass defense ranking', 'Home performance', 'Divisional matchup'],
+              risk_level: 'Medium'
             },
             value_rating: 8.7,
-            kelly_percentage: 9.2,
+            kelly_percentage: 9.2
           },
           {
             id: 'mock-3',
@@ -188,25 +158,18 @@ const LockedBetsPageEnhanced: React.FC = () => {
             opponent: 'CGY',
             venue: 'Rogers Place',
             ai_explanation: {
-              explanation:
-                'McDavid has recorded 2+ points in 8 of last 10 games vs Calgary. Power play opportunities expected in this rivalry matchup.',
-              key_factors: [
-                'Historical vs opponent',
-                'Power play upside',
-                'Home ice advantage',
-                'Line chemistry',
-              ],
-              risk_level: 'Low',
+              explanation: 'McDavid has recorded 2+ points in 8 of last 10 games vs Calgary. Power play opportunities expected in this rivalry matchup.',
+              key_factors: ['Historical vs opponent', 'Power play upside', 'Home ice advantage', 'Line chemistry'],
+              risk_level: 'Low'
             },
             value_rating: 8.9,
-            kelly_percentage: 10.8,
-          },
-        ].filter(
-          bet =>
-            (selectedSport === 'ALL' || bet.sport === selectedSport) &&
-            bet.ensemble_confidence >= minConfidence
+            kelly_percentage: 10.8
+          }
+        ].filter(bet => 
+          (selectedSport === 'ALL' || bet.sport === selectedSport) &&
+          bet.ensemble_confidence >= minConfidence
         );
-
+        
         setLockedBets(mockBets);
         setLastUpdate(new Date());
       } else {
@@ -242,18 +205,9 @@ const LockedBetsPageEnhanced: React.FC = () => {
   });
 
   const getConfidenceBadge = (confidence: number) => {
-    if (confidence >= 90)
-      return {
-        text: '🔥 ELITE',
-        color: 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white',
-      };
-    if (confidence >= 85)
-      return {
-        text: '⭐ PREMIUM',
-        color: 'bg-gradient-to-r from-green-500 to-emerald-500 text-white',
-      };
-    if (confidence >= 80)
-      return { text: '✅ STRONG', color: 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white' };
+    if (confidence >= 90) return { text: '🔥 ELITE', color: 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white' };
+    if (confidence >= 85) return { text: '⭐ PREMIUM', color: 'bg-gradient-to-r from-green-500 to-emerald-500 text-white' };
+    if (confidence >= 80) return { text: '✅ STRONG', color: 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white' };
     return { text: '📊 GOOD', color: 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white' };
   };
 
@@ -297,7 +251,7 @@ const LockedBetsPageEnhanced: React.FC = () => {
                 </span>
               </div>
             </div>
-
+            
             <div className='flex items-center space-x-4 text-sm text-gray-400'>
               <span className='flex items-center space-x-1'>
                 <Target className='w-4 h-4' />
@@ -319,9 +273,7 @@ const LockedBetsPageEnhanced: React.FC = () => {
           </div>
 
           <div className='text-right'>
-            <div
-              className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${confidenceBadge.color} mb-2`}
-            >
+            <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${confidenceBadge.color} mb-2`}>
               {confidenceBadge.text}
             </div>
             <div className='text-sm text-gray-400'>{bet.source}</div>
@@ -337,13 +289,11 @@ const LockedBetsPageEnhanced: React.FC = () => {
             </div>
             <div>
               <div className='text-sm text-gray-400 mb-1'>Recommendation</div>
-              <div
-                className={`text-2xl font-bold ${
-                  bet.recommendation === 'OVER'
-                    ? 'text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.5)]'
-                    : 'text-red-400 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]'
-                }`}
-              >
+              <div className={`text-2xl font-bold ${
+                bet.recommendation === 'OVER' 
+                  ? 'text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.5)]' 
+                  : 'text-red-400 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]'
+              }`}>
                 {bet.recommendation}
               </div>
             </div>
@@ -367,7 +317,7 @@ const LockedBetsPageEnhanced: React.FC = () => {
               {bet.ensemble_confidence.toFixed(1)}%
             </div>
             <div className='w-full bg-gray-700 rounded-full h-1.5 mt-1'>
-              <div
+              <div 
                 className='bg-gradient-to-r from-cyan-500 to-blue-500 h-1.5 rounded-full'
                 style={{ width: `${bet.ensemble_confidence}%` }}
               />
@@ -383,7 +333,7 @@ const LockedBetsPageEnhanced: React.FC = () => {
               {(bet.win_probability * 100).toFixed(1)}%
             </div>
             <div className='w-full bg-gray-700 rounded-full h-1.5 mt-1'>
-              <div
+              <div 
                 className='bg-gradient-to-r from-green-500 to-emerald-500 h-1.5 rounded-full'
                 style={{ width: `${bet.win_probability * 100}%` }}
               />
@@ -399,7 +349,7 @@ const LockedBetsPageEnhanced: React.FC = () => {
               {bet.kelly_percentage.toFixed(1)}%
             </div>
             <div className='w-full bg-gray-700 rounded-full h-1.5 mt-1'>
-              <div
+              <div 
                 className='bg-gradient-to-r from-purple-500 to-indigo-500 h-1.5 rounded-full'
                 style={{ width: `${Math.min(bet.kelly_percentage * 5, 100)}%` }}
               />
@@ -415,13 +365,11 @@ const LockedBetsPageEnhanced: React.FC = () => {
               {bet.risk_score.toFixed(0)}/100
             </div>
             <div className='w-full bg-gray-700 rounded-full h-1.5 mt-1'>
-              <div
+              <div 
                 className={`h-1.5 rounded-full ${
-                  bet.risk_score <= 20
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-500'
-                    : bet.risk_score <= 40
-                      ? 'bg-gradient-to-r from-yellow-500 to-orange-500'
-                      : 'bg-gradient-to-r from-red-500 to-pink-500'
+                  bet.risk_score <= 20 ? 'bg-gradient-to-r from-green-500 to-emerald-500' :
+                  bet.risk_score <= 40 ? 'bg-gradient-to-r from-yellow-500 to-orange-500' :
+                  'bg-gradient-to-r from-red-500 to-pink-500'
                 }`}
                 style={{ width: `${bet.risk_score}%` }}
               />
@@ -439,7 +387,7 @@ const LockedBetsPageEnhanced: React.FC = () => {
               <div className='flex-1'>
                 <h4 className='text-sm font-semibold text-blue-400 mb-2'>AI Analysis</h4>
                 <p className='text-sm text-gray-300 mb-3'>{bet.ai_explanation.explanation}</p>
-
+                
                 {bet.ai_explanation.key_factors && bet.ai_explanation.key_factors.length > 0 && (
                   <div className='flex flex-wrap gap-2'>
                     {bet.ai_explanation.key_factors.map((factor, index) => (
@@ -492,7 +440,9 @@ const LockedBetsPageEnhanced: React.FC = () => {
                   <h1 className='text-5xl font-bold bg-gradient-to-r from-white via-cyan-200 to-blue-200 bg-clip-text text-transparent'>
                     Elite Locked Bets
                   </h1>
-                  <p className='text-lg text-gray-400'>AI-Powered Sports Betting Intelligence</p>
+                  <p className='text-lg text-gray-400'>
+                    AI-Powered Sports Betting Intelligence
+                  </p>
                 </div>
               </div>
 
@@ -536,12 +486,8 @@ const LockedBetsPageEnhanced: React.FC = () => {
                 </div>
                 <div className='text-3xl font-bold text-white mb-1'>
                   {sortedBets.length > 0
-                    ? (
-                        sortedBets.reduce((sum, bet) => sum + bet.ensemble_confidence, 0) /
-                        sortedBets.length
-                      ).toFixed(1)
-                    : 0}
-                  %
+                    ? (sortedBets.reduce((sum, bet) => sum + bet.ensemble_confidence, 0) / sortedBets.length).toFixed(1)
+                    : 0}%
                 </div>
                 <div className='text-sm text-gray-400'>Avg Confidence</div>
               </div>
@@ -565,12 +511,8 @@ const LockedBetsPageEnhanced: React.FC = () => {
                   </div>
                 </div>
                 <div className='text-3xl font-bold text-white mb-1'>
-                  +
-                  {sortedBets.length > 0
-                    ? (
-                        sortedBets.reduce((sum, bet) => sum + bet.expected_value, 0) /
-                        sortedBets.length
-                      ).toFixed(2)
+                  +{sortedBets.length > 0
+                    ? (sortedBets.reduce((sum, bet) => sum + bet.expected_value, 0) / sortedBets.length).toFixed(2)
                     : 0}
                 </div>
                 <div className='text-sm text-gray-400'>Avg EV</div>
@@ -587,28 +529,24 @@ const LockedBetsPageEnhanced: React.FC = () => {
                   >
                     <Filter className='w-4 h-4' />
                     <span>Filters</span>
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`}
-                    />
+                    <ChevronDown className={`w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
                   </button>
 
                   {showFilters && (
                     <div className='flex items-center space-x-4'>
                       <select
                         value={selectedSport}
-                        onChange={e => setSelectedSport(e.target.value)}
+                        onChange={(e) => setSelectedSport(e.target.value)}
                         className='bg-gray-700 border border-gray-600 text-white rounded-lg px-3 py-2'
                       >
                         {uniqueSports.map(sport => (
-                          <option key={sport} value={sport}>
-                            {sport}
-                          </option>
+                          <option key={sport} value={sport}>{sport}</option>
                         ))}
                       </select>
 
                       <select
                         value={minConfidence}
-                        onChange={e => setMinConfidence(Number(e.target.value))}
+                        onChange={(e) => setMinConfidence(Number(e.target.value))}
                         className='bg-gray-700 border border-gray-600 text-white rounded-lg px-3 py-2'
                       >
                         <option value={50}>50%+ Confidence</option>
@@ -620,29 +558,27 @@ const LockedBetsPageEnhanced: React.FC = () => {
 
                       <select
                         value={sortBy}
-                        onChange={e => setSortBy(e.target.value as 'confidence' | 'value' | 'risk')}
+                        onChange={(e) => setSortBy(e.target.value as 'confidence' | 'value' | 'risk')}
                         className='bg-gray-700 border border-gray-600 text-white rounded-lg px-3 py-2'
                       >
-                        <option value='confidence'>Sort by Confidence</option>
-                        <option value='value'>Sort by Expected Value</option>
-                        <option value='risk'>Sort by Risk (Low to High)</option>
+                        <option value="confidence">Sort by Confidence</option>
+                        <option value="value">Sort by Expected Value</option>
+                        <option value="risk">Sort by Risk (Low to High)</option>
                       </select>
                     </div>
                   )}
                 </div>
 
-                <div className='flex items-center space-x-4'>
+                                <div className='flex items-center space-x-4'>
                   <div className='flex items-center space-x-2'>
                     <input
-                      type='checkbox'
-                      id='autoRefresh'
+                      type="checkbox"
+                      id="autoRefresh"
                       checked={autoRefresh}
-                      onChange={e => setAutoRefresh(e.target.checked)}
+                      onChange={(e) => setAutoRefresh(e.target.checked)}
                       className='rounded border-gray-600 bg-gray-700 text-cyan-500 focus:ring-cyan-500'
                     />
-                    <label htmlFor='autoRefresh' className='text-sm text-gray-400'>
-                      Auto-refresh
-                    </label>
+                    <label htmlFor="autoRefresh" className='text-sm text-gray-400'>Auto-refresh</label>
                   </div>
 
                   {/* PropOllama Toggle Button */}
@@ -679,10 +615,7 @@ const LockedBetsPageEnhanced: React.FC = () => {
               <div className='text-center'>
                 <div className='relative'>
                   <div className='w-16 h-16 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin mx-auto mb-4'></div>
-                  <div
-                    className='absolute inset-0 w-16 h-16 border-4 border-transparent border-t-blue-500 rounded-full animate-spin mx-auto'
-                    style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}
-                  ></div>
+                  <div className='absolute inset-0 w-16 h-16 border-4 border-transparent border-t-blue-500 rounded-full animate-spin mx-auto' style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
                 </div>
                 <div className='text-xl font-semibold text-white mb-2'>Loading Elite Bets</div>
                 <div className='text-gray-400'>Analyzing ML predictions and market data...</div>
@@ -706,8 +639,7 @@ const LockedBetsPageEnhanced: React.FC = () => {
               </div>
               <h3 className='text-2xl font-bold text-gray-300 mb-4'>No Elite Bets Found</h3>
               <p className='text-gray-400 mb-8 max-w-md mx-auto'>
-                Adjust your filters or check back later for new ML-powered predictions and
-                opportunities.
+                Adjust your filters or check back later for new ML-powered predictions and opportunities.
               </p>
               <div className='flex items-center justify-center space-x-4'>
                 <button
@@ -728,7 +660,7 @@ const LockedBetsPageEnhanced: React.FC = () => {
         </div>
 
         {/* Enhanced PropOllama AI Chat Box */}
-        {isChatMinimized ? (
+                {!isChatMinimized && (
           <div className='fixed bottom-6 right-6 z-50'>
             <button
               onClick={() => setIsChatMinimized(false)}
@@ -736,7 +668,7 @@ const LockedBetsPageEnhanced: React.FC = () => {
             >
               <MessageCircle className='w-6 h-6' />
               <div className='absolute -top-2 -right-2 w-4 h-4 bg-green-400 rounded-full animate-pulse'></div>
-
+              
               {/* Tooltip */}
               <div className='absolute bottom-full right-0 mb-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap'>
                 Ask PropOllama AI
@@ -747,10 +679,10 @@ const LockedBetsPageEnhanced: React.FC = () => {
         ) : (
           <div className='fixed bottom-6 right-6 w-96 max-w-[calc(100vw-3rem)] z-50'>
             <div className='bg-gray-800/95 backdrop-blur-sm border border-cyan-500/30 rounded-2xl shadow-2xl shadow-cyan-500/10'>
-              <PropOllamaChatBox
+              <PropOllamaChatBox 
                 isMinimized={false}
                 onToggleMinimize={() => setIsChatMinimized(true)}
-                className='bg-transparent border-0 shadow-none'
+                className="bg-transparent border-0 shadow-none"
               />
             </div>
           </div>
