@@ -1,7 +1,10 @@
 import { RefreshCw } from 'lucide-react';
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { AppShell } from './components/core/AppShell';
 import { ErrorBoundary } from './components/core/ErrorBoundary';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import AuthPage from './components/auth/AuthPage';
+import PasswordChangeForm from './components/auth/PasswordChangeForm';
 
 // Console log test
 console.log('🚀 [DEBUG] App.tsx loaded at', new Date().toISOString());
