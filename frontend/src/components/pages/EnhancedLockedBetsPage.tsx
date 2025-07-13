@@ -325,7 +325,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
           <div className='text-center'>
             <div className='text-sm text-gray-400'>Kelly %</div>
             <div className='text-lg font-semibold text-green-400'>
-              {(bet.kelly_fraction * 100).toFixed(1)}%
+              {((bet.kelly_fraction || 0.05) * 100).toFixed(1)}%
             </div>
           </div>
         </div>
