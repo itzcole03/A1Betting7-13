@@ -43,7 +43,7 @@ const AIInsightsPanel: React.FC<AIInsightsPanelProps> = ({
   };
 
   // Ensure safeInsights is always an array
-  const safeInsights = Array.isArray(safeInsights) ? safeInsights : [];
+  const safeInsights = Array.isArray(insights) ? insights : [];
 
   const selectedInsight =
     selectedBet && safeInsights.find((_, index) => predictions[index]?.id === selectedBet.id);
