@@ -20,6 +20,18 @@ class BackendDiscoveryService {
       return this.discoveredBackend;
     }
 
+    // Check if we're in production/hosted environment
+    const isProduction = !import.meta.env.DEV || window.location.hostname !== 'localhost';
+
+    if (isProduction) {
+      // In production, skip discovery and use fallback immediately
+      const fallbackUrl = import.meta.env.VITE_API_URL || '/api';
+      console.log(`🏭 Production environment detected, using API endpoint: ${fallbackUrl}`);
+      this.discoveredBackend = fallbackUrl;
+      this.lastDiscovery = now;
+      return fallbackUrl;
+    }
+
     console.log('🔍 Discovering A1Betting backend...');
 
     // Test ports 8000-8010 sequentially (8007 first - our Phase 3 enhanced backend)
@@ -33,7 +45,7 @@ class BackendDiscoveryService {
         const response = await fetch(`${testUrl}/api/health/status`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
-          signal: AbortSignal.timeout(2000), // 2 second timeout per port
+          signal: AbortSignal.timeout(1000), // Reduced timeout to 1 second per port
         });
 
         if (response.ok) {
@@ -52,7 +64,7 @@ class BackendDiscoveryService {
     }
 
     // Fallback to environment variable or default
-    const fallbackUrl = import.meta.env.VITE_API_URL || 'http://localhost:8003';
+    const fallbackUrl = import.meta.env.VITE_API_URL || '/api';
     console.log(`⚠️ No backend discovered, using fallback: ${fallbackUrl}`);
     this.discoveredBackend = fallbackUrl;
     this.lastDiscovery = now;
