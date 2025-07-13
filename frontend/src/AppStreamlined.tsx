@@ -203,4 +203,12 @@ const AppStreamlinedContent: React.FC = () => {
   );
 };
 
+const AppStreamlined: React.FC = () => {
+  return (
+    <AuthProvider>
+      <AppStreamlinedContent />
+    </AuthProvider>
+  );
+};
+
 export default AppStreamlined;
