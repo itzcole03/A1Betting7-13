@@ -99,15 +99,18 @@ const AppStreamlined: React.FC = () => {
         <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
         <main className='min-h-screen'>
-          <Suspense
-            fallback={
-              <div className='flex items-center justify-center h-64'>
-                <LoadingSpinner />
-              </div>
-            }
-          >
-            {renderCurrentPage()}
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense
+              fallback={
+                <div className='flex items-center justify-center h-64'>
+                  <LoadingSpinner />
+                  <div className='ml-3 text-gray-400'>Loading component...</div>
+                </div>
+              }
+            >
+              {renderCurrentPage()}
+            </Suspense>
+          </ErrorBoundary>
         </main>
 
         <Toaster />
