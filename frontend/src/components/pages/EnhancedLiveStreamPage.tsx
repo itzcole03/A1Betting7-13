@@ -700,7 +700,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
                       <div className='flex items-center justify-between mb-2'>
                         <div className='font-medium text-white'>{bet.player_name}</div>
                         <div className={`text-sm font-semibold ${getPaceColor(bet.pace_to_hit)}`}>
-                          {bet.pace_to_hit.replace('_', ' ')}
+                          {(bet.pace_to_hit || 'unknown').replace('_', ' ')}
                         </div>
                       </div>
 
