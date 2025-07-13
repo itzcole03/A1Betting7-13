@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import AppStreamlined from './AppStreamlined';
 import { logger } from './utils/logger';
 
 // import styles exactly like the prototype
