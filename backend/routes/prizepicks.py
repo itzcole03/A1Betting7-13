@@ -35,9 +35,11 @@ async def get_prizepicks_props(
     enhanced: bool = Query(True, description="Use enhanced ensemble predictions"),
 ) -> List[Dict[str, Any]]:
     """Get PrizePicks props scraped live from the website, all sports, no mock data."""
-    try:
-        service = ComprehensivePrizePicksService()
-        props = await service.scrape_prizepicks_props()
+        try:
+        # Use enhanced service for better data quality
+        if not enhanced_prizepicks_service.client:
+            await enhanced_prizepicks_service.initialize()
+        props = await enhanced_prizepicks_service.scrape_prizepicks_props()
         # Optionally filter by sport (only if sport is a string)
         if sport:
             props = [
