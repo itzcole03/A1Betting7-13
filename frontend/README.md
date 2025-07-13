@@ -54,6 +54,15 @@ The A1 Betting Platform is an enterprise-grade, AI-powered sports betting intell
 - **Multi-Layer Risk Assessment** - Comprehensive risk frameworks with automated controls
 - **Real-Time Limit Monitoring** - Automated alerts and violation detection
 
+### 👑 Admin Mode (Verified Administrators Only)
+
+- **Hidden Access Control** - Admin toggle only visible to verified administrators
+- **Comprehensive Dashboard** - Real-time system monitoring and analytics
+- **User Management** - Administrative controls for user accounts and permissions
+- **System Configuration** - Advanced platform settings and customization options
+- **Advanced Analytics** - Deep-dive system metrics and performance tracking
+- **Audit Logging** - Complete system activity and admin action tracking
+
 ## 🏗️ Architecture
 
 ### Frontend Stack
