@@ -116,7 +116,7 @@ const AuthPage: React.FC = () => {
 
         {/* Auth Forms */}
         <AnimatePresence mode='wait'>
-          {authMode === 'login' ? (
+          {authMode === 'login' && (
             <motion.div
               key='login'
               initial={{ opacity: 0, x: -20 }}
@@ -132,7 +132,9 @@ const AuthPage: React.FC = () => {
                 error={error}
               />
             </motion.div>
-          ) : (
+          )}
+
+          {authMode === 'request-access' && (
             <motion.div
               key='request-access'
               initial={{ opacity: 0, x: 20 }}
@@ -141,6 +143,24 @@ const AuthPage: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <AccessRequestForm onRequestSubmitted={handleAccessRequestSubmitted} />
+            </motion.div>
+          )}
+
+          {authMode === 'password-change' && (
+            <motion.div
+              key='password-change'
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <PasswordChangeForm
+                onPasswordChange={handlePasswordChange}
+                loading={loading}
+                error={error}
+                isFirstLogin={user?.isFirstLogin || user?.mustChangePassword}
+                userEmail={user?.email}
+              />
             </motion.div>
           )}
         </AnimatePresence>
