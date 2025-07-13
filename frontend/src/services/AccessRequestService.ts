@@ -30,7 +30,7 @@ class AccessRequestService {
 
   constructor() {
     // In production, this would come from environment variables
-    this.baseUrl = process.env.REACT_APP_API_URL || '/api';
+    this.baseUrl = import.meta.env.VITE_API_URL || '/api';
   }
 
   /**
