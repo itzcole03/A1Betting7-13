@@ -210,7 +210,7 @@ class AccessRequestService {
       console.error('Failed to deny access request:', error);
 
       // For demo purposes, simulate success
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         return {
           success: true,
           message: 'Access request denied. User will be notified via email.',
