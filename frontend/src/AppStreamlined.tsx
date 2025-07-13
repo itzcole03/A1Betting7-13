@@ -73,15 +73,33 @@ const AppStreamlined: React.FC = () => {
   }, []);
 
   const renderCurrentPage = () => {
-    switch (currentPage) {
-      case 'locked-bets':
-        return <LockedBetsPage />;
-      case 'live-stream':
-        return <LiveStreamPage />;
-      case 'settings':
-        return <SettingsAdminPage />;
-      default:
-        return <LockedBetsPage />;
+    try {
+      switch (currentPage) {
+        case 'locked-bets':
+          return <LockedBetsPage />;
+        case 'live-stream':
+          return <LiveStreamPage />;
+        case 'settings':
+          return <SettingsAdminPage />;
+        default:
+          return <LockedBetsPage />;
+      }
+    } catch (error) {
+      console.error('Error rendering page:', error);
+      return (
+        <div className='flex items-center justify-center h-64 text-white'>
+          <div className='text-center'>
+            <div className='text-red-400 mb-2'>⚠️ Component Error</div>
+            <div className='text-gray-400'>Unable to load {currentPage} page</div>
+            <button
+              onClick={() => setCurrentPage('locked-bets')}
+              className='mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700'
+            >
+              Return to Locked Bets
+            </button>
+          </div>
+        </div>
+      );
     }
   };
 
