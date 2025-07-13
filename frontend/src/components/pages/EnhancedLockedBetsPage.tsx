@@ -334,16 +334,22 @@ const EnhancedLockedBetsPage: React.FC = () => {
 
           {/* Right Section: Stake & Source */}
           <div className='text-right min-w-0'>
-            <div className='text-sm font-semibold text-green-400'>
-              ${((bet.optimal_stake || 0.05) * investmentAmount).toFixed(0)}
+            <div className='bg-gray-900/40 rounded-lg px-3 py-2 border border-gray-700/30'>
+              <div className='text-xs text-gray-400 mb-0.5'>Optimal Stake</div>
+              <div className='text-lg font-bold text-green-400'>
+                ${((bet.optimal_stake || 0.05) * investmentAmount).toFixed(0)}
+              </div>
+              <div className='text-xs text-gray-400 mt-0.5'>{bet.source}</div>
             </div>
-            <div className='text-xs text-gray-400'>{bet.source}</div>
           </div>
 
           {/* Mobile-only confidence display */}
-          <div className='md:hidden text-right ml-2'>
-            <div className={`text-sm font-bold ${confidenceColor}`}>
-              {(bet.confidence || 75).toFixed(0)}%
+          <div className='md:hidden text-right ml-3'>
+            <div className='bg-gray-900/40 rounded-lg px-3 py-2 border border-gray-700/30'>
+              <div className='text-xs text-gray-400 mb-0.5'>Conf</div>
+              <div className={`text-lg font-bold ${confidenceColor}`}>
+                {(bet.confidence || 75).toFixed(0)}%
+              </div>
             </div>
           </div>
         </div>
