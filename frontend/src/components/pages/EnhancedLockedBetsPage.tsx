@@ -255,7 +255,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
         {/* Premium Indicator */}
         {bet.confidence >= 85 && (
           <div className='absolute top-4 right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg border border-orange-400/20 animate-pulse backdrop-blur-sm'>
-            🔥 HOT
+            �� HOT
           </div>
         )}
 
@@ -478,7 +478,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
                     +
                     {enhancedPredictions.length > 0
                       ? enhancedPredictions
-                          .reduce((sum, bet) => sum + bet.expected_value, 0)
+                          .reduce((sum, bet) => sum + (bet.expected_value || 0), 0)
                           .toFixed(2)
                       : 0}
                   </div>
