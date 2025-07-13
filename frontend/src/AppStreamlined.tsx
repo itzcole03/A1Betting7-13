@@ -2,6 +2,8 @@ import React, { Suspense, useState, useEffect } from 'react';
 import { ErrorBoundary } from './components/core/ErrorBoundary';
 import { LoadingSpinner } from './components/shared/ui/LoadingSpinner';
 import { Toaster } from './components/common/notifications/Toaster';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { Crown, Settings, User } from 'lucide-react';
 
 // Import the three main pages with fallbacks
 const LockedBetsPage = React.lazy(() =>
