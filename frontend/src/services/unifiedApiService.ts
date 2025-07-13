@@ -51,6 +51,16 @@ class UnifiedApiService {
       });
 
       clearTimeout(timeoutId);
+
+      // Check if response is HTML instead of JSON
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('text/html')) {
+        console.warn(
+          `API endpoint ${url} returned HTML instead of JSON - likely a 404 or error page`
+        );
+        throw new Error(`API endpoint not available: ${url}`);
+      }
+
       return response;
     } catch (error) {
       clearTimeout(timeoutId);
