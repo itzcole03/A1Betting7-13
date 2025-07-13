@@ -209,6 +209,24 @@ const EnhancedLiveStreamPage: React.FC = () => {
     setShowUrlEditor(true);
   };
 
+  const streamPresets = [
+    { name: 'StreamEast v91', url: 'https://the.streameast.app/v91' },
+    { name: 'StreamEast Main', url: 'https://the.streameast.app' },
+    { name: 'SportSurge', url: 'https://sportsurge.net' },
+    { name: 'ESPN', url: 'https://www.espn.com/watch' },
+  ];
+
+  const handlePresetUrl = (url: string) => {
+    setStreamUrl(url);
+    setTempUrl('');
+    setShowUrlEditor(false);
+    setIsLoading(true);
+    setStreamBlocked(false);
+    setLoadAttempts(0);
+    setTimeout(() => setIsLoading(false), 3000);
+    toast.success('Stream URL updated!');
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'in_progress':
