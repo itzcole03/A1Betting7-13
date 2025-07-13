@@ -130,6 +130,7 @@ const AppStreamlinedContent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('locked-bets');
   const [isLoading, setIsLoading] = useState(false); // Start with false for faster loading
   const [settingsPageError, setSettingsPageError] = useState(false);
+  const [showAdminMode, setShowAdminMode] = useState(false);
 
   useEffect(() => {
     console.log('🚀 A1Betting Ultra-Enhanced Platform initialized');
