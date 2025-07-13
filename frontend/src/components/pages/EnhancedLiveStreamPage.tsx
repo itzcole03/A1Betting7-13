@@ -698,7 +698,9 @@ const EnhancedLiveStreamPage: React.FC = () => {
                       className='p-3 bg-gray-700/30 rounded-lg border border-gray-600/50'
                     >
                       <div className='flex items-center justify-between mb-2'>
-                        <div className='font-medium text-white'>{bet.player_name}</div>
+                        <div className='font-medium text-white'>
+                          {bet.player_name || 'Unknown Player'}
+                        </div>
                         <div className={`text-sm font-semibold ${getPaceColor(bet.pace_to_hit)}`}>
                           {(bet.pace_to_hit || 'unknown').replace('_', ' ')}
                         </div>
