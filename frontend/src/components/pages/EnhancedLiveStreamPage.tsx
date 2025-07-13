@@ -55,6 +55,24 @@ const EnhancedLiveStreamPage: React.FC = () => {
   const [autoRefresh, setAutoRefresh] = useState(true);
 
   useEffect(() => {
+    // Check stream connectivity on mount
+    const checkStreamConnectivity = async () => {
+      setIsLoading(true);
+
+      // Check if URL is likely to be blocked
+      setTimeout(() => {
+        if (streamUrl.includes('streameast') || streamUrl.includes('sportsurge')) {
+          setStreamBlocked(true);
+          toast.warning(
+            '⚠️ This streaming site may block embedding. Use "Open in New Tab" for best experience.'
+          );
+        }
+        setIsLoading(false);
+      }, 2000);
+    };
+
+    checkStreamConnectivity();
+
     // Initialize with mock live games
     const mockGames: LiveGame[] = [
       {
