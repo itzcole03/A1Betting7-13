@@ -250,7 +250,7 @@ const EnhancedLiveStreamPage: React.FC = () => {
     toast.success('Stream URL updated!');
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: string | undefined) => {
     switch (status) {
       case 'in_progress':
         return 'text-green-400';
