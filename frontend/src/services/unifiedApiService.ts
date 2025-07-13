@@ -178,6 +178,12 @@ class UnifiedApiService {
             ['Historical', 0.2],
           ],
         },
+        risk_assessment: {
+          overall_risk: 0.31,
+          confidence_risk: 0.18,
+          volatility_risk: 0.22,
+          market_risk: 0.19,
+        },
       },
     ];
 
