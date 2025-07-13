@@ -29,6 +29,7 @@ const SHAPAnalysis = React.lazy(() => import('./components/features/shap/SHAPAna
 const BankrollManager = React.lazy(() => import('./components/features/bankroll/BankrollManager'));
 const RiskEngine = React.lazy(() => import('./components/features/risk/RiskEngine'));
 const Settings = React.lazy(() => import('./components/features/settings/Settings'));
+const AdminDashboard = React.lazy(() => import('./components/AdminDashboard'));
 
 // Intelligence components
 const SocialIntelligence = React.lazy(
@@ -102,6 +103,9 @@ const componentMap: Record<string, React.ComponentType> = {
 
   // Settings
   settings: Settings,
+
+  // Admin
+  admin: AdminDashboard,
 };
 
 const LoadingSpinner = () => (
