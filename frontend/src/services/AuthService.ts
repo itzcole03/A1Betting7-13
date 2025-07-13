@@ -40,6 +40,39 @@ class AuthService {
 
   constructor() {
     this.baseUrl = process.env.REACT_APP_API_URL || '/api';
+
+    // Auto-login Cole in development
+    if (process.env.NODE_ENV === 'development') {
+      this.initializeDevelopmentAuth();
+    }
+  }
+
+  /**
+   * Initialize development authentication for Cole
+   */
+  private initializeDevelopmentAuth(): void {
+    // Check if Cole is already logged in
+    const existingUser = this.getUser();
+    if (existingUser?.email?.toLowerCase().includes('cole')) {
+      return; // Already logged in
+    }
+
+    // Auto-login Cole for development
+    const coleUser: User = {
+      id: 'cole_admin_dev',
+      email: 'cole@example.com',
+      role: 'admin',
+      permissions: ['admin', 'user', 'super_admin'],
+      isFirstLogin: false,
+      mustChangePassword: false,
+      createdAt: new Date(),
+      lastLogin: new Date(),
+    };
+
+    const token = 'dev_token_cole_admin';
+    this.setAuthData(token, coleUser);
+
+    console.log('🔐 [DEV] Auto-authenticated Cole as Super Admin');
   }
 
   /**
