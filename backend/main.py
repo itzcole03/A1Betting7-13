@@ -29,6 +29,7 @@ from backend.routes.health import router as health_router
 from backend.routes.performance import router as performance_router
 from backend.routes.prizepicks import router as prizepicks_router
 from backend.routes.shap import router as shap_router
+from backend.routes.unified_api import router as unified_router
 from backend.utils.error_handler import DataFetchError, ErrorHandler, ValidationError
 
 # Optional imports with fallbacks
