@@ -62,20 +62,21 @@ const EnhancedLockedBetsPage: React.FC = () => {
         max_results: 50,
       });
 
-      setEnhancedPredictions(response.enhanced_bets);
+      setEnhancedPredictions(response.enhanced_bets || response.predictions || []);
       setPortfolioMetrics(response.portfolio_metrics);
       setAiInsights(response.ai_insights || []);
 
       // Generate stacking suggestions
       const stackingData = await unifiedApiService.generateStackingSuggestions(
-        response.enhanced_bets
+        response.enhanced_bets || response.predictions || []
       );
       setStackingSuggestions(stackingData.suggestions);
       setCorrelationMatrix(stackingData.correlationMatrix);
 
       setLastUpdate(new Date());
+      const dataSource = response.status === 'fallback_mode' ? 'fallback data' : 'live API';
       toast.success(
-        `🚀 Loaded ${response.enhanced_bets.length} enhanced predictions with AI insights`
+        `🚀 Loaded ${(response.enhanced_bets || response.predictions || []).length} enhanced predictions (${dataSource})`
       );
     } catch (error) {
       console.error('Error fetching enhanced predictions:', error);
