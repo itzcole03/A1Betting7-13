@@ -24,23 +24,51 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 /**
  * AuthProvider
  * Wrap your app with this provider to enable authentication state and actions.
- * @param {ReactNode} children
  */
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [requiresPasswordChange, setRequiresPasswordChange] = useState(false);
+
+  // Initialize auth state from storage on mount
+  useEffect(() => {
+    const initializeAuth = () => {
+      if (authService.isAuthenticated()) {
+        const storedUser = authService.getUser();
+        if (storedUser) {
+          setUser(storedUser);
+          setIsAdmin(authService.isAdmin());
+          setIsAuthenticated(true);
+          setRequiresPasswordChange(authService.requiresPasswordChange());
+        }
+      }
+    };
+
+    initializeAuth();
+  }, []);
 
   const login = async (email: string, password: string) => {
     setLoading(true);
     setError(null);
     try {
-      const u = await authService.login(email, password);
-      setUser(u);
-      setIsAdmin(u.role === 'admin' || u.permissions?.includes('admin') || false);
+      const response = await authService.login(email, password);
+
+      if (response.success && response.user) {
+        setUser(response.user);
+        setIsAdmin(
+          response.user.role === 'admin' || response.user.permissions?.includes('admin') || false
+        );
+        setIsAuthenticated(true);
+        setRequiresPasswordChange(response.requiresPasswordChange || false);
+      } else {
+        throw new Error(response.message || 'Login failed');
+      }
     } catch (e: any) {
       setError(e.message || 'Login failed');
+      throw e; // Re-throw for component handling
     } finally {
       setLoading(false);
     }
@@ -53,6 +81,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       await authService.logout();
       setUser(null);
       setIsAdmin(false);
+      setIsAuthenticated(false);
+      setRequiresPasswordChange(false);
     } catch (e: any) {
       setError(e.message || 'Logout failed');
     } finally {
@@ -60,15 +90,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
-  const register = async (email: string, password: string) => {
+  const changePassword = async (data: PasswordChangeRequest) => {
     setLoading(true);
     setError(null);
     try {
-      const u = await authService.register(email, password);
-      setUser(u);
-      setIsAdmin(u.role === 'admin' || u.permissions?.includes('admin') || false);
+      const response = await authService.changePassword(data);
+
+      if (response.success) {
+        // Update user state to reflect password change
+        const updatedUser = authService.getUser();
+        if (updatedUser) {
+          setUser(updatedUser);
+          setRequiresPasswordChange(false);
+        }
+      } else {
+        throw new Error(response.message || 'Password change failed');
+      }
     } catch (e: any) {
-      setError(e.message || 'Registration failed');
+      setError(e.message || 'Password change failed');
+      throw e; // Re-throw for component handling
     } finally {
       setLoading(false);
     }
@@ -78,13 +118,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return isAdmin && user && (user.role === 'admin' || user.permissions?.includes('admin'));
   };
 
-  return (
-    <AuthContext.Provider
-      value={{ user, loading, error, isAdmin, login, logout, register, setUser, checkAdminStatus }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  const clearError = () => {
+    setError(null);
+  };
+
+  const contextValue: AuthContextType = {
+    user,
+    loading,
+    error,
+    isAdmin,
+    isAuthenticated,
+    requiresPasswordChange,
+    login,
+    logout,
+    changePassword,
+    checkAdminStatus,
+    clearError,
+  };
+
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
 
 /**
