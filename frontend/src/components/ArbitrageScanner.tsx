@@ -273,8 +273,11 @@ export const ArbitrageScanner: React.FC = () => {
           </div>
 
           <div>
-            <label className='block text-sm font-medium text-gray-400 mb-2'>Sports</label>
+            <label htmlFor='sports-filter' className='block text-sm font-medium text-gray-400 mb-2'>
+              Sports
+            </label>
             <select
+              id='sports-filter'
               value={selectedSports[0]}
               onChange={e => setSelectedSports([e.target.value])}
               className='w-full p-2 bg-gray-800 border border-gray-700 rounded-lg'
