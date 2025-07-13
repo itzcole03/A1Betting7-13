@@ -93,7 +93,9 @@ function UnifiedSettingsAdminPage() {
     openai: '••••••••••••sk-',
   });
 
-  const [isAdmin] = useState(true); // In real app, this would come from auth context
+  // Use real auth context for admin detection
+  const { user } = useAuth();
+  const isAdmin = user?.role === 'admin' || user?.permissions?.includes('admin') || false;
 
   const handleSettingChange = (key: keyof UserSettings, value: any) => {
     setUserSettings(prev => ({ ...prev, [key]: value }));
