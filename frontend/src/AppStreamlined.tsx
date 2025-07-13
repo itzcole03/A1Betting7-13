@@ -5,6 +5,9 @@ import { Toaster } from './components/common/notifications/Toaster';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Crown, Settings, User, ToggleLeft, ToggleRight } from 'lucide-react';
 
+// Import the admin wrapper component
+const AdminWrapper = React.lazy(() => import('./components/comprehensive/AdminWrapper'));
+
 // Import the full admin App content (without AuthProvider wrapper)
 const FullAdminApp = React.lazy(() =>
   import('./App').then(module => ({ default: module.AppContent }))
