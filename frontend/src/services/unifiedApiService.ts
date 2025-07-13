@@ -101,13 +101,7 @@ class UnifiedApiService {
         throw new Error(`Failed to fetch enhanced bets: ${response.status} ${response.statusText}`);
       }
 
-      // Safe JSON parsing with HTML detection
-      const responseText = await response.text();
-      if (responseText.trim().startsWith('<!DOCTYPE') || responseText.trim().startsWith('<html')) {
-        throw new Error('API returned HTML instead of JSON - endpoint not available');
-      }
-
-      return JSON.parse(responseText);
+      return await this.safeJsonParse(response);
     } catch (error) {
       console.warn('Enhanced bets API unavailable, using fallback data:', error);
 
