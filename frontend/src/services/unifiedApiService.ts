@@ -223,15 +223,60 @@ class UnifiedApiService {
         max_drawdown: -0.082,
         confidence_weighted_return: 0.198,
       },
-      ai_insights: {
-        quantum_analysis:
-          'Quantum algorithms detected optimal betting patterns with 87.3% confidence.',
-        neural_patterns: ['Strong momentum indicators', 'Positive correlation clusters'],
-        market_inefficiencies: 2,
-        pattern_strength: 'HIGH',
-        recommended_action: 'INCREASE_STAKE',
-        confidence_reasoning: 'Multiple AI models show consensus on positive expected value.',
-      },
+      ai_insights: [
+        {
+          bet_id: 'fallback_1',
+          player_name: 'Aaron Judge',
+          sport: 'MLB',
+          confidence: 87.3,
+          quantum_analysis:
+            'Quantum algorithms detected optimal betting patterns with 87.3% confidence.',
+          neural_patterns: ['Strong momentum indicators', 'Positive correlation clusters'],
+          shap_explanation: {
+            baseline: 0.5,
+            features: { recent_performance: 0.35, matchup_advantage: 0.28 },
+            prediction: 87.3,
+            top_factors: [
+              ['Recent form', 0.35],
+              ['Matchup', 0.28],
+            ],
+          },
+          risk_factors: ['Weather conditions', 'Injury status'],
+          opportunity_score: 8.7,
+          market_edge: 4.2,
+          confidence_reasoning: 'Multiple AI models show consensus on positive expected value.',
+          key_factors: [
+            ['Recent performance', 0.35],
+            ['Matchup advantage', 0.28],
+          ],
+        },
+        {
+          bet_id: 'fallback_2',
+          player_name: 'Mookie Betts',
+          sport: 'MLB',
+          confidence: 82.1,
+          quantum_analysis:
+            'Moderate quantum advantage detected with stable probability distribution.',
+          neural_patterns: ['Consistent performance', 'Favorable matchup dynamics'],
+          shap_explanation: {
+            baseline: 0.5,
+            features: { recent_performance: 0.42, matchup_advantage: 0.24 },
+            prediction: 82.1,
+            top_factors: [
+              ['Recent form', 0.42],
+              ['Matchup', 0.24],
+            ],
+          },
+          risk_factors: ['Market volatility'],
+          opportunity_score: 7.1,
+          market_edge: 3.8,
+          confidence_reasoning: 'Consistent performance indicators with good fundamentals.',
+          key_factors: [
+            ['Recent performance', 0.42],
+            ['Matchup advantage', 0.24],
+          ],
+        },
+      ],
       status: 'fallback_mode',
       generated_at: new Date().toISOString(),
     };
