@@ -1,28 +1,22 @@
-import React, { ReactNode, createContext, useContext, useState } from 'react';
+import React, { ReactNode, createContext, useContext, useState, useEffect } from 'react';
+import { authService, User, PasswordChangeRequest } from '../services/AuthService';
 
 /**
  * AuthContextType
  * Provides authentication state and actions for the app.
- * @property {any} user - Current user object or null
- * @property {boolean} loading - Loading state for auth actions
- * @property {string | null} error - Error message for auth actions
- * @property {boolean} isAdmin - Whether current user has admin privileges
- * @property {(email: string, password: string) => Promise<void>} login - Login function
- * @property {() => Promise<void>} logout - Logout function
- * @property {(email: string, password: string) => Promise<void>} register - Register function
- * @property {(user: any) => void} setUser - Setter for user
- * @property {() => boolean} checkAdminStatus - Check if user has admin privileges
  */
 export interface AuthContextType {
-  user: any;
+  user: User | null;
   loading: boolean;
   error: string | null;
   isAdmin: boolean;
+  isAuthenticated: boolean;
+  requiresPasswordChange: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
-  setUser: (user: any) => void;
+  changePassword: (data: PasswordChangeRequest) => Promise<void>;
   checkAdminStatus: () => boolean;
+  clearError: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
