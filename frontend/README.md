@@ -83,7 +83,7 @@ frontend/src/
 │   │   ├── Navigation.tsx      # Navigation system
 │   │   └── Layout/             # Layout components
 │   ├── features/               # Main feature components
-│   ���   ├── prizepicks/         # PrizePicks Pro suite
+│   │   ├── prizepicks/         # PrizePicks Pro suite
 │   │   ���── arbitrage/          # Arbitrage scanner
 │   │   ├── analytics/          # Analytics center
 │   │   └── dashboard/          # Strategy dashboard
@@ -442,6 +442,7 @@ This project is proprietary software. All rights reserved.
 ## 🔗 Links
 
 - **Documentation**: [Internal Docs](./docs/)
+- **Admin Mode Guide**: [Admin Integration](./ADMIN_MODE.md)
 - **API Reference**: [API Docs](./docs/api.md)
 - **Component Library**: [Components](./docs/components.md)
 - **Consolidation Reports**: [Reports](./RECURSIVE_CONSOLIDATION_PROGRESS.md)
