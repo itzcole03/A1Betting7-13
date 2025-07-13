@@ -4,6 +4,8 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  root: '.',
+  publicDir: 'public',
   build: {
     outDir: 'dist-streamlined',
     rollupOptions: {
@@ -14,7 +16,7 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 8174, // Different port for streamlined version
+    port: 8173,
   },
   define: {
     global: 'window',
