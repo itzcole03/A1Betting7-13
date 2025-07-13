@@ -301,7 +301,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
       },
       tags: [
         bet.confidence >= 85 ? '🔥 Hot Pick' : undefined,
-        bet.risk_assessment?.risk_level === 'low' ? '��� Low Risk' : undefined,
+        bet.risk_assessment?.risk_level === 'low' ? '✅ Low Risk' : undefined,
         bet.expected_value > 2 ? '💰 High Value' : undefined,
         isSelected ? '✓ Selected' : undefined,
       ].filter(Boolean),
@@ -333,9 +333,9 @@ const EnhancedLockedBetsPage: React.FC = () => {
 
   const uniqueSports = ['ALL', ...Array.from(new Set(enhancedPredictions.map(bet => bet.sport)))];
 
-  return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-black p-6'>
-      <div className='max-w-[1800px] mx-auto'>
+    return (
+    <div className='min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-black p-6 lg:p-8'>
+      <div className='max-w-[1600px] mx-auto'>
         {/* Enhanced Header */}
         <div className='mb-8'>
           <div className='flex items-center justify-between mb-4'>
@@ -514,12 +514,12 @@ const EnhancedLockedBetsPage: React.FC = () => {
         {!isLoading && (
           <div className='grid grid-cols-12 gap-6'>
             {/* Left Column - Main Content */}
-            <div className='col-span-12 lg:col-span-8'>
+                        <div className='col-span-12 lg:col-span-8 space-y-8'>
               {activeView === 'bets' && (
-                <div className='space-y-6'>
+                                <div className='space-y-8'}
                   {enhancedPredictions.length > 0 ? (
                     <>
-                      {/* Enhanced 3x3 Grid Layout with Better Spacing */}
+                                            {/* Enhanced 3x3 Grid Layout with Better Spacing */}
                       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10'>
                         {enhancedPredictions.slice(0, cardsToShow).map(bet => {
                           const isSelected = selectedBets.has(bet.id);
@@ -534,13 +534,12 @@ const EnhancedLockedBetsPage: React.FC = () => {
                               }`}
                             >
                               {/* Restructured Compact Card */}
-                              <div
-                                className={`relative h-full min-h-[320px] rounded-2xl border overflow-hidden backdrop-blur-xl shadow-xl transition-all duration-300 ${
-                                  isSelected
-                                    ? 'bg-gradient-to-br from-cyan-600/20 via-blue-600/15 to-purple-600/20 border-cyan-400/50'
-                                    : 'bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-900/60 border-slate-700/50 hover:border-cyan-500/40'
-                                }`}
-                              >
+                              <div className={`relative h-full min-h-[320px] rounded-2xl border overflow-hidden backdrop-blur-xl shadow-xl transition-all duration-300 ${
+                                isSelected
+                                  ? 'bg-gradient-to-br from-cyan-600/20 via-blue-600/15 to-purple-600/20 border-cyan-400/50'
+                                  : 'bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-900/60 border-slate-700/50 hover:border-cyan-500/40'
+                              }`}>
+
                                 {/* Gradient Overlay */}
                                 <div className='absolute inset-0 opacity-30 pointer-events-none group-hover:opacity-40 transition-opacity duration-300'>
                                   <div className='absolute inset-0 bg-gradient-to-br from-transparent via-white/[0.02] to-transparent' />
@@ -554,24 +553,20 @@ const EnhancedLockedBetsPage: React.FC = () => {
                                         {bet.player_name}
                                       </h3>
                                       <div className='flex items-center space-x-2 text-sm'>
-                                        <span className='text-slate-300 font-medium'>
-                                          {bet.team}
-                                        </span>
+                                        <span className='text-slate-300 font-medium'>{bet.team}</span>
                                         <span className='text-slate-500'>•</span>
                                         <span className='text-slate-400'>{bet.sport}</span>
                                       </div>
                                     </div>
 
                                     {/* Confidence Badge */}
-                                    <div
-                                      className={`px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-sm border ${
-                                        bet.confidence >= 85
-                                          ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
-                                          : bet.confidence >= 75
-                                            ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
-                                            : 'bg-orange-500/20 text-orange-400 border-orange-500/30'
-                                      }`}
-                                    >
+                                    <div className={`px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-sm border ${
+                                      bet.confidence >= 85
+                                        ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                                        : bet.confidence >= 75
+                                        ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
+                                        : 'bg-orange-500/20 text-orange-400 border-orange-500/30'
+                                    }`}>
                                       {(bet.confidence || 75).toFixed(0)}%
                                     </div>
                                   </div>
@@ -584,13 +579,11 @@ const EnhancedLockedBetsPage: React.FC = () => {
                                       <h4 className='text-sm font-semibold text-slate-300 uppercase tracking-wider'>
                                         {bet.stat_type}
                                       </h4>
-                                      <div
-                                        className={`px-2 py-1 rounded-md text-xs font-bold ${
-                                          bet.recommendation === 'OVER'
-                                            ? 'bg-emerald-500/20 text-emerald-400'
-                                            : 'bg-red-500/20 text-red-400'
-                                        }`}
-                                      >
+                                      <div className={`px-2 py-1 rounded-md text-xs font-bold ${
+                                        bet.recommendation === 'OVER'
+                                          ? 'bg-emerald-500/20 text-emerald-400'
+                                          : 'bg-red-500/20 text-red-400'
+                                      }`}>
                                         {bet.recommendation}
                                       </div>
                                     </div>
@@ -614,8 +607,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
                                   <div className='grid grid-cols-3 gap-2'>
                                     <div className='text-center p-2 rounded-lg bg-purple-500/10 border border-purple-500/20'>
                                       <div className='text-sm font-bold text-purple-400'>
-                                        {bet.expected_value > 0 ? '+' : ''}
-                                        {(bet.expected_value || 0).toFixed(1)}
+                                        {bet.expected_value > 0 ? '+' : ''}{(bet.expected_value || 0).toFixed(1)}
                                       </div>
                                       <div className='text-xs text-purple-300/80 uppercase tracking-wide mt-0.5'>
                                         EV
@@ -633,7 +625,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
 
                                     <div className='text-center p-2 rounded-lg bg-amber-500/10 border border-amber-500/20'>
                                       <div className='text-sm font-bold text-amber-400'>
-                                        ${Math.round((bet.optimal_stake || 0.05) * 1000)}
+                                        ${Math.round(((bet.optimal_stake || 0.05) * 1000))}
                                       </div>
                                       <div className='text-xs text-amber-300/80 uppercase tracking-wide mt-0.5'>
                                         Kelly
@@ -687,13 +679,11 @@ const EnhancedLockedBetsPage: React.FC = () => {
 
                                 {/* Bottom accent bar */}
                                 <div className='absolute bottom-0 left-0 right-0 h-1 overflow-hidden rounded-b-2xl'>
-                                  <div
-                                    className={`h-full transition-all duration-500 opacity-80 group-hover:opacity-100 ${
-                                      bet.recommendation === 'OVER'
-                                        ? 'bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-500'
-                                        : 'bg-gradient-to-r from-red-400 via-rose-400 to-red-500'
-                                    }`}
-                                  />
+                                  <div className={`h-full transition-all duration-500 opacity-80 group-hover:opacity-100 ${
+                                    bet.recommendation === 'OVER'
+                                      ? 'bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-500'
+                                      : 'bg-gradient-to-r from-red-400 via-rose-400 to-red-500'
+                                  }`} />
                                 </div>
                               </div>
                             </div>
