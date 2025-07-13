@@ -204,7 +204,10 @@ app = FastAPI(
 
 # Register PrizePicks router for all endpoints and tests
 app.include_router(prizepicks_router)
-print("[LOG] FastAPI app initialized")
+
+# Register unified API router for enhanced predictions
+app.include_router(unified_router)
+print("[LOG] FastAPI app with unified intelligence initialized")
 
 # Register FanDuel router after app initialization
 from backend.routes.fanduel import router as fanduel_router
