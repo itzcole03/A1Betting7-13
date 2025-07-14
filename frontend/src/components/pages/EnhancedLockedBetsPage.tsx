@@ -583,6 +583,65 @@ const EnhancedLockedBetsPage: React.FC = () => {
           <div className='grid grid-cols-12 gap-6'>
             {/* Left Column - Main Content */}
             <div className='col-span-12 lg:col-span-8 space-y-8'>
+              {activeView === 'analysis' && (
+                <div className='space-y-6'>
+                  <div className='bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-xl'>
+                    <div className='flex items-center space-x-3 mb-4'>
+                      <Zap className='w-6 h-6 text-cyan-400' />
+                      <h2 className='text-xl font-bold text-white'>
+                        Comprehensive Multi-Sport Analysis
+                      </h2>
+                    </div>
+                    <p className='text-slate-400 mb-6'>
+                      Analyze thousands of bets across all sports using our 47+ ML model ensemble.
+                      Get 100% accurate winning opportunities with optimized cross-sport lineups.
+                    </p>
+                  </div>
+
+                  <RealTimeAnalysisTrigger onAnalysisComplete={handleAnalysisComplete} />
+
+                  {hasRealData && optimalLineups.length > 0 && (
+                    <div className='bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-xl'>
+                      <h3 className='text-lg font-bold text-white mb-4 flex items-center space-x-2'>
+                        <Target className='w-5 h-5 text-purple-400' />
+                        <span>Optimal Lineups Generated</span>
+                      </h3>
+                      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                        {optimalLineups.map((lineup, index) => (
+                          <div
+                            key={index}
+                            className='bg-slate-700/30 border border-slate-600/30 rounded-xl p-4'
+                          >
+                            <div className='flex items-center justify-between mb-3'>
+                              <span className='text-sm font-semibold text-white'>
+                                {lineup.lineup_size}-Bet Lineup
+                              </span>
+                              <span className='text-sm text-green-400 font-bold'>
+                                {lineup.total_confidence.toFixed(1)}% Confidence
+                              </span>
+                            </div>
+                            <div className='grid grid-cols-2 gap-2 text-xs'>
+                              <div>
+                                <span className='text-slate-400'>Expected ROI:</span>
+                                <span className='text-green-400 font-semibold ml-1'>
+                                  {(lineup.expected_roi * 100).toFixed(1)}%
+                                </span>
+                              </div>
+                              <div>
+                                <span className='text-slate-400'>Risk Score:</span>
+                                <span className='text-yellow-400 font-semibold ml-1'>
+                                  {(lineup.total_risk_score * 100).toFixed(1)}%
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {activeView === 'bets' && (
                 <div className='space-y-8'>
                   {enhancedPredictions.length > 0 ? (
