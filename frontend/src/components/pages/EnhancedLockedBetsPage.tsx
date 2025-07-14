@@ -443,10 +443,11 @@ const EnhancedLockedBetsPage: React.FC = () => {
             {/* Top Row: View Toggle */}
             <div className='flex space-x-2 mb-4'>
               {[
+                { key: 'analysis', label: 'Real-Time Analysis', icon: Zap },
                 { key: 'bets', label: 'Enhanced Bets', icon: Target },
                 { key: 'portfolio', label: 'Portfolio', icon: BarChart3 },
                 { key: 'insights', label: 'AI Insights', icon: Brain },
-                { key: 'stacking', label: 'Smart Stacking', icon: Zap },
+                { key: 'stacking', label: 'Smart Stacking', icon: TrendingUp },
               ].map(({ key, label, icon: Icon }) => (
                 <button
                   key={key}
@@ -459,6 +460,9 @@ const EnhancedLockedBetsPage: React.FC = () => {
                 >
                   <Icon className='w-4 h-4' />
                   <span>{label}</span>
+                  {key === 'analysis' && (
+                    <div className='w-2 h-2 bg-green-400 rounded-full animate-pulse' />
+                  )}
                 </button>
               ))}
             </div>
