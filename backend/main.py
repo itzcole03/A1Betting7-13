@@ -31,6 +31,7 @@ from backend.routes.performance import router as performance_router
 from backend.routes.prizepicks import router as prizepicks_router
 from backend.routes.shap import router as shap_router
 from backend.routes.unified_api import router as unified_router
+from backend.routes.real_time_analysis import router as analysis_router
 from backend.utils.error_handler import DataFetchError, ErrorHandler, ValidationError
 
 # Optional imports with fallbacks
@@ -407,7 +408,7 @@ async def background_initialization():
             logger.error(f"[DIAGNOSTIC] PrizePicks service initialization failed: {e}")
 
         # Start enhanced PrizePicks v2 real-time data ingestion
-        logger.info("🏀 Starting enhanced PrizePicks v2 real-time data service...")
+        logger.info("��� Starting enhanced PrizePicks v2 real-time data service...")
         try:
             task = asyncio.create_task(start_enhanced_prizepicks_service_v2())
             logger.info(
