@@ -213,8 +213,8 @@ const EnhancedLockedBetsPage: React.FC = () => {
   useEffect(() => {
     fetchEnhancedPredictions();
 
-    // Auto-refresh every 30 seconds
-    const interval = setInterval(fetchEnhancedPredictions, 30000);
+    // Auto-refresh every 3 minutes to be less spammy
+    const interval = setInterval(fetchEnhancedPredictions, 180000);
     return () => clearInterval(interval);
   }, [selectedSport, minConfidence]);
 
