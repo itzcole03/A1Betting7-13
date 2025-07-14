@@ -135,7 +135,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
 
       // Only show error notifications on manual refresh to reduce spam
       if (showNotifications) {
-        toast.error('🔌 Using fallback data - Enhanced predictions loaded');
+        toast.error('���� Using fallback data - Enhanced predictions loaded');
       }
 
       // Fallback to mock data for development
@@ -334,9 +334,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
       handleBetSelect(correspondingBet);
     }
 
-    toast.success(
-      `${prop.player.name} ${prop.prop.type} ${selection.toUpperCase()} ${selectedBets.has(prop.id) ? 'removed' : 'added'}`
-    );
+    // Visual feedback is provided by the card selection state, no need for toast
   };
 
   const uniqueSports = ['ALL', ...Array.from(new Set(enhancedPredictions.map(bet => bet.sport)))];
