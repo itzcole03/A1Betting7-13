@@ -4,22 +4,33 @@ import { toast, Toaster as HotToaster } from 'react-hot-toast';
 export const Toaster: React.FC = () => {
   return (
     <HotToaster
-      position='top-right'
+      position='bottom-right'
       toastOptions={{
-        duration: 4000,
+        duration: 3000, // Reduced from 4000ms to 3000ms to be less spammy
         style: {
           background: '#1a1a1a',
           color: '#fff',
           border: '1px solid #333',
+          borderRadius: '12px',
+          fontSize: '14px',
+          maxWidth: '400px',
         },
         success: {
           style: {
-            background: '#10b981',
+            background: '#059669',
+            border: '1px solid #10b981',
           },
         },
         error: {
           style: {
-            background: '#ef4444',
+            background: '#dc2626',
+            border: '1px solid #ef4444',
+          },
+        },
+        loading: {
+          style: {
+            background: '#1e40af',
+            border: '1px solid #3b82f6',
           },
         },
       }}
