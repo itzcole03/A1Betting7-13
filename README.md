@@ -297,21 +297,24 @@ python main.py
 
 ### **Frontend Technologies**
 
-- **React 18.3.1**: Modern UI framework with Suspense and lazy loading
-- **TypeScript 5.8.3**: Type-safe development with strict mode enabled
+- **React 18.3.1**: Modern UI framework with async generators for real-time monitoring
+- **TypeScript 5.8.3**: Type-safe development with comprehensive analysis service types
 - **Vite 6.3.5**: Lightning-fast build tool and development server
-- **Tailwind CSS**: Utility-first styling with modern cyber theme
-- **Framer Motion**: Smooth animations and transitions
+- **Tailwind CSS**: Utility-first styling with modern cyber theme and analysis animations
+- **Framer Motion**: Smooth animations for progress indicators and result transitions
 - **React Hot Toast**: Enhanced user feedback with bottom-right positioning
-- **Lucide React**: Modern icon system for consistent UI elements
+- **Lucide React**: Modern icon system for analysis status and sports indicators
 
 ### **Backend Technologies**
 
-- **FastAPI**: High-performance Python API framework
-- **Pydantic**: Data validation and serialization
-- **Advanced ML Stack**: XGBoost, LightGBM, Neural Networks
-- **SHAP**: Model explainability and transparency
-- **Real-time Data**: Multiple API integrations with fallback systems
+- **FastAPI**: High-performance Python API framework with async analysis endpoints
+- **Advanced ML Ensemble**: 47+ models including XGBoost, LightGBM, Neural Networks
+- **Multi-Sportsbook APIs**: DraftKings, FanDuel, BetMGM, Caesars, Pinnacle integration
+- **Smart Rate Limiting**: Efficient API usage with respect for provider limits
+- **Cross-Sport Analysis**: Comprehensive analysis across 12+ sport categories
+- **Real-Time Processing**: On-demand analysis with live progress monitoring
+- **SHAP**: Model explainability and transparency for all predictions
+- **Kelly Criterion**: Optimal stake sizing and expected value calculations
 
 ---
 
