@@ -211,6 +211,10 @@ app.include_router(prizepicks_router)
 app.include_router(unified_router)
 print("[LOG] FastAPI app with unified intelligence initialized")
 
+# Register real-time analysis router for comprehensive multi-sport analysis
+app.include_router(analysis_router)
+print("[LOG] Real-time analysis router registered")
+
 # Register analytics API router for advanced analytics dashboard
 app.include_router(analytics_api_router)
 print("[LOG] Analytics API router registered")
@@ -408,7 +412,7 @@ async def background_initialization():
             logger.error(f"[DIAGNOSTIC] PrizePicks service initialization failed: {e}")
 
         # Start enhanced PrizePicks v2 real-time data ingestion
-        logger.info("��� Starting enhanced PrizePicks v2 real-time data service...")
+        logger.info("🏀 Starting enhanced PrizePicks v2 real-time data service...")
         try:
             task = asyncio.create_task(start_enhanced_prizepicks_service_v2())
             logger.info(
