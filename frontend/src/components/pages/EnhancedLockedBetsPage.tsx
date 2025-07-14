@@ -95,7 +95,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
     };
   };
 
-  const fetchEnhancedPredictions = async () => {
+  const fetchEnhancedPredictions = async (showNotifications = false) => {
     try {
       setIsLoading(true);
 
@@ -123,12 +123,20 @@ const EnhancedLockedBetsPage: React.FC = () => {
 
       setLastUpdate(new Date());
       const dataSource = response.status === 'fallback_mode' ? 'fallback data' : 'live API';
-      toast.success(
-        `🚀 Loaded ${(response.enhanced_bets || response.predictions || []).length} enhanced predictions (${dataSource})`
-      );
+
+      // Only show toast notifications on manual refresh to reduce spam
+      if (showNotifications) {
+        toast.success(
+          `🚀 Loaded ${(response.enhanced_bets || response.predictions || []).length} enhanced predictions (${dataSource})`
+        );
+      }
     } catch (error) {
       console.error('Error fetching enhanced predictions:', error);
-      toast.error('🔌 Using fallback data - Enhanced predictions loaded');
+
+      // Only show error notifications on manual refresh to reduce spam
+      if (showNotifications) {
+        toast.error('🔌 Using fallback data - Enhanced predictions loaded');
+      }
 
       // Fallback to mock data for development
       const mockPredictions: EnhancedPrediction[] = [
@@ -211,10 +219,10 @@ const EnhancedLockedBetsPage: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchEnhancedPredictions();
+    fetchEnhancedPredictions(true); // Show notifications on initial load
 
-    // Auto-refresh every 3 minutes to be less spammy
-    const interval = setInterval(fetchEnhancedPredictions, 180000);
+    // Auto-refresh every 3 minutes to be less spammy (no notifications)
+    const interval = setInterval(() => fetchEnhancedPredictions(false), 180000);
     return () => clearInterval(interval);
   }, [selectedSport, minConfidence]);
 
@@ -364,7 +372,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
                 <div className='w-2 h-2 bg-green-400 rounded-full animate-pulse'></div>
               </button>
               <button
-                onClick={fetchEnhancedPredictions}
+                onClick={() => fetchEnhancedPredictions(true)}
                 disabled={isLoading}
                 className='flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 disabled:from-gray-600 disabled:to-gray-600 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-cyan-500/25'
               >
@@ -786,7 +794,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
                         Try adjusting your filters or check back later for new AI predictions
                       </p>
                       <button
-                        onClick={fetchEnhancedPredictions}
+                        onClick={() => fetchEnhancedPredictions(true)}
                         className='px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-cyan-500/25'
                       >
                         Refresh Data
