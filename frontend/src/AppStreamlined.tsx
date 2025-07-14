@@ -87,7 +87,7 @@ const Navigation = ({
   ];
 
   return (
-    <div className='sticky top-0 z-50 backdrop-blur-xl bg-gradient-to-r from-slate-900/95 via-gray-900/95 to-slate-900/95 border-b border-cyan-500/20 shadow-xl shadow-black/20'>
+    <div className='fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-gradient-to-r from-slate-900/95 via-gray-900/95 to-slate-900/95 border-b border-cyan-500/20 shadow-xl shadow-black/20'>
       {/* Enhanced Header */}
       <div className='max-w-[1600px] mx-auto px-6 py-4'>
         <div className='flex items-center justify-between'>
@@ -351,7 +351,7 @@ const AppStreamlinedContent: React.FC = () => {
           <div className='absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.1),transparent_50%)] pointer-events-none' />
           <div className='absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(14,165,233,0.1),transparent_50%)] pointer-events-none' />
 
-          <div className='relative z-10 min-h-[calc(100vh-80px)]'>
+          <div className='relative z-10 min-h-[calc(100vh-80px)] pt-20'>
             <ErrorBoundary>
               <Suspense
                 fallback={
