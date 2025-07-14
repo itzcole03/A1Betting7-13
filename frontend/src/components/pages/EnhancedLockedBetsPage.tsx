@@ -18,7 +18,9 @@ import AIInsightsPanel from '../enhanced/AIInsightsPanel';
 import PortfolioOptimizer from '../enhanced/PortfolioOptimizer';
 import SmartStackingPanel from '../enhanced/SmartStackingPanel';
 import { EnhancedPropCard, PlayerProp } from '../ui/EnhancedPropCard';
+import RealTimeAnalysisTrigger from '../analysis/RealTimeAnalysisTrigger';
 import { unifiedApiService } from '../../services/unifiedApiService';
+import { BetOpportunity, OptimalLineup } from '../../services/realTimeAnalysisService';
 import {
   EnhancedPrediction,
   PortfolioMetrics,
@@ -48,9 +50,14 @@ const EnhancedLockedBetsPage: React.FC = () => {
     insights: [],
   });
   const [selectedBets, setSelectedBets] = useState<Set<string>>(new Set());
-  const [activeView, setActiveView] = useState<'bets' | 'portfolio' | 'insights' | 'stacking'>(
-    'bets'
-  );
+  const [activeView, setActiveView] = useState<
+    'analysis' | 'bets' | 'portfolio' | 'insights' | 'stacking'
+  >('analysis');
+
+  // Real-time analysis state
+  const [realTimeOpportunities, setRealTimeOpportunities] = useState<BetOpportunity[]>([]);
+  const [optimalLineups, setOptimalLineups] = useState<OptimalLineup[]>([]);
+  const [hasRealData, setHasRealData] = useState<boolean>(false);
   const [cardsToShow, setCardsToShow] = useState<number>(9); // Default to showing 9 cards in 3x3 grid
 
   // Helper to validate and fix prediction data
@@ -135,7 +142,7 @@ const EnhancedLockedBetsPage: React.FC = () => {
 
       // Only show error notifications on manual refresh to reduce spam
       if (showNotifications) {
-        toast.error('���� Using fallback data - Enhanced predictions loaded');
+        toast.error('🔌 Using fallback data - Enhanced predictions loaded');
       }
 
       // Fallback to mock data for development
@@ -216,6 +223,57 @@ const EnhancedLockedBetsPage: React.FC = () => {
   const handleStackSelect = (playerIds: string[]) => {
     setSelectedBets(new Set(playerIds));
     toast.success(`Applied stack with ${playerIds.length} players`);
+  };
+
+  const handleAnalysisComplete = (opportunities: BetOpportunity[], lineups: OptimalLineup[]) => {
+    setRealTimeOpportunities(opportunities);
+    setOptimalLineups(lineups);
+    setHasRealData(true);
+
+    // Convert real-time opportunities to enhanced predictions for existing UI
+    const convertedPredictions: EnhancedPrediction[] = opportunities.map(opp => ({
+      id: opp.id,
+      player_name: opp.player_name || 'Team',
+      team: opp.team,
+      sport: opp.sport,
+      stat_type: opp.stat_type,
+      line_score: opp.line,
+      recommendation: opp.recommendation,
+      confidence: opp.ml_confidence,
+      kelly_fraction: opp.kelly_fraction,
+      expected_value: opp.expected_value,
+      quantum_confidence: opp.ml_confidence,
+      neural_score: opp.ml_confidence,
+      correlation_score: 0.3,
+      synergy_rating: 0.8,
+      stack_potential: 0.9,
+      diversification_value: 0.7,
+      shap_explanation: {
+        baseline: 50.0,
+        features: {},
+        prediction: opp.ml_confidence,
+        top_factors: [],
+      },
+      risk_assessment: {
+        overall_risk: opp.risk_score,
+        confidence_risk: 0.2,
+        line_risk: 0.2,
+        market_risk: 0.2,
+        risk_level: opp.risk_level.toLowerCase() as 'low' | 'medium' | 'high',
+      },
+      injury_risk: 0.1,
+      optimal_stake: opp.kelly_fraction,
+      portfolio_impact: 0.8,
+      variance_contribution: 0.2,
+      source: opp.sportsbook,
+    }));
+
+    setEnhancedPredictions(convertedPredictions);
+    setActiveView('bets');
+
+    toast.success(
+      `🎯 Real analysis complete! ${opportunities.length} winning opportunities found!`
+    );
   };
 
   useEffect(() => {
